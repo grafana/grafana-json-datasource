@@ -1,0 +1,32 @@
+{
+  "name": "marcusolsson-json-datasource",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch"
+  },
+  "author": "Marcus Olsson",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@grafana/data": "^7.1.5",
+    "@grafana/runtime": "^7.1.5",
+    "@grafana/toolkit": "^7.1.5",
+    "@grafana/ui": "^7.1.5",
+    "@testing-library/jest-dom": "5.4.0",
+    "@testing-library/react": "^10.0.2",
+    "@types/lodash": "latest",
+    "@types/memory-cache": "^0.2.1"
+  },
+  "engines": {
+    "node": ">=12 <13"
+  },
+  "dependencies": {
+    "@types/jsonpath": "^0.2.0",
+    "date-fns": "^2.16.1",
+    "jsonpath": "^1.0.2",
+    "memory-cache": "^0.2.0"
+  }
+}

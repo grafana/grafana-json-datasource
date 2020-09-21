@@ -1,0 +1,42 @@
+{
+  "type": "datasource",
+  "name": "JSON API",
+  "id": "marcusolsson-json-datasource",
+  "metrics": true,
+  "logs": true,
+  "info": {
+    "description": "",
+    "author": {
+      "name": "Marcus Olsson",
+      "url": "https://marcus.se.net"
+    },
+    "keywords": ["json", "api"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/marcusolsson/grafana-jsonapi-datasource"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/marcusolsson/grafana-jsonapi-datasource/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [
+      {
+        "name": "JSON API",
+        "path": "img/screenshot.png"
+      }
+    ],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "grafanaVersion": "7.x.x",
+    "plugins": []
+  }
+}
