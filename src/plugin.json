@@ -31,6 +31,10 @@
       {
         "name": "JSON API",
         "path": "img/screenshot.png"
+      },
+      {
+        "name": "Query variable",
+        "path": "img/variable.png"
       }
     ],
     "version": "%VERSION%",
