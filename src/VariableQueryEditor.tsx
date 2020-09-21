@@ -30,7 +30,7 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, qu
       >
         Query
       </InlineFormLabel>
-      <JsonPathQueryField onBlur={saveQuery} onChange={onChangePath} query={state.jsonPath} onRunQuery={() => {}} />
+      <JsonPathQueryField onBlur={saveQuery} onChange={onChangePath} query={state.jsonPath} />
     </div>
   );
 };

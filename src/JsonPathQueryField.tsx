@@ -5,17 +5,15 @@ import { QueryField } from '@grafana/ui';
 interface Props {
   query: string;
   onBlur: () => void;
-  onRunQuery: () => void;
   onChange: (v: string) => void;
 }
 
-export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onRunQuery, onChange }) => {
+export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange }) => {
   return (
     <div style={{ marginRight: '4px', width: '100%' }}>
       <QueryField
         query={query}
         onBlur={onBlur}
-        onRunQuery={onRunQuery}
         onChange={onChange}
         portalOrigin="jsonapi"
         placeholder="$.items[*].name"

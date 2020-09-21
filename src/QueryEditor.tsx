@@ -76,12 +76,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
               >
                 Query
               </InlineFormLabel>
-              <JsonPathQueryField
-                onBlur={onRunQuery}
-                onChange={onChangePath(index)}
-                query={field.jsonPath}
-                onRunQuery={() => {}}
-              />
+              <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
               <InlineFormLabel width={3} className="query-keyword">
                 Alias
               </InlineFormLabel>
