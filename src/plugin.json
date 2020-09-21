@@ -1,13 +1,15 @@
 {
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "datasource",
   "name": "JSON API",
   "id": "marcusolsson-json-datasource",
   "metrics": true,
   "logs": true,
   "info": {
-    "description": "",
+    "description": "A data source plugin for loading JSON APIs into Grafana.",
     "author": {
       "name": "Marcus Olsson",
+      "email": "marcus.olsson@hey.com",
       "url": "https://marcus.se.net"
     },
     "keywords": ["json", "api"],
