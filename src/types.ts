@@ -19,16 +19,8 @@ export const defaultQuery: Partial<JsonApiQuery> = {
   cacheDurationSeconds: 300,
 };
 
-/**
- * These are options configured for each DataSource instance
- */
 export interface MyDataSourceOptions extends DataSourceJsonData {
-  path?: string;
+  queryParams?: string;
 }
 
-/**
- * Value that is used in the backend, but never sent over HTTP to the frontend
- */
-export interface MySecureJsonData {
-  apiKey?: string;
-}
+export interface MySecureJsonData {}

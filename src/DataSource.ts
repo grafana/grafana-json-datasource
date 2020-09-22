@@ -17,15 +17,17 @@ import { JsonApiQuery, MyVariableQuery, MyDataSourceOptions } from './types';
 
 export class DataSource extends DataSourceApi<JsonApiQuery, MyDataSourceOptions> {
   api: API;
+  queryParams: string;
 
   constructor(instanceSettings: DataSourceInstanceSettings<MyDataSourceOptions>) {
     super(instanceSettings);
     this.api = new API(instanceSettings.url!);
+    this.queryParams = instanceSettings.jsonData.queryParams || '';
   }
 
-  async query(options: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
-    const promises = options.targets.map(async query => {
-      const response = await this.api.cachedGet(query.cacheDurationSeconds);
+  async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
+    const promises = request.targets.map(async query => {
+      const response = await this.api.cachedGet(query.cacheDurationSeconds, this.queryParams);
 
       const fields = query.fields
         .filter(field => field.jsonPath)
