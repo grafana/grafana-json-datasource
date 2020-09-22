@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { InlineFormLabel, Field, Input, Legend } from '@grafana/ui';
+import { InlineFormLabel, Input, Legend } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
 import { JsonApiDataSourceOptions } from './types';
 import {} from '@emotion/core';
@@ -8,7 +8,7 @@ interface Props extends DataSourcePluginOptionsEditorProps<JsonApiDataSourceOpti
 
 export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
   const onUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onOptionsChange({ ...options, jsonData: { ...options, url: e.currentTarget.value } });
+    onOptionsChange({ ...options, url: e.currentTarget.value });
   };
   const onParamsChange = (e: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({ ...options, jsonData: { ...options.jsonData, queryParams: e.currentTarget.value } });
