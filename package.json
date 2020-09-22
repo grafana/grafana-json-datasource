@@ -1,6 +1,6 @@
 {
   "name": "marcusolsson-json-datasource",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A data source plugin for loading JSON APIs into Grafana.",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
@@ -18,13 +18,13 @@
     "@testing-library/jest-dom": "5.4.0",
     "@testing-library/react": "^10.0.2",
     "@types/lodash": "latest",
-    "@types/memory-cache": "^0.2.1"
+    "@types/memory-cache": "^0.2.1",
+    "@types/jsonpath": "^0.2.0"
   },
   "engines": {
     "node": ">=12 <13"
   },
   "dependencies": {
-    "@types/jsonpath": "^0.2.0",
     "date-fns": "^2.16.1",
     "jsonpath": "^1.0.2",
     "memory-cache": "^0.2.0"
