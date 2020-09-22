@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "datasource",
+  "name": "JSON API",
+  "id": "marcusolsson-json-datasource",
+  "metrics": true,
+  "logs": true,
+  "info": {
+    "description": "A data source plugin for loading JSON APIs into Grafana.",
+    "author": {
+      "name": "Marcus Olsson",
+      "email": "marcus.olsson@hey.com",
+      "url": "https://marcus.se.net"
+    },
+    "keywords": ["json", "api"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/marcusolsson/grafana-jsonapi-datasource"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/marcusolsson/grafana-jsonapi-datasource/blob/master/LICENSE"
+      }
+    ],
+    "screenshots": [
+      {
+        "name": "JSON API",
+        "path": "img/screenshot.png"
+      },
+      {
+        "name": "Query variable",
+        "path": "img/variable.png"
+      }
+    ],
+    "version": "0.1.0",
+    "updated": "2020-09-22"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.0",
+    "grafanaVersion": "7.x.x",
+    "plugins": []
+  }
+}
