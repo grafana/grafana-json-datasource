@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { isValid, parseISO } from 'date-fns';
-import jp from 'jsonpath';
+import { JSONPath } from 'jsonpath-plus';
 
 import {
   DataQueryRequest,
@@ -32,10 +32,12 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       const fields = query.fields
         .filter(field => field.jsonPath)
         .map(field => {
-          const values = jp.query(response, field.jsonPath);
+          const values = JSONPath( { path: field.jsonPath, json: response } );
 
           // Get the path for automatic setting of the field name.
-          const paths = jp.paths(response, field.jsonPath)[0];
+          //
+          // Casted to any due to typing issues with JSONPath-Plus
+          const paths = (JSONPath as any).toPathArray(field.jsonPath);
 
           const [type, newvals] = detectFieldType(values);
 
@@ -68,7 +70,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     if (!query.jsonPath) {
       return [];
     }
-    return jp.query(await this.api.get(), query.jsonPath).map(_ => ({ text: _ }));
+    return JSONPath( { path: query.jsonPath, json: await this.api.get() } ).map((_: any) => ({ text: _ }));
   }
 
   /**
