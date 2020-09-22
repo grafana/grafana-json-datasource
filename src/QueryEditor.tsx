@@ -3,11 +3,11 @@ import React, { ChangeEvent } from 'react';
 import { Icon, InlineFormLabel, Segment } from '@grafana/ui';
 import { QueryEditorProps } from '@grafana/data';
 import { DataSource } from './DataSource';
-import { MyDataSourceOptions, JsonApiQuery, defaultQuery } from './types';
+import { JsonApiDataSourceOptions, JsonApiQuery, defaultQuery } from './types';
 import { JsonPathQueryField } from './JsonPathQueryField';
 import { cx } from 'emotion';
 
-type Props = QueryEditorProps<DataSource, JsonApiQuery, MyDataSourceOptions>;
+type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
 
 export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) => {
   const { fields } = defaults(query, defaultQuery);

@@ -13,13 +13,13 @@ import {
 } from '@grafana/data';
 
 import API from './api';
-import { JsonApiQuery, MyVariableQuery, MyDataSourceOptions } from './types';
+import { JsonApiQuery, JsonApiVariableQuery, JsonApiDataSourceOptions } from './types';
 
-export class DataSource extends DataSourceApi<JsonApiQuery, MyDataSourceOptions> {
+export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;
   queryParams: string;
 
-  constructor(instanceSettings: DataSourceInstanceSettings<MyDataSourceOptions>) {
+  constructor(instanceSettings: DataSourceInstanceSettings<JsonApiDataSourceOptions>) {
     super(instanceSettings);
     this.api = new API(instanceSettings.url!);
     this.queryParams = instanceSettings.jsonData.queryParams || '';
@@ -64,7 +64,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, MyDataSourceOptions>
    *
    * @param query
    */
-  async metricFindQuery?(query: MyVariableQuery): Promise<MetricFindValue[]> {
+  async metricFindQuery?(query: JsonApiVariableQuery): Promise<MetricFindValue[]> {
     if (!query.jsonPath) {
       return [];
     }

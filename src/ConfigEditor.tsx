@@ -1,10 +1,10 @@
 import React from 'react';
 import { DataSourceHttpSettings } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
-import { MyDataSourceOptions } from './types';
+import { JsonApiDataSourceOptions } from './types';
 import { ConfigSettings } from './ConfigSettings';
 
-interface Props extends DataSourcePluginOptionsEditorProps<MyDataSourceOptions> {}
+interface Props extends DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions> {}
 
 export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
   return (

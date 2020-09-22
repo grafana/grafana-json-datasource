@@ -10,7 +10,7 @@ export interface JsonApiQuery extends DataQuery {
   cacheDurationSeconds: number;
 }
 
-export interface MyVariableQuery extends DataQuery {
+export interface JsonApiVariableQuery extends DataQuery {
   jsonPath: string;
 }
 
@@ -19,8 +19,8 @@ export const defaultQuery: Partial<JsonApiQuery> = {
   cacheDurationSeconds: 300,
 };
 
-export interface MyDataSourceOptions extends DataSourceJsonData {
+export interface JsonApiDataSourceOptions extends DataSourceJsonData {
   queryParams?: string;
 }
 
-export interface MySecureJsonData {}
+export interface JsonApiSecureJsonData {}

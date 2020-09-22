@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { MyVariableQuery } from './types';
+import { JsonApiVariableQuery } from './types';
 import { InlineFormLabel } from '@grafana/ui';
 import { JsonPathQueryField } from './JsonPathQueryField';
 
 interface VariableQueryProps {
-  query: MyVariableQuery;
-  onChange: (query: MyVariableQuery, definition: string) => void;
+  query: JsonApiVariableQuery;
+  onChange: (query: JsonApiVariableQuery, definition: string) => void;
 }
 
 export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, query }) => {
-  const [state, setState] = useState<MyVariableQuery>(query);
+  const [state, setState] = useState<JsonApiVariableQuery>(query);
 
   const saveQuery = () => {
     onChange(state, state.jsonPath);

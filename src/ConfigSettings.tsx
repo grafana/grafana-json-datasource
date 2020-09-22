@@ -3,10 +3,10 @@ import React, { ChangeEvent } from 'react';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
 
 import { Field, Input } from '@grafana/ui';
-import { MyDataSourceOptions } from './types';
+import { JsonApiDataSourceOptions } from './types';
 import {} from '@emotion/core';
 
-type Props = Pick<DataSourcePluginOptionsEditorProps<MyDataSourceOptions>, 'options' | 'onOptionsChange'>;
+type Props = Pick<DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions>, 'options' | 'onOptionsChange'>;
 
 export const ConfigSettings: React.FC<Props> = ({ options, onOptionsChange }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
