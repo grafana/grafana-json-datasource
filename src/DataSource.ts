@@ -32,7 +32,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       const fields = query.fields
         .filter(field => field.jsonPath)
         .map(field => {
-          const values = JSONPath( { path: field.jsonPath, json: response } );
+          const values = JSONPath({ path: field.jsonPath, json: response });
 
           // Get the path for automatic setting of the field name.
           //
@@ -70,7 +70,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     if (!query.jsonPath) {
       return [];
     }
-    return JSONPath( { path: query.jsonPath, json: await this.api.get() } ).map((_: any) => ({ text: _ }));
+    return JSONPath({ path: query.jsonPath, json: await this.api.get() }).map((_: any) => ({ text: _ }));
   }
 
   /**
