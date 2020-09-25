@@ -4,19 +4,21 @@ import cache from 'memory-cache';
 export default class Api {
   cache: any;
   baseUrl: string;
+  params: string;
   lastCacheDuration: number | undefined;
 
-  constructor(baseUrl: string) {
+  constructor(baseUrl: string, params: string) {
     this.baseUrl = baseUrl;
+    this.params = params;
     this.cache = new cache.Cache();
   }
 
   /**
    * Queries the API and returns the response data.
    */
-  async get(params?: string) {
+  async get() {
     const req = {
-      url: `${this.baseUrl}${params?.length ? `?${params}` : ''}`,
+      url: `${this.baseUrl}${this.params.length ? `?${this.params}` : ''}`,
       method: 'GET',
     };
 
@@ -28,9 +30,9 @@ export default class Api {
   /**
    * Used as a health check.
    */
-  async test(params?: string) {
+  async test() {
     const req = {
-      url: `${this.baseUrl}${params?.length ? `?${params}` : ''}`,
+      url: `${this.baseUrl}${this.params.length ? `?${this.params}` : ''}`,
       method: 'GET',
     };
     return getBackendSrv().datasourceRequest(req);
@@ -41,7 +43,7 @@ export default class Api {
    */
   async cachedGet(cacheDurationSeconds: number, params?: string) {
     if (cacheDurationSeconds === 0) {
-      return await this.get(params);
+      return await this.get();
     }
 
     const force = this.lastCacheDuration !== cacheDurationSeconds;
@@ -56,7 +58,7 @@ export default class Api {
     }
     this.lastCacheDuration = cacheDurationSeconds;
 
-    const result = await this.get(params);
+    const result = await this.get();
 
     this.cache.put(this.baseUrl, result, Math.max(cacheDurationSeconds * 1000, 1));
 

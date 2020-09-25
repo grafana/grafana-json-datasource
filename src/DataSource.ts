@@ -17,17 +17,15 @@ import { JsonApiQuery, JsonApiVariableQuery, JsonApiDataSourceOptions } from './
 
 export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;
-  queryParams: string;
 
   constructor(instanceSettings: DataSourceInstanceSettings<JsonApiDataSourceOptions>) {
     super(instanceSettings);
-    this.api = new API(instanceSettings.url!);
-    this.queryParams = instanceSettings.jsonData.queryParams || '';
+    this.api = new API(instanceSettings.url!, instanceSettings.jsonData.queryParams || '');
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
     const promises = request.targets.map(async query => {
-      const response = await this.api.cachedGet(query.cacheDurationSeconds, this.queryParams);
+      const response = await this.api.cachedGet(query.cacheDurationSeconds);
 
       const fields = query.fields
         .filter(field => field.jsonPath)
@@ -70,7 +68,9 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     if (!query.jsonPath) {
       return [];
     }
-    return JSONPath({ path: query.jsonPath, json: await this.api.get() }).map((_: any) => ({ text: _ }));
+    return JSONPath({ path: query.jsonPath, json: await this.api.get() }).map((_: any) => ({
+      text: _,
+    }));
   }
 
   /**
@@ -80,7 +80,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     const defaultErrorMessage = 'Cannot connect to API';
 
     try {
-      const response = await this.api.test(this.queryParams);
+      const response = await this.api.test();
       if (response.status === 200) {
         return {
           status: 'success',
