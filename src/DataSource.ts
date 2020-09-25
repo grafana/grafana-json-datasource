@@ -80,7 +80,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     const defaultErrorMessage = 'Cannot connect to API';
 
     try {
-      const response = await this.api.test();
+      const response = await this.api.test(this.queryParams);
       if (response.status === 200) {
         return {
           status: 'success',

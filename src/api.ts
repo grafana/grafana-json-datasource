@@ -28,11 +28,12 @@ export default class Api {
   /**
    * Used as a health check.
    */
-  async test() {
-    return getBackendSrv().datasourceRequest({
-      url: this.baseUrl,
+  async test(params?: string) {
+    const req = {
+      url: `${this.baseUrl}${params?.length ? `?${params}` : ''}`,
       method: 'GET',
-    });
+    };
+    return getBackendSrv().datasourceRequest(req);
   }
 
   /**
