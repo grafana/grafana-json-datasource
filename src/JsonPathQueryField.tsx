@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { QueryField } from '@grafana/ui';
+import { QueryField, SlatePrism, BracesPlugin } from '@grafana/ui';
 
 interface Props {
   query: string;
@@ -12,9 +12,18 @@ interface Props {
  * JsonPathQueryField is an editor for JSON Path.
  */
 export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange }) => {
+  const plugins = [
+    BracesPlugin(),
+    SlatePrism({
+      onlyIn: (node: any) => node.type === 'code_block',
+      getSyntax: (node: any) => 'js',
+    }),
+  ];
+
   return (
     <div style={{ marginRight: '4px', width: '100%' }}>
       <QueryField
+        additionalPlugins={plugins}
         query={query}
         onBlur={onBlur}
         onChange={onChange}
