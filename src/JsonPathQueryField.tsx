@@ -8,6 +8,9 @@ interface Props {
   onChange: (v: string) => void;
 }
 
+/**
+ * JsonPathQueryField is an editor for JSON Path.
+ */
 export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange }) => {
   return (
     <div style={{ marginRight: '4px', width: '100%' }}>

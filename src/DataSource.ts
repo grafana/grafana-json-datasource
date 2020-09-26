@@ -31,22 +31,25 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
         .filter(field => field.jsonPath)
         .map(field => {
           const values = JSONPath({ path: field.jsonPath, json: response });
+          const [type, newvals] = detectFieldType(values);
 
           // Get the path for automatic setting of the field name.
           //
           // Casted to any due to typing issues with JSONPath-Plus
           const paths = (JSONPath as any).toPathArray(field.jsonPath);
-
-          const [type, newvals] = detectFieldType(values);
+          const propertyName = paths[paths.length - 1];
 
           return {
-            name: field.name || paths[paths.length - 1],
+            name: field.name || propertyName,
             type: type,
             values: newvals,
           };
         });
 
-      if (Array.from(new Set(fields.map(field => field.values.length))).length > 1) {
+      const fieldLengths = fields.map(field => field.values.length);
+
+      // All fields need to have the same length for the data frame to be valid.
+      if (Array.from(new Set(fieldLengths)).length > 1) {
         throw new Error('Fields have different lengths');
       }
 
@@ -56,6 +59,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       });
     });
 
+    // Wait for all queries to finish before returning the result.
     return Promise.all(promises).then(data => ({ data }));
   }
 
@@ -68,9 +72,13 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     if (!query.jsonPath) {
       return [];
     }
-    return JSONPath({ path: query.jsonPath, json: await this.api.get() }).map((_: any) => ({
-      text: _,
-    }));
+
+    const response = await this.api.get();
+
+    return JSONPath({
+      path: query.jsonPath,
+      json: response,
+    }).map((_: any) => ({ text: _ }));
   }
 
   /**
@@ -81,6 +89,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
 
     try {
       const response = await this.api.test();
+
       if (response.status === 200) {
         return {
           status: 'success',
@@ -118,8 +127,10 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
  * Detects the type of the values, and converts values if necessary.
  *
  * @param values - The field values.
+ * @returns the detected field type and potentially converted values.
  */
 const detectFieldType = (values: any[]): [FieldType, any[]] => {
+  // If all values are valid ISO 8601, the assume that it's a time field.
   const isValidISO = values.every(value => isValid(parseISO(value)));
   if (isValidISO) {
     return [FieldType.time, values.map(_ => parseISO(_).valueOf())];
@@ -128,13 +139,20 @@ const detectFieldType = (values: any[]): [FieldType, any[]] => {
   const isNumber = values.every(value => typeof value === 'number');
   if (isNumber) {
     const uniqueLengths = Array.from(new Set(values.map(value => value.toString().length)));
+    const hasSameLength = uniqueLengths.length === 1;
 
-    if (uniqueLengths.length === 1 && uniqueLengths[0] === 13) {
-      return [FieldType.time, values];
+    // If all the values have the same length of either 10 (seconds) or 13
+    // (milliseconds), assume it's a time field. This is not always true, so we
+    // might need to add an option to disable detection of time fields.
+    if (hasSameLength) {
+      if (uniqueLengths[0] === 13) {
+        return [FieldType.time, values];
+      }
+      if (uniqueLengths[0] === 10) {
+        return [FieldType.time, values.map(_ => _ * 1000.0)];
+      }
     }
-    if (uniqueLengths.length === 1 && uniqueLengths[0] === 10) {
-      return [FieldType.time, values.map(_ => _ * 1000.0)];
-    }
+
     return [FieldType.number, values];
   }
 
