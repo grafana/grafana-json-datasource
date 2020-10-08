@@ -11,6 +11,7 @@ import {
   MetricFindValue,
   FieldType,
 } from '@grafana/data';
+import { getTemplateSrv } from '@grafana/runtime';
 
 import API from './api';
 import { JsonApiQuery, JsonApiVariableQuery, JsonApiDataSourceOptions } from './types';
@@ -30,17 +31,20 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       const fields = query.fields
         .filter(field => field.jsonPath)
         .map(field => {
-          const values = JSONPath({ path: field.jsonPath, json: response });
-          const [type, newvals] = detectFieldType(values);
+          const jsonPathTreated = getTemplateSrv().replace(field.jsonPath, request.scopedVars);
+          const nameTreated = getTemplateSrv().replace(field.name, request.scopedVars);
+
+          const values = JSONPath({ path: jsonPathTreated, json: response });
 
           // Get the path for automatic setting of the field name.
           //
           // Casted to any due to typing issues with JSONPath-Plus
-          const paths = (JSONPath as any).toPathArray(field.jsonPath);
-          const propertyName = paths[paths.length - 1];
+          const paths = (JSONPath as any).toPathArray(jsonPathTreated);
+
+          const [type, newvals] = detectFieldType(values);
 
           return {
-            name: field.name || propertyName,
+            name: nameTreated || paths[paths.length - 1],
             type: type,
             values: newvals,
           };
