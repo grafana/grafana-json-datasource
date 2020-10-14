@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 81 81" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-503.428,-309.489)">
+        <g transform="matrix(0.278859,0,0,0.278859,446.755,253.978)">
+            <circle cx="348.286" cy="344.121" r="115.848" style="fill:rgb(56,101,171);"/>
+        </g>
+        <g transform="matrix(0.824804,0,0,0.824804,85.1357,240.648)">
+            <path d="M556.184,83.464C583.251,83.464 605.226,105.439 605.226,132.506C605.226,159.573 583.251,181.548 556.184,181.548C529.117,181.548 507.142,159.573 507.142,132.506C507.142,105.439 529.117,83.464 556.184,83.464ZM556.184,88.368C580.544,88.368 600.322,108.145 600.322,132.506C600.322,156.866 580.544,176.643 556.184,176.643C531.823,176.643 512.046,156.866 512.046,132.506C512.046,108.145 531.823,88.368 556.184,88.368Z" style="fill:rgb(132,175,241);"/>
+        </g>
+        <g transform="matrix(1,0,0,1,215.42,31.8526)">
+            <text x="304.376px" y="330.02px" style="font-family:'Menlo-Bold', 'Menlo', monospace;font-weight:700;font-size:40px;fill:url(#_Linear1);">{}</text>
+        </g>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(3.72629e-15,60.8549,-54.4067,3.33145e-15,334.479,277.32)"><stop offset="0" style="stop-color:rgb(242,204,12);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(255,152,48);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>
