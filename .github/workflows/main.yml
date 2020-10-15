@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
@@ -19,5 +19,5 @@ jobs:
 
       - name: Build the plugin
         run: |
+          yarn install
           yarn build
-
