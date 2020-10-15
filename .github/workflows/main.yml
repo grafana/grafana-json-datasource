@@ -17,7 +17,26 @@ jobs:
         with:
           node-version: 12.x
 
-      - name: Build the plugin
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build plugin
+        run: yarn build
+
+      - name: Sign plugin
+        run: grafana-toolkit plugin:sign
+
+      - name: Get plugin information
         run: |
-          yarn install
-          yarn build
+          sudo apt-get install jq
+          echo "GRAFANA_PLUGIN_ID=$(cat dist/plugin.json | jq -r .id)" >> $GITHUB_ENV
+          echo "GRAFANA_PLUGIN_VERSION=$(cat dist/plugin.json | jq -r .info.version)" >> $GITHUB_ENV
+          echo "GRAFANA_PLUGIN_ARTIFACT=${{ env.GRAFANA_PLUGIN_ID }}-${{ env.GRAFANA_PLUGIN_VERSION }}.zip" >> $GITHUB_ENV
+          echo "GRAFANA_PLUGIN_ARTIFACT_CHECKSUM=${{ env.GRAFANA_PLUGIN_ID }}-${{ env.GRAFANA_PLUGIN_VERSION }}.zip.md5" >> $GITHUB_ENV
+
+      - name: Package plugin
+        run: |
+          mv dist $GRAFANA_PLUGIN_ID
+          zip $GRAFANA_PLUGIN_ARTIFACT $GRAFANA_PLUGIN_ID -r
+          md5sum $GRAFANA_PLUGIN_ARTIFACT > $GRAFANA_PLUGIN_ARTIFACT_CHECKSUM
+          ls
