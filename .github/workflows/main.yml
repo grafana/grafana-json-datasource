@@ -25,6 +25,8 @@ jobs:
 
       - name: Sign plugin
         run: npx @grafana/toolkit@canary plugin:sign
+        env:
+          GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }}
 
       - name: Get plugin information
         run: |
