@@ -48,3 +48,34 @@ jobs:
           zip $GRAFANA_PLUGIN_ARTIFACT $GRAFANA_PLUGIN_ID -r
           md5sum $GRAFANA_PLUGIN_ARTIFACT > $GRAFANA_PLUGIN_ARTIFACT_CHECKSUM
           ls
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload plugin
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ env.GRAFANA_PLUGIN_ARTIFACT }}
+          asset_name: ${{ env.GRAFANA_PLUGIN_ARTIFACT }}
+          asset_content_type: application/zip
+
+      - name: Upload plugin checksum
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ env.GRAFANA_PLUGIN_ARTIFACT_CHECKSUM }}
+          asset_name: ${{ env.GRAFANA_PLUGIN_ARTIFACT_CHECKSUM }}
+          asset_content_type: text/plain
