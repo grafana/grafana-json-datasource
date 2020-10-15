@@ -24,7 +24,7 @@ jobs:
         run: yarn build
 
       - name: Sign plugin
-        run: grafana-toolkit plugin:sign
+        run: yarn run grafana-toolkit plugin:sign
 
       - name: Get plugin information
         run: |
