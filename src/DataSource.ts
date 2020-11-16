@@ -26,7 +26,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
     const promises = request.targets.map(async query => {
-      const response = await this.api.cachedGet(query.cacheDurationSeconds);
+      const response = await this.api.cachedGet(query.cacheDurationSeconds, query.queryParams);
 
       const fields = query.fields
         .filter(field => field.jsonPath)
@@ -77,7 +77,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       return [];
     }
 
-    const response = await this.api.get();
+    const response = await this.api.get(query.queryParams);
 
     return JSONPath({
       path: query.jsonPath,

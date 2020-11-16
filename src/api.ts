@@ -16,9 +16,14 @@ export default class Api {
   /**
    * Queries the API and returns the response data.
    */
-  async get() {
+  async get(params: string) {
+    const allParams = new URLSearchParams('?' + this.params);
+    new URLSearchParams('?' + params).forEach((value, key) => {
+      allParams.set(key, value);
+    });
+
     const req = {
-      url: `${this.baseUrl}${this.params.length ? `?${this.params}` : ''}`,
+      url: `${this.baseUrl}${allParams.toString().length ? `?${allParams.toString()}` : ''}`,
       method: 'GET',
     };
 
@@ -41,9 +46,9 @@ export default class Api {
   /**
    * Returns a cached API response if it exists, otherwise queries the API.
    */
-  async cachedGet(cacheDurationSeconds: number, params?: string) {
+  async cachedGet(cacheDurationSeconds: number, params: string) {
     if (cacheDurationSeconds === 0) {
-      return await this.get();
+      return await this.get(params);
     }
 
     const force = this.lastCacheDuration !== cacheDurationSeconds;
@@ -58,7 +63,7 @@ export default class Api {
     }
     this.lastCacheDuration = cacheDurationSeconds;
 
-    const result = await this.get();
+    const result = await this.get(params);
 
     this.cache.put(this.baseUrl, result, Math.max(cacheDurationSeconds * 1000, 1));
 

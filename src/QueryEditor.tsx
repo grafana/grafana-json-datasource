@@ -61,6 +61,21 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
           <div className="gf-form-label gf-form-label--grow" />
         </div>
       </div>
+      <div className="gf-form">
+        <InlineFormLabel
+          width={12}
+          className="query-keyword"
+          tooltip="Add custom parameters to your queries. Any parameters you add here overrides the custom parameters that have been configured by the data source."
+        >
+          Custom query parameters
+        </InlineFormLabel>
+        <input
+          className="gf-form-input"
+          placeholder="page=1&limit=100"
+          value={query.queryParams}
+          onChange={e => onChange({ ...query, queryParams: e.currentTarget.value })}
+        ></input>
+      </div>
       {fields
         ? fields.map((field, index) => (
             <div key={index} className="gf-form">
@@ -68,10 +83,10 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
                 width={7}
                 className="query-keyword"
                 tooltip={
-                  <p>
+                  <div>
                     A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more
                     values from a JSON object.
-                  </p>
+                  </div>
                 }
               >
                 Query
