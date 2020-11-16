@@ -39,7 +39,7 @@ List episodes from your favorite TV series.
 
 #### Configuration
 
-- **URL:** [`https://www.reddit.com/r/grafana.json`](https://www.reddit.com/r/grafana.json)
+- **URL:** [http://api.tvmaze.com/singlesearch/shows](http://api.tvmaze.com/singlesearch/shows)
 - **Custom query parameters:** `q=rick-&-morty&embed=episodes`
 
 #### Sample queries
