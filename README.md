@@ -5,12 +5,12 @@
 
 A data source plugin for loading JSON APIs into [Grafana](https://grafana.com).
 
-**Important:** This plugin is **not** production-ready yet. In the meantime, try it out and [submit an issue](https://github.com/marcusolsson/grafana-jsonapi-datasource/issues/new) for bug reports and feature requests.
-
 ![Screenshot](https://github.com/marcusolsson/grafana-jsonapi-datasource/raw/master/src/img/screenshot.png)
 
 Extract one or more values from a JSON API using [JSON Path](https://goessner.net/articles/JsonPath/). Each path results in a field in the query result. All fields need to be of the same length.
 
-The field name defaults to the name of the property referenced by the JSON Path but can be set to an **Alias**.
+The field name defaults to the name of the property referenced by the JSON Path but can be set to an **Alias**. **This is going away in a future release, since Grafana now lets you rename any field.**
 
 The **Cache Time** determines the time in seconds to save the API response.
+
+**Custom query parameters** lets you override the query parameters configured by the data source.
