@@ -17,7 +17,7 @@ The **Cache Time** determines the time in seconds to save the API response.
 
 ## Public data sets
 
-Here are a few publicly available JSON data sets that you can experiment with.
+Here are a few publicly available JSON data sets that you can try out.
 
 ### Reddit
 
