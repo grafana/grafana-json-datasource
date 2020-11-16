@@ -14,3 +14,37 @@ The field name defaults to the name of the property referenced by the JSON Path 
 The **Cache Time** determines the time in seconds to save the API response.
 
 **Custom query parameters** lets you override the query parameters configured by the data source.
+
+## Public data sets
+
+Here are a few publicly available JSON data sets that you can experiment with.
+
+### Reddit
+
+Get information about any subreddit by adding `.json` at the end of the URL.
+
+#### Configuration
+
+- **URL:** [`https://www.reddit.com/r/grafana.json`](https://www.reddit.com/r/grafana.json)
+
+#### Sample queries
+
+- `$.data.children[*].data.title`
+- `$.data.children[*].data.created_utc`
+- `$.data.children[*].data.ups`
+
+### TVmaze
+
+List episodes from your favorite TV series.
+
+#### Configuration
+
+- **URL:** [`https://www.reddit.com/r/grafana.json`](https://www.reddit.com/r/grafana.json)
+- **Custom query parameters:** `q=rick-&-morty&embed=episodes`
+
+#### Sample queries
+
+- `$._embedded.episodes[*].name`
+- `$._embedded.episodes[*].airstamp`
+- `$._embedded.episodes[*].season`
+- `$._embedded.episodes[*].number`
