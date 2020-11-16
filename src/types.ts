@@ -22,6 +22,11 @@ export const defaultQuery: Partial<JsonApiQuery> = {
   queryParams: '',
 };
 
+export const defaultVariableQuery: Partial<JsonApiVariableQuery> = {
+  jsonPath: '',
+  queryParams: '',
+};
+
 export interface JsonApiDataSourceOptions extends DataSourceJsonData {
   queryParams?: string;
 }

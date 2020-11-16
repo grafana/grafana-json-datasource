@@ -1,5 +1,7 @@
+import defaults from 'lodash/defaults';
+
 import React, { useState } from 'react';
-import { JsonApiVariableQuery } from './types';
+import { JsonApiVariableQuery, defaultVariableQuery } from './types';
 import { InlineFormLabel } from '@grafana/ui';
 import { JsonPathQueryField } from './JsonPathQueryField';
 
@@ -9,7 +11,9 @@ interface VariableQueryProps {
 }
 
 export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, query }) => {
-  const [state, setState] = useState<JsonApiVariableQuery>(query);
+  const init = defaults(query, defaultVariableQuery);
+
+  const [state, setState] = useState<JsonApiVariableQuery>(init);
 
   const saveQuery = () => {
     onChange(state, state.jsonPath);
