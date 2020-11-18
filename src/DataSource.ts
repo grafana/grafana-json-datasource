@@ -25,14 +25,18 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
+    const templateSrv = getTemplateSrv();
+
     const promises = request.targets.map(async query => {
-      const response = await this.api.cachedGet(query.cacheDurationSeconds, query.queryParams);
+      const queryParamsTreated = templateSrv.replace(query.queryParams, request.scopedVars);
+
+      const response = await this.api.cachedGet(query.cacheDurationSeconds, queryParamsTreated);
 
       const fields = query.fields
         .filter(field => field.jsonPath)
         .map(field => {
-          const jsonPathTreated = getTemplateSrv().replace(field.jsonPath, request.scopedVars);
-          const nameTreated = getTemplateSrv().replace(field.name, request.scopedVars);
+          const jsonPathTreated = templateSrv.replace(field.jsonPath, request.scopedVars);
+          const nameTreated = templateSrv.replace(field.name, request.scopedVars);
 
           const values = JSONPath({ path: jsonPathTreated, json: response });
 
