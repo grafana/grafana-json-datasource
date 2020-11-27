@@ -15,10 +15,35 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: 12.x
+          node-version: '12.x'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache yarn cache
+        uses: actions/cache@v2
+        id: cache-yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile;
+        if: |
+          steps.cache-yarn-cache.outputs.cache-hit != 'true' ||
+          steps.cache-node-modules.outputs.cache-hit != 'true'
 
       - name: Build plugin
         run: yarn build
@@ -28,7 +53,8 @@ jobs:
         env:
           GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }} # Requires a Grafana API key from Grafana.com.
 
-      - name: Get plugin information
+      - name: Get plugin metadata
+        id: metadata
         run: |
           sudo apt-get install jq
 
@@ -38,18 +64,19 @@ jobs:
           export GRAFANA_PLUGIN_ARTIFACT=${GRAFANA_PLUGIN_ID}-${GRAFANA_PLUGIN_VERSION}.zip
           export GRAFANA_PLUGIN_ARTIFACT_CHECKSUM=${GRAFANA_PLUGIN_ARTIFACT}.md5
 
-          # Output to $GITHUB_ENV to be able to use the variables in next steps.
-          echo "GRAFANA_PLUGIN_ID=${GRAFANA_PLUGIN_ID}" >> $GITHUB_ENV
-          echo "GRAFANA_PLUGIN_VERSION=${GRAFANA_PLUGIN_VERSION}" >> $GITHUB_ENV
-          echo "GRAFANA_PLUGIN_TYPE=${GRAFANA_PLUGIN_TYPE}" >> $GITHUB_ENV
-          echo "GRAFANA_PLUGIN_ARTIFACT=${GRAFANA_PLUGIN_ARTIFACT}" >> $GITHUB_ENV
-          echo "GRAFANA_PLUGIN_ARTIFACT_CHECKSUM=${GRAFANA_PLUGIN_ARTIFACT_CHECKSUM}" >> $GITHUB_ENV
+          echo "::set-output name=plugin-id::${GRAFANA_PLUGIN_ID}"
+          echo "::set-output name=plugin-version::${GRAFANA_PLUGIN_VERSION}"
+          echo "::set-output name=plugin-type::${GRAFANA_PLUGIN_TYPE}"
+          echo "::set-output name=archive::${GRAFANA_PLUGIN_ARTIFACT}"
+          echo "::set-output name=archive-checksum::${GRAFANA_PLUGIN_ARTIFACT_CHECKSUM}"
 
       - name: Package plugin
+        id: package-plugin
         run: |
-          mv dist $GRAFANA_PLUGIN_ID
-          zip $GRAFANA_PLUGIN_ARTIFACT $GRAFANA_PLUGIN_ID -r
-          md5sum $GRAFANA_PLUGIN_ARTIFACT > $GRAFANA_PLUGIN_ARTIFACT_CHECKSUM
+          mv dist ${{ steps.metadata.outputs.plugin-id }}
+          zip ${{ steps.metadata.outputs.archive }} ${{ steps.metadata.outputs.plugin-id }} -r
+          md5sum ${{ steps.metadata.outputs.archive }} > ${{ steps.metadata.outputs.archive-checksum }}
+          echo "::set-output name=checksum::$(cat ./${{ steps.metadata.outputs.archive-checksum }} | cut -d' ' -f1)"
 
       - name: Create release
         id: create_release
@@ -69,8 +96,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ env.GRAFANA_PLUGIN_ARTIFACT }}
-          asset_name: ${{ env.GRAFANA_PLUGIN_ARTIFACT }}
+          asset_path: ./${{ steps.metadata.outputs.archive }}
+          asset_name: ${{ steps.metadata.outputs.archive }}
           asset_content_type: application/zip
 
       - name: Add checksum to release
@@ -80,16 +107,25 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ env.GRAFANA_PLUGIN_ARTIFACT_CHECKSUM }}
-          asset_name: ${{ env.GRAFANA_PLUGIN_ARTIFACT_CHECKSUM }}
+          asset_path: ./${{ steps.metadata.outputs.archive-checksum }}
+          asset_name: ${{ steps.metadata.outputs.archive-checksum }}
           asset_content_type: text/plain
 
-      - name: Get checksum
+      - name: Setup Go environment
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.14.12'
+
+      - name: Lint plugin
         run: |
-          echo "GRAFANA_PLUGIN_CHECKSUM=$(cat ./${{ env.GRAFANA_PLUGIN_ARTIFACT_CHECKSUM }} | cut -d' ' -f1)" >> $GITHUB_ENV
+          git clone https://github.com/grafana/plugin-validator;
+          pushd ./plugin-validator/cmd/plugincheck;
+          go install
+          popd
+          plugincheck ${{ steps.upload-plugin-asset.outputs.browser_download_url }};
 
       - name: Publish to Grafana.com
         run: |
           echo Publish your plugin to grafana.com/plugins by opening a PR to https://github.com/grafana/grafana-plugin-repository with the following entry:
           echo
-          echo '{ "id": "${{ env.GRAFANA_PLUGIN_ID }}", "type": "${{ env.GRAFANA_PLUGIN_TYPE }}", "url": "https://github.com/${{ github.repository }}", "versions": [ { "version": "${{ env.GRAFANA_PLUGIN_VERSION }}", "commit": "${{ github.sha }}", "url": "https://github.com/${{ github.repository }}", "download": { "any": { "url": "${{ steps.upload-plugin-asset.outputs.browser_download_url }}", "md5": "${{ env.GRAFANA_PLUGIN_CHECKSUM }}" } } } ] }' | jq .
+          echo '{ "id": "${{ steps.metadata.outputs.plugin-id }}", "type": "${{ steps.metadata.outputs.plugin-type }}", "url": "https://github.com/${{ github.repository }}", "versions": [ { "version": "${{ steps.metadata.outputs.plugin-version }}", "commit": "${{ github.sha }}", "url": "https://github.com/${{ github.repository }}", "download": { "any": { "url": "${{ steps.upload-plugin-asset.outputs.browser_download_url }}", "md5": "${{ steps.metadata.package-plugin.checksum }}" } } } ] }' | jq .
