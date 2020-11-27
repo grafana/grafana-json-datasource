@@ -27,7 +27,7 @@ Get information about any subreddit by adding `.json` at the end of the URL.
 
 #### Configuration
 
-- **URL:** [https://www.reddit.com/r/grafana.json](https://www.reddit.com/r/grafana.json)
+- **URL:** `https://www.reddit.com/r/grafana.json`
 
 #### Sample queries
 
@@ -41,7 +41,7 @@ List episodes from your favorite TV series.
 
 #### Configuration
 
-- **URL:** [http://api.tvmaze.com/singlesearch/shows](http://api.tvmaze.com/singlesearch/shows)
+- **URL:** `http://api.tvmaze.com/singlesearch/shows`
 - **Custom query parameters:** `q=rick-&-morty&embed=episodes`
 
 #### Sample queries
