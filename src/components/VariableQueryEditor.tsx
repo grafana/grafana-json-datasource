@@ -1,7 +1,7 @@
 import defaults from 'lodash/defaults';
 
 import React, { useState } from 'react';
-import { JsonApiVariableQuery, defaultVariableQuery } from './types';
+import { JsonApiVariableQuery, defaultVariableQuery } from '../types';
 import { InlineFormLabel } from '@grafana/ui';
 import { JsonPathQueryField } from './JsonPathQueryField';
 

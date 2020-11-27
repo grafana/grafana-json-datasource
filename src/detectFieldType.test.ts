@@ -1,4 +1,4 @@
-import { detectFieldType } from './DataSource';
+import { detectFieldType } from './datasource';
 import { format } from 'date-fns';
 
 test('years and months gets parsed as string to reduce false positives', () => {

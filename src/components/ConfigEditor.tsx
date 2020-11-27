@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import { LegacyForms, DataSourceHttpSettings } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
-import { JsonApiDataSourceOptions } from './types';
+import { JsonApiDataSourceOptions } from '../types';
 
 import {} from '@emotion/core';
 

@@ -2,8 +2,8 @@ import defaults from 'lodash/defaults';
 import React, { ChangeEvent } from 'react';
 import { Icon, InlineFormLabel, Segment } from '@grafana/ui';
 import { QueryEditorProps } from '@grafana/data';
-import { DataSource } from './DataSource';
-import { JsonApiDataSourceOptions, JsonApiQuery, defaultQuery } from './types';
+import { DataSource } from '../datasource';
+import { JsonApiDataSourceOptions, JsonApiQuery, defaultQuery } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
 import { cx } from 'emotion';
 
