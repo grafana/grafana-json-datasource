@@ -2,7 +2,7 @@
 
 ## 0.6.3 (2020-11-27)
 
-[Full changelog](https://github.com/marcusolsson/grafana-hourly-heatmap-panel/compare/v0.6.2...v0.6.3)
+[Full changelog](https://github.com/marcusolsson/grafana-jsonapi-datasource/compare/v0.6.2...v0.6.3)
 
 ### Enhancements
 
