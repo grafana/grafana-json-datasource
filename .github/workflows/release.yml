@@ -73,7 +73,7 @@ jobs:
           echo ::set-output name=github-tag::${GITHUB_REF#refs/*/}
 
       - name: Check package version
-        run: test "v${{ steps.metadata.outputs.plugin-version }}" = "${{ steps.metadata.outputs.github-tag }}"
+        run: if [ "v${{ steps.metadata.outputs.plugin-version }}" != "${{ steps.metadata.outputs.github-tag }}" ]; then printf "\033[0;31mPlugin version doesn't match tag name\033[0m\n"; fi
 
       - name: Package plugin
         id: package-plugin
