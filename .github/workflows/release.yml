@@ -73,7 +73,7 @@ jobs:
           echo ::set-output name=github-tag::${GITHUB_REF#refs/*/}
 
       - name: Check package version
-        run: test "v${{ steps.metadata.outputs.version }}" = "${{ steps.metadata.outputs.github-tag }}"
+        run: test "v${{ steps.metadata.outputs.plugin-version }}" = "${{ steps.metadata.outputs.github-tag }}"
 
       - name: Package plugin
         id: package-plugin
