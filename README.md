@@ -25,7 +25,7 @@ Get information about any subreddit by adding `.json` at the end of the URL.
 
 #### Configuration
 
-- **URL:** [`https://www.reddit.com/r/grafana.json`](https://www.reddit.com/r/grafana.json)
+- **URL:** [https://www.reddit.com/r/grafana.json](https://www.reddit.com/r/grafana.json)
 
 #### Sample queries
 
