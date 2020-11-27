@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*' # Run workflow on version tags, e.g. v1.0.0.
+      - 'v*.*.*' # Run workflow on version tags, e.g. v1.0.0.
 
 jobs:
   release:
@@ -69,6 +69,11 @@ jobs:
           echo "::set-output name=plugin-type::${GRAFANA_PLUGIN_TYPE}"
           echo "::set-output name=archive::${GRAFANA_PLUGIN_ARTIFACT}"
           echo "::set-output name=archive-checksum::${GRAFANA_PLUGIN_ARTIFACT_CHECKSUM}"
+
+          echo ::set-output name=github-tag::${GITHUB_REF#refs/*/}
+
+      - name: Check package version
+        run: test "v${{ steps.metadata.outputs.version }}" = "${{ steps.metadata.outputs.github-tag }}"
 
       - name: Package plugin
         id: package-plugin
