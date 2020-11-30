@@ -19,7 +19,7 @@ export default class Api {
   async get(params?: string) {
     const data: Record<string, string> = {};
 
-    this.params.forEach((key, value) => {
+    this.params.forEach((value, key) => {
       data[key] = value;
     });
 
@@ -78,8 +78,6 @@ export default class Api {
       method: 'GET',
     };
 
-    console.log(data);
-
     if (data && Object.keys(data).length > 0) {
       req.url =
         req.url +
@@ -88,8 +86,6 @@ export default class Api {
           .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
           .join('&');
     }
-
-    console.log(req.url);
 
     return getBackendSrv().datasourceRequest(req);
   }
