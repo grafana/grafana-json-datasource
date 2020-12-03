@@ -27,15 +27,21 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
     const templateSrv = getTemplateSrv();
 
+    const replaceMacros = (str: string) => {
+      return str
+        .replace(/\$__unixEpochFrom\(\)/g, request.range.from.unix().toString())
+        .replace(/\$__unixEpochTo\(\)/g, request.range.to.unix().toString());
+    };
+
     const promises = request.targets.map(async query => {
-      const queryParamsTreated = templateSrv.replace(query.queryParams, request.scopedVars);
+      const queryParamsTreated = replaceMacros(templateSrv.replace(query.queryParams, request.scopedVars));
 
       const response = await this.api.cachedGet(query.cacheDurationSeconds, queryParamsTreated);
 
       const fields = query.fields
         .filter(field => field.jsonPath)
         .map(field => {
-          const jsonPathTreated = templateSrv.replace(field.jsonPath, request.scopedVars);
+          const jsonPathTreated = replaceMacros(templateSrv.replace(field.jsonPath, request.scopedVars));
           const nameTreated = templateSrv.replace(field.name, request.scopedVars);
 
           const values = JSONPath({ path: jsonPathTreated, json: response });
