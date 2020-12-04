@@ -9,6 +9,7 @@ export interface JsonApiQuery extends DataQuery {
   fields: JsonField[];
   cacheDurationSeconds: number;
   queryParams: string;
+  urlPath: string;
 }
 
 export interface JsonApiVariableQuery extends DataQuery {
