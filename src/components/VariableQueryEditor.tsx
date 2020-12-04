@@ -20,14 +20,27 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, qu
   };
 
   const onChangePath = (jsonPath: string) => setState({ ...state, jsonPath });
+  const onChangeUrlPath = (urlPath: string) => setState({ ...state, urlPath });
   const onQueryParams = (queryParams: string) => setState({ ...state, queryParams });
 
   return (
     <>
       <InlineFieldRow>
         <InlineField
-          label="Custom query parameters"
-          tooltip="Add custom parameters to your queries. Any parameters you add here overrides the custom parameters that have been configured by the data source."
+          label="Path"
+          tooltip="Append a custom path to the data source URL. Should start with a forward slash (/)."
+          grow
+        >
+          <Input
+            placeholder="/orders/${orderId}"
+            value={query.urlPath}
+            onChange={e => onChangeUrlPath(e.currentTarget.value)}
+            onBlur={saveQuery}
+          />
+        </InlineField>
+        <InlineField
+          label="Query string"
+          tooltip="Add custom query parameters to your URL. Any parameters you add here overrides the custom parameters that have been configured by the data source."
           grow
         >
           <Input
