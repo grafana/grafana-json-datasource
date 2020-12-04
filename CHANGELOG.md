@@ -6,13 +6,13 @@
 
 ### Enhancements
 
-- Add support for custom paths (#24)
-- Add epoch time macros (#22)
+- Add support for custom paths ([#24](https://github.com/marcusolsson/grafana-json-datasource/pull/24))
+- Add epoch time macros ([#22](https://github.com/marcusolsson/grafana-json-datasource/pull/22))
 
 ### Bug fixes
 
-- Template variable chaining is not working (#23)
-- Cannot read property 'length' of null (#21)
+- Template variable chaining is not working ([#23](https://github.com/marcusolsson/grafana-json-datasource/issues/23))
+- Cannot read property 'length' of null ([#21](https://github.com/marcusolsson/grafana-json-datasource/issues/21))
 
 ## 0.6.4 (2020-11-30)
 
