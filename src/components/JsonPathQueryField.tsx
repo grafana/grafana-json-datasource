@@ -12,6 +12,9 @@ interface Props {
  * JsonPathQueryField is an editor for JSON Path.
  */
 export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange }) => {
+  /**
+   * The QueryField supports Slate plugins, so let's add a few useful ones.
+   */
   const plugins = [
     BracesPlugin(),
     SlatePrism({

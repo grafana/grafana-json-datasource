@@ -35,6 +35,28 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
     <>
       <InlineFieldRow>
         <InlineField
+          label="Path"
+          tooltip="Append a custom path to the data source URL. Should start with a forward slash (/)."
+          grow
+        >
+          <Input
+            placeholder="/orders/${orderId}"
+            value={query.urlPath}
+            onChange={e => onChange({ ...query, urlPath: e.currentTarget.value })}
+          />
+        </InlineField>
+        <InlineField
+          label="Query string"
+          tooltip="Add custom query parameters to your URL. Any parameters you add here overrides the custom parameters that have been configured by the data source."
+          grow
+        >
+          <Input
+            placeholder="page=1&limit=100"
+            value={query.queryParams}
+            onChange={e => onChange({ ...query, queryParams: e.currentTarget.value })}
+          />
+        </InlineField>
+        <InlineField
           label="Cache Time"
           tooltip="Time in seconds that the response will be cached in Grafana after receiving it."
         >
@@ -46,19 +68,6 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
               description: value ? '' : 'Response is not cached at all',
             }))}
             onChange={({ value }) => onChange({ ...query, cacheDurationSeconds: value! })}
-          />
-        </InlineField>
-      </InlineFieldRow>
-      <InlineFieldRow>
-        <InlineField
-          label="Custom query parameters"
-          tooltip="Add custom parameters to your queries. Any parameters you add here overrides the custom parameters that have been configured by the data source."
-          grow
-        >
-          <Input
-            placeholder="page=1&limit=100"
-            value={query.queryParams}
-            onChange={e => onChange({ ...query, queryParams: e.currentTarget.value })}
           />
         </InlineField>
       </InlineFieldRow>

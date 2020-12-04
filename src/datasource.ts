@@ -35,8 +35,9 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
 
     const promises = request.targets.map(async query => {
       const queryParamsTreated = replaceMacros(templateSrv.replace(query.queryParams, request.scopedVars));
+      const urlPathTreated = templateSrv.replace(query.urlPath, request.scopedVars);
 
-      const response = await this.api.cachedGet(query.cacheDurationSeconds, queryParamsTreated);
+      const response = await this.api.cachedGet(query.cacheDurationSeconds, urlPathTreated, queryParamsTreated);
 
       const fields = query.fields
         .filter(field => field.jsonPath)
@@ -87,10 +88,16 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       return [];
     }
 
-    const response = await this.api.get(query.queryParams);
+    const templateSrv = getTemplateSrv();
+
+    const queryParamsTreated = templateSrv.replace(query.queryParams);
+    const urlPathTreated = templateSrv.replace(query.urlPath);
+    const jsonPathTreated = templateSrv.replace(query.jsonPath);
+
+    const response = await this.api.get(urlPathTreated, queryParamsTreated);
 
     return JSONPath({
-      path: query.jsonPath,
+      path: jsonPathTreated,
       json: response,
     }).map((_: any) => ({ text: _ }));
   }
