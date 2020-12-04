@@ -21,15 +21,13 @@ export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange })
   ];
 
   return (
-    <div style={{ marginRight: '4px', width: '100%' }}>
-      <QueryField
-        additionalPlugins={plugins}
-        query={query}
-        onBlur={onBlur}
-        onChange={onChange}
-        portalOrigin="jsonapi"
-        placeholder="$.items[*].name"
-      />
-    </div>
+    <QueryField
+      additionalPlugins={plugins}
+      query={query}
+      onBlur={onBlur}
+      onChange={onChange}
+      portalOrigin="jsonapi"
+      placeholder="$.items[*].name"
+    />
   );
 };

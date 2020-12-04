@@ -1,12 +1,10 @@
 import React, { ChangeEvent } from 'react';
 
-import { LegacyForms, DataSourceHttpSettings } from '@grafana/ui';
+import { DataSourceHttpSettings, InlineFieldRow, InlineField, Input } from '@grafana/ui';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
 import { JsonApiDataSourceOptions } from '../types';
 
 import {} from '@emotion/core';
-
-const { Input, FormField } = LegacyForms;
 
 interface Props extends DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions> {}
 
@@ -39,26 +37,17 @@ export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
       DataSourceHttpSettings. To support custom query parameters, the user need
       to set them explicitly.  */}
       <h3 className="page-heading">Misc</h3>
-      <div className="gf-form-group">
-        <div className="gf-form-inline">
-          <div className="gf-form max-width-30">
-            <FormField
-              label="Custom query parameters"
-              labelWidth={14}
-              tooltip="Add custom parameters to your queries."
-              inputEl={
-                <Input
-                  className="width-25"
-                  value={options.jsonData.queryParams}
-                  onChange={onParamsChange}
-                  spellCheck={false}
-                  placeholder="page=1&limit=100"
-                />
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <InlineFieldRow>
+        <InlineField label="Custom query parameters" tooltip="Add custom parameters to your queries.">
+          <Input
+            width={50}
+            value={options.jsonData.queryParams}
+            onChange={onParamsChange}
+            spellCheck={false}
+            placeholder="page=1&limit=100"
+          />
+        </InlineField>
+      </InlineFieldRow>
     </>
   );
 };

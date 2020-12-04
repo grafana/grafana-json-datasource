@@ -1,22 +1,15 @@
 import defaults from 'lodash/defaults';
-import React, { ChangeEvent } from 'react';
-import { Icon, InlineFormLabel, Segment } from '@grafana/ui';
+import React from 'react';
+import { Icon, InlineFieldRow, InlineField, Segment, Input } from '@grafana/ui';
 import { QueryEditorProps } from '@grafana/data';
 import { DataSource } from '../datasource';
 import { JsonApiDataSourceOptions, JsonApiQuery, defaultQuery } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
-import { cx } from 'emotion';
 
 type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
 
 export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) => {
   const { fields } = defaults(query, defaultQuery);
-
-  const onFieldNameChange = (i: number) => (event: ChangeEvent<HTMLInputElement>) => {
-    fields[i] = { ...fields[i], name: event.target.value };
-    onChange({ ...query, fields });
-    onRunQuery();
-  };
 
   const onChangePath = (i: number) => (e: string) => {
     fields[i] = { ...fields[i], jsonPath: e };
@@ -40,76 +33,59 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
 
   return (
     <>
-      <div className="gf-form-inline">
-        <InlineFormLabel
-          width={7}
-          className="query-keyword"
+      <InlineFieldRow>
+        <InlineField
+          label="Cache Time"
           tooltip="Time in seconds that the response will be cached in Grafana after receiving it."
         >
-          Cache Time
-        </InlineFormLabel>
-        <Segment
-          value={{ label: formatCacheTimeLabel(query.cacheDurationSeconds), value: query.cacheDurationSeconds }}
-          options={[0, 5, 10, 30, 60, 60 * 2, 60 * 5, 60 * 10, 60 * 30, 3600, 3600 * 2, 3600 * 5].map(value => ({
-            label: formatCacheTimeLabel(value),
-            value,
-            description: value ? '' : 'Response is not cached at all',
-          }))}
-          onChange={({ value }) => onChange({ ...query, cacheDurationSeconds: value! })}
-        />
-        <div className="gf-form gf-form--grow">
-          <div className="gf-form-label gf-form-label--grow" />
-        </div>
-      </div>
-      <div className="gf-form">
-        <InlineFormLabel
-          width={12}
-          className="query-keyword"
+          <Segment
+            value={{ label: formatCacheTimeLabel(query.cacheDurationSeconds), value: query.cacheDurationSeconds }}
+            options={[0, 5, 10, 30, 60, 60 * 2, 60 * 5, 60 * 10, 60 * 30, 3600, 3600 * 2, 3600 * 5].map(value => ({
+              label: formatCacheTimeLabel(value),
+              value,
+              description: value ? '' : 'Response is not cached at all',
+            }))}
+            onChange={({ value }) => onChange({ ...query, cacheDurationSeconds: value! })}
+          />
+        </InlineField>
+      </InlineFieldRow>
+      <InlineFieldRow>
+        <InlineField
+          label="Custom query parameters"
           tooltip="Add custom parameters to your queries. Any parameters you add here overrides the custom parameters that have been configured by the data source."
+          grow
         >
-          Custom query parameters
-        </InlineFormLabel>
-        <input
-          className="gf-form-input"
-          placeholder="page=1&limit=100"
-          value={query.queryParams}
-          onChange={e => onChange({ ...query, queryParams: e.currentTarget.value })}
-        ></input>
-      </div>
+          <Input
+            placeholder="page=1&limit=100"
+            value={query.queryParams}
+            onChange={e => onChange({ ...query, queryParams: e.currentTarget.value })}
+          />
+        </InlineField>
+      </InlineFieldRow>
       {fields
         ? fields.map((field, index) => (
-            <div key={index} className="gf-form">
-              <InlineFormLabel
-                width={7}
-                className="query-keyword"
+            <InlineFieldRow key={index}>
+              <InlineField
+                label="Query"
                 tooltip={
                   <div>
                     A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more
                     values from a JSON object.
                   </div>
                 }
+                grow
               >
-                Query
-              </InlineFormLabel>
-              <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
-              <InlineFormLabel width={3} className="query-keyword">
-                Alias
-              </InlineFormLabel>
-              <input
-                className="gf-form-input width-14"
-                value={field.name || ''}
-                onChange={onFieldNameChange(index)}
-              ></input>
-
-              <a className={cx('gf-form-label', 'gf-form-label--grow')} onClick={addField(index)}>
+                <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
+              </InlineField>
+              <a className="gf-form-label" onClick={addField(index)}>
                 <Icon name="plus" />
               </a>
               {fields.length > 1 ? (
-                <a className={cx('gf-form-label', 'gf-form-label--grow')} onClick={removeField(index)}>
+                <a className="gf-form-label" onClick={removeField(index)}>
                   <Icon name="minus" />
                 </a>
               ) : null}
-            </div>
+            </InlineFieldRow>
           ))
         : null}
     </>

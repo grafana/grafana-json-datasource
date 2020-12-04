@@ -2,7 +2,7 @@ import defaults from 'lodash/defaults';
 
 import React, { useState } from 'react';
 import { JsonApiVariableQuery, defaultVariableQuery } from '../types';
-import { InlineFormLabel } from '@grafana/ui';
+import { InlineField, InlineFieldRow, Input } from '@grafana/ui';
 import { JsonPathQueryField } from './JsonPathQueryField';
 
 interface VariableQueryProps {
@@ -24,35 +24,34 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, qu
 
   return (
     <>
-      <div className="gf-form">
-        <InlineFormLabel
-          width={12}
+      <InlineFieldRow>
+        <InlineField
+          label="Custom query parameters"
           tooltip="Add custom parameters to your queries. Any parameters you add here overrides the custom parameters that have been configured by the data source."
+          grow
         >
-          Custom query parameters
-        </InlineFormLabel>
-        <input
-          className="gf-form-input"
-          placeholder="page=1&limit=100"
-          value={state.queryParams}
-          onChange={e => onQueryParams(e.currentTarget.value)}
-          onBlur={saveQuery}
-        ></input>
-      </div>
-      <div className="gf-form">
-        <InlineFormLabel
-          width={10}
+          <Input
+            placeholder="page=1&limit=100"
+            value={state.queryParams}
+            onChange={e => onQueryParams(e.currentTarget.value)}
+            onBlur={saveQuery}
+          />
+        </InlineField>
+      </InlineFieldRow>
+      <InlineFieldRow>
+        <InlineField
+          label="Query"
           tooltip={
             <div>
               A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more values
               from a JSON object.
             </div>
           }
+          grow
         >
-          Query
-        </InlineFormLabel>
-        <JsonPathQueryField onBlur={saveQuery} onChange={onChangePath} query={state.jsonPath} />
-      </div>
+          <JsonPathQueryField onBlur={saveQuery} onChange={onChangePath} query={state.jsonPath} />
+        </InlineField>
+      </InlineFieldRow>
     </>
   );
 };
