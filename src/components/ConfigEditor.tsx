@@ -38,7 +38,7 @@ export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
       to set them explicitly.  */}
       <h3 className="page-heading">Misc</h3>
       <InlineFieldRow>
-        <InlineField label="Custom query parameters" tooltip="Add custom parameters to your queries.">
+        <InlineField label="Query string" tooltip="Add a custom query string to your queries.">
           <Input
             width={50}
             value={options.jsonData.queryParams}

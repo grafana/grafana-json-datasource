@@ -1,21 +1,40 @@
 # JSON API data source for Grafana
 
-[![License](https://img.shields.io/github/license/marcusolsson/grafana-jsonapi-datasource)](LICENSE)
+[![License](https://img.shields.io/github/license/marcusolsson/grafana-json-datasource)](LICENSE)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contribute)
-[![Build](https://github.com/marcusolsson/grafana-jsonapi-datasource/workflows/CI/badge.svg)](https://github.com/marcusolsson/grafana-jsonapi-datasource/actions?query=workflow%3A%22CI%22)
-[![Release](https://github.com/marcusolsson/grafana-jsonapi-datasource/workflows/Release/badge.svg)](https://github.com/marcusolsson/grafana-jsonapi-datasource/actions?query=workflow%3ARelease)
+[![Build](https://github.com/marcusolsson/grafana-json-datasource/workflows/CI/badge.svg)](https://github.com/marcusolsson/grafana-json-datasource/actions?query=workflow%3A%22CI%22)
+[![Release](https://github.com/marcusolsson/grafana-json-datasource/workflows/Release/badge.svg)](https://github.com/marcusolsson/grafana-json-datasource/actions?query=workflow%3ARelease)
 
 A data source plugin for loading JSON APIs into [Grafana](https://grafana.com).
 
-![Screenshot](https://github.com/marcusolsson/grafana-jsonapi-datasource/raw/master/src/img/screenshot.png)
+![Screenshot](https://github.com/marcusolsson/grafana-json-datasource/raw/master/src/img/screenshot.png)
 
 Extract one or more values from a JSON API using [JSON Path](https://goessner.net/articles/JsonPath/). Each path results in a field in the query result. All fields need to be of the same length.
 
-The field name defaults to the name of the property referenced by the JSON Path but can be set to an **Alias**. **This is going away in a future release, since Grafana now lets you rename any field.**
+## Configuration
 
-The **Cache Time** determines the time in seconds to save the API response.
+This section lists the available configuration options for the JSON API data source.
 
-**Custom query parameters** lets you override the query parameters configured by the data source.
+### Query editor
+
+| Configuration | Description |
+|---------------|-------------|
+| **Path** | Appends a URL path to the URL configured by the data source. |
+| **Query string** | Overrides the custom query parameters configured by the data source. |
+| **Cache Time** | Determines the time in seconds to save the API response. |
+| **Query** | Defines the [JSON Path](https://goessner.net/articles/JsonPath/) used to extract the field. |
+
+### Variables
+
+[Variables](https://grafana.com/docs/grafana/latest/variables) are supported for all text configuration options.
+
+### Macros
+
+Use macros in your query string and JSON Path queries to add dashboard context to your queries. Macros are available for the **Query string** and (JSON Path) **Query** options.
+| Macro | Description |
+|-------|-------------|
+| `$__unixEpochFrom()` | Start of the dashboard time interval as a Unix timestamp, i.e. 1494410783 |
+| `$__unixEpochTo()` | End of the dashboard time interval as a Unix timestamp, i.e. 1494410783 |
 
 ## Public data sets
 
@@ -42,7 +61,7 @@ List episodes from your favorite TV series.
 #### Configuration
 
 - **URL:** `http://api.tvmaze.com/singlesearch/shows`
-- **Custom query parameters:** `q=rick-&-morty&embed=episodes`
+- **Query string:** `q=archer&embed=episodes`
 
 #### Sample queries
 
