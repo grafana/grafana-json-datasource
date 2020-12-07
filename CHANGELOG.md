@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.1 (2020-12-07)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.0...v0.7.1)
+
+### Bug fixes
+
+- Falsy values are returned as NaN ([#25](https://github.com/marcusolsson/grafana-json-datasource/issues/25))
+
 ## 0.7.0 (2020-12-04)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.6.4...v0.7.0)
