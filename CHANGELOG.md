@@ -8,6 +8,7 @@
 
 - Add support for custom paths ([#24](https://github.com/marcusolsson/grafana-json-datasource/pull/24))
 - Add epoch time macros ([#22](https://github.com/marcusolsson/grafana-json-datasource/pull/22))
+- Migrate to new form components. This bumps the minimum required Grafana version to 7.3.0
 
 ### Bug fixes
 
