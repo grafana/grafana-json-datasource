@@ -151,10 +151,15 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
  * @returns the detected field type and potentially converted values.
  */
 export const detectFieldType = (values: any[]): [FieldType, any[]] => {
+  if (values.every(_ => _ === null)) {
+    return [FieldType.string, values];
+  }
   // If all values are valid ISO 8601, the assume that it's a time field.
-  const isValidISO = values.filter(value => value).every(value => value.length >= 10 && isValid(parseISO(value)));
+  const isValidISO = values
+    .filter(value => value !== null)
+    .every(value => value.length >= 10 && isValid(parseISO(value)));
   if (isValidISO) {
-    return [FieldType.time, values.map(_ => parseISO(_).valueOf())];
+    return [FieldType.time, values.map(_ => (_ !== null ? parseISO(_).valueOf() : null))];
   }
 
   const isNumber = values.every(value => typeof value === 'number');

@@ -23,3 +23,24 @@ test('iso8601 gets parsed as time', () => {
     [1136214373000, 1136214433000],
   ]);
 });
+
+test('nullable iso8601 gets parsed as time', () => {
+  expect(detectFieldType(['2006-01-02T15:06:13Z', null])).toEqual(['time', [1136214373000, null]]);
+});
+
+test('all zeros gets parsed as number', () => {
+  expect(detectFieldType([0, 0, 0])).toEqual(['number', [0, 0, 0]]);
+  expect(detectFieldType([0, 0, 1])).toEqual(['number', [0, 0, 1]]);
+
+  expect(detectFieldType([false, false, false])).toEqual(['boolean', [false, false, false]]);
+  expect(detectFieldType([false, false, true])).toEqual(['boolean', [false, false, true]]);
+});
+
+test('all false gets parsed as boolean', () => {
+  expect(detectFieldType([false, false, false])).toEqual(['boolean', [false, false, false]]);
+  expect(detectFieldType([false, false, true])).toEqual(['boolean', [false, false, true]]);
+});
+
+test('all null gets parsed as string', () => {
+  expect(detectFieldType([null, null])).toEqual(['string', [null, null]]);
+});
