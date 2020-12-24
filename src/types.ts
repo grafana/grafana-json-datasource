@@ -10,6 +10,7 @@ export interface JsonApiQuery extends DataQuery {
   cacheDurationSeconds: number;
   queryParams: string;
   urlPath: string;
+  alias: string;
 }
 
 export interface JsonApiVariableQuery extends DataQuery {

@@ -31,8 +31,32 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
     onRunQuery();
   };
 
+  const mapQueryFields = (field: any, index: number) => (
+    <InlineFieldRow key={index}>
+      {/* prettier-ignore */}
+      <InlineField
+        label="Query"
+        tooltip={
+          <div>A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more values from a JSON object.</div>
+        }
+        grow
+      >
+        <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
+      </InlineField>
+      <a className="gf-form-label" onClick={addField(index)}>
+        <Icon name="plus" />
+      </a>
+      {fields.length > 1 ? (
+        <a className="gf-form-label" onClick={removeField(index)}>
+          <Icon name="minus" />
+        </a>
+      ) : null}
+    </InlineFieldRow>
+  );
+
   return (
     <>
+      {/* prettier-ignore */}
       <InlineFieldRow>
         <InlineField
           label="Path"
@@ -56,6 +80,13 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
             onChange={e => onChange({ ...query, queryParams: e.currentTarget.value })}
           />
         </InlineField>
+        <InlineField label="Alias" tooltip="Add an alias to your series which you can use to target overrides" grow>
+          <Input
+            placeholder="Alias"
+            value={query.alias}
+            onChange={e => onChange({ ...query, alias: e.currentTarget.value })}
+          />
+        </InlineField>
         <InlineField
           label="Cache Time"
           tooltip="Time in seconds that the response will be cached in Grafana after receiving it."
@@ -71,32 +102,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
           />
         </InlineField>
       </InlineFieldRow>
-      {fields
-        ? fields.map((field, index) => (
-            <InlineFieldRow key={index}>
-              <InlineField
-                label="Query"
-                tooltip={
-                  <div>
-                    A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more
-                    values from a JSON object.
-                  </div>
-                }
-                grow
-              >
-                <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
-              </InlineField>
-              <a className="gf-form-label" onClick={addField(index)}>
-                <Icon name="plus" />
-              </a>
-              {fields.length > 1 ? (
-                <a className="gf-form-label" onClick={removeField(index)}>
-                  <Icon name="minus" />
-                </a>
-              ) : null}
-            </InlineFieldRow>
-          ))
-        : null}
+      {fields ? fields.map(mapQueryFields) : null}
     </>
   );
 };

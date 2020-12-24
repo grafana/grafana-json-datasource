@@ -44,6 +44,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
         .map(field => {
           const jsonPathTreated = replaceMacros(templateSrv.replace(field.jsonPath, request.scopedVars));
           const nameTreated = templateSrv.replace(field.name, request.scopedVars);
+          const alias = query.alias;
 
           const values = JSONPath({ path: jsonPathTreated, json: response });
 
@@ -55,7 +56,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
           const [type, newvals] = detectFieldType(values);
 
           return {
-            name: nameTreated || paths[paths.length - 1],
+            name: alias || nameTreated || paths[paths.length - 1],
             type: type,
             values: newvals,
           };
