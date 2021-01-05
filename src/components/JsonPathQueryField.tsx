@@ -27,7 +27,7 @@ export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange })
     <QueryField
       additionalPlugins={plugins}
       query={query}
-      onBlur={onBlur}
+      onRunQuery={onBlur}
       onChange={onChange}
       portalOrigin="jsonapi"
       placeholder="$.items[*].name"
