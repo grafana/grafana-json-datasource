@@ -69,6 +69,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
       }
 
       return toDataFrame({
+        name: query.refId,
         refId: query.refId,
         fields: fields,
       });
