@@ -62,9 +62,10 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
         });
 
       const fieldLengths = fields.map(field => field.values.length);
+      const uniqueFieldLengths = Array.from(new Set(fieldLengths)).length;
 
       // All fields need to have the same length for the data frame to be valid.
-      if (Array.from(new Set(fieldLengths)).length > 1) {
+      if (uniqueFieldLengths > 1) {
         throw new Error('Fields have different lengths');
       }
 
