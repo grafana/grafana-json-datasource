@@ -24,6 +24,7 @@ This section lists the available configuration options for the JSON API data sou
 | **Query string** | Overrides the custom query parameters configured by the data source. |
 | **Cache Time** | Determines the time in seconds to save the API response. |
 | **Query** | Defines the [JSON Path](https://goessner.net/articles/JsonPath/) used to extract the field. |
+| **Type** | Defines the type of the values returned by the JSON Path query. |
 
 ### Variables
 
