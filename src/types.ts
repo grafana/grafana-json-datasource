@@ -20,7 +20,6 @@ export interface JsonApiVariableQuery extends DataQuery {
 }
 
 export const defaultQuery: Partial<JsonApiQuery> = {
-  fields: [{ name: '', jsonPath: '' }],
   cacheDurationSeconds: 300,
   queryParams: '',
   urlPath: '',

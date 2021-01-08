@@ -9,7 +9,7 @@ import { JsonPathQueryField } from './JsonPathQueryField';
 type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
 
 export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) => {
-  const { fields } = defaults(query, defaultQuery);
+  const { fields } = defaults(query, { ...defaultQuery, fields: [{ name: '', jsonPath: '' }] });
 
   const onChangePath = (i: number) => (e: string) => {
     fields[i] = { ...fields[i], jsonPath: e };
