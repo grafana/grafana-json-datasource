@@ -1,7 +1,7 @@
 import defaults from 'lodash/defaults';
 import React from 'react';
-import { Icon, InlineFieldRow, InlineField, Segment, Input } from '@grafana/ui';
-import { QueryEditorProps } from '@grafana/data';
+import { Icon, InlineFieldRow, InlineField, Segment, Input, Select } from '@grafana/ui';
+import { QueryEditorProps, SelectableValue, FieldType } from '@grafana/data';
 import { DataSource } from '../datasource';
 import { JsonApiDataSourceOptions, JsonApiQuery, defaultQuery } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
@@ -14,6 +14,12 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
   const onChangePath = (i: number) => (e: string) => {
     fields[i] = { ...fields[i], jsonPath: e };
     onChange({ ...query, fields });
+  };
+
+  const onChangeType = (i: number) => (e: SelectableValue<string>) => {
+    fields[i] = { ...fields[i], type: (e.value === 'auto' ? undefined : e.value) as FieldType };
+    onChange({ ...query, fields });
+    onRunQuery();
   };
 
   const addField = (i: number) => () => {
@@ -85,6 +91,23 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
                 grow
               >
                 <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
+              </InlineField>
+              <InlineField
+                label="Type"
+                tooltip="If Auto is set, the JSON property type is used to detect the field type."
+              >
+                <Select
+                  value={field.type ?? 'auto'}
+                  width={12}
+                  onChange={onChangeType(index)}
+                  options={[
+                    { label: 'Auto', value: 'auto' },
+                    { label: 'String', value: 'string' },
+                    { label: 'Number', value: 'number' },
+                    { label: 'Time', value: 'time' },
+                    { label: 'Boolean', value: 'boolean' },
+                  ]}
+                />
               </InlineField>
               <a className="gf-form-label" onClick={addField(index)}>
                 <Icon name="plus" />

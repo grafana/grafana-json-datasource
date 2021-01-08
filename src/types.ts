@@ -1,8 +1,9 @@
-import { DataQuery, DataSourceJsonData } from '@grafana/data';
+import { DataQuery, DataSourceJsonData, FieldType } from '@grafana/data';
 
 interface JsonField {
   name: string;
   jsonPath: string;
+  type?: FieldType;
 }
 
 export interface JsonApiQuery extends DataQuery {

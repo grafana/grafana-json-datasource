@@ -52,12 +52,13 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
           // Casted to any due to typing issues with JSONPath-Plus
           const paths = (JSONPath as any).toPathArray(jsonPathTreated);
 
-          const [type, newvals] = detectFieldType(values);
+          const propertyType = field.type ? field.type : detectFieldType(values);
+          const typedValues = parseValues(values, propertyType);
 
           return {
             name: nameTreated || paths[paths.length - 1],
-            type: type,
-            values: newvals,
+            type: propertyType,
+            values: typedValues,
           };
         });
 
@@ -147,26 +148,24 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
 }
 
 /**
- * Detects the type of the values, and converts values if necessary.
- *
- * @param values - The field values.
- * @returns the detected field type and potentially converted values.
+ * Detects the field type from an array of values.
  */
-export const detectFieldType = (values: any[]): [FieldType, any[]] => {
+export const detectFieldType = (values: any[]): FieldType => {
+  // If all values are null, default to strings.
   if (values.every(_ => _ === null)) {
-    return [FieldType.string, values];
+    return FieldType.string;
   }
-  // If all values are valid ISO 8601, the assume that it's a time field.
+
+  // If all values are valid ISO 8601, then assume that it's a time field.
   const isValidISO = values
     .filter(value => value !== null)
     .every(value => value.length >= 10 && isValid(parseISO(value)));
   if (isValidISO) {
-    return [FieldType.time, values.map(_ => (_ !== null ? parseISO(_).valueOf() : null))];
+    return FieldType.time;
   }
 
-  const isNumber = values.every(value => typeof value === 'number');
-  if (isNumber) {
-    const uniqueLengths = Array.from(new Set(values.map(value => value.toString().length)));
+  if (values.every(value => typeof value === 'number')) {
+    const uniqueLengths = Array.from(new Set(values.map(value => Math.round(value).toString().length)));
     const hasSameLength = uniqueLengths.length === 1;
 
     // If all the values have the same length of either 10 (seconds) or 13
@@ -174,20 +173,73 @@ export const detectFieldType = (values: any[]): [FieldType, any[]] => {
     // might need to add an option to disable detection of time fields.
     if (hasSameLength) {
       if (uniqueLengths[0] === 13) {
-        return [FieldType.time, values];
+        return FieldType.time;
       }
       if (uniqueLengths[0] === 10) {
-        return [FieldType.time, values.map(_ => _ * 1000.0)];
+        return FieldType.time;
       }
     }
 
-    return [FieldType.number, values];
+    return FieldType.number;
   }
 
-  const isBoolean = values.every(value => typeof value === 'boolean');
-  if (isBoolean) {
-    return [FieldType.boolean, values];
+  if (values.every(value => typeof value === 'boolean')) {
+    return FieldType.boolean;
   }
 
-  return [FieldType.string, values];
+  return FieldType.string;
+};
+
+/**
+ * parseValues converts values to the given field type.
+ */
+export const parseValues = (values: any[], type: FieldType): any[] => {
+  switch (type) {
+    case FieldType.time:
+      // For time field, values are expected to be numbers representing a Unix
+      // epoch in milliseconds.
+
+      if (values.every(value => typeof value === 'string')) {
+        return values.map(_ => (_ !== null ? parseISO(_).valueOf() : null));
+      }
+
+      if (values.every(value => typeof value === 'number')) {
+        const ms = 1_000_000_000_000;
+
+        // If there are no "big" numbers, assume seconds.
+        if (values.every(_ => _ < ms)) {
+          return values.map(_ => _ * 1000.0);
+        }
+
+        // ... otherwise assume milliseconds.
+        return values;
+      }
+
+      throw new Error('Unsupported time property');
+    case FieldType.string:
+      return values.every(_ => typeof _ === 'string') ? values : values.map(_ => _.toString());
+    case FieldType.number:
+      return values.every(_ => typeof _ === 'number') ? values : values.map(_ => parseFloat(_));
+    case FieldType.boolean:
+      return values.every(_ => typeof _ === 'boolean')
+        ? values
+        : values.map(_ => {
+            switch (_.toString()) {
+              case '0':
+              case 'false':
+              case 'FALSE':
+              case 'False':
+                return false;
+              case '1':
+              case 'true':
+              case 'TRUE':
+              case 'True':
+                return true;
+              default:
+                throw new Error('Found non-boolean values in a field of type boolean');
+            }
+          });
+    default:
+      throw new Error('Unsupported field type');
+  }
 };
