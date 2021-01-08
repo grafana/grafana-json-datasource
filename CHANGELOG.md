@@ -7,7 +7,7 @@
 ### Enhancements
 
 - Use the refId as the series name
-- Add type configuration for queries ([#31](https://github.com/marcusolsson/grafana-json-datasource/issues/31))
+- Add type configuration for queries ([#37](https://github.com/marcusolsson/grafana-json-datasource/issues/37))
 
 ### Bug fixes
 
