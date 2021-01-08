@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Enhancements
+
+- Use the refId as the series name
+- Add type configuration for queries ([#31](https://github.com/marcusolsson/grafana-json-datasource/issues/31))
+
+### Bug fixes
+
+- Grafana Explore gets stuck when adding a second query ([#31](https://github.com/marcusolsson/grafana-json-datasource/issues/31))
+
 ## 0.7.1 (2020-12-07)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.0...v0.7.1)
