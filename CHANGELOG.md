@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.8.0 (2020-01-08)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.1...v0.8.0)
 
 ### Enhancements
 
@@ -10,6 +12,7 @@
 ### Bug fixes
 
 - Grafana Explore gets stuck when adding a second query ([#31](https://github.com/marcusolsson/grafana-json-datasource/issues/31))
+- Multiple data source queries overwrite each other
 
 ## 0.7.1 (2020-12-07)
 
