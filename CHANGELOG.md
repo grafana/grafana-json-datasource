@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.8.0 (2020-01-08)
+## 0.8.0 (2021-01-08)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.1...v0.8.0)
 
