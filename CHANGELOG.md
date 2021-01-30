@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.9.0 (2021-02-01)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.8.0...v0.9.0)
+
+**BREAKING CHANGE:** Query parameters set by the query editor no longer overrides the data source config, to match how headers are handled in the Grafana proxy. This establishes the convention that any configuration made by an administrator should have higher priority.
+
+**IMPORTANT:** This release contains many new changes that touches several aspects of the plugin. **Make sure that you back up your dashboards before updating your plugin.**
+
+This release introduces a new query editor that gives more control of the request.
+
+- Support for both GET and POST methods
+- Support for request bodies (when using POST)
+- Support for headers
+
+It introduces a new key value editor for query parameters and headers, as well as a Monaco-based editor for editing the request body with syntax highlighting.
+
+This release deprecates the `queryString` property in the query model, in favor of the new `params`. The query string config _should_ be backwards-compatible (and forward-compatible) with previous versions, but make sure to back up your dashboard before upgrading.
+
 ## 0.8.0 (2021-01-08)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.1...v0.8.0)

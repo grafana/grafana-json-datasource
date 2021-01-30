@@ -6,11 +6,17 @@ interface JsonField {
   type?: FieldType;
 }
 
+export type Pair<T, K> = [T, K];
+
 export interface JsonApiQuery extends DataQuery {
   fields: JsonField[];
-  cacheDurationSeconds: number;
-  queryParams: string;
+  method: string;
   urlPath: string;
+  queryParams: string;
+  params: Array<Pair<string, string>>;
+  headers: Array<Pair<string, string>>;
+  body: string;
+  cacheDurationSeconds: number;
 }
 
 export interface JsonApiVariableQuery extends DataQuery {
@@ -21,6 +27,7 @@ export interface JsonApiVariableQuery extends DataQuery {
 
 export const defaultQuery: Partial<JsonApiQuery> = {
   cacheDurationSeconds: 300,
+  method: 'GET',
   queryParams: '',
   urlPath: '',
 };

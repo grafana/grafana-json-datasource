@@ -1,5 +1,7 @@
-import { getBackendSrv } from '@grafana/runtime';
+import { BackendSrvRequest, getBackendSrv } from '@grafana/runtime';
 import cache from 'memory-cache';
+import { Observable } from 'rxjs';
+import { Pair } from 'types';
 
 export default class Api {
   cache: any;
@@ -16,20 +18,28 @@ export default class Api {
   /**
    * Queries the API and returns the response data.
    */
-  async get(path: string, params?: string) {
-    const data: Record<string, string> = {};
+  async get(
+    method: string,
+    path: string,
+    params?: Array<Pair<string, string>>,
+    headers?: Array<Pair<string, string>>,
+    body?: string
+  ) {
+    const paramsData: Record<string, string> = {};
+
+    (params ?? []).forEach(([key, value]) => {
+      if (key) {
+        paramsData[key] = value;
+      }
+    });
 
     this.params.forEach((value, key) => {
-      data[key] = value;
+      paramsData[key] = value;
     });
 
-    new URLSearchParams('?' + params).forEach((value, key) => {
-      data[key] = value;
-    });
+    const response = await this._request(method, path, paramsData, headers, body);
 
-    const response = await this._request(path, data);
-
-    return response.data;
+    return (await response.toPromise()).data;
   }
 
   /**
@@ -42,15 +52,22 @@ export default class Api {
       data[key] = value;
     });
 
-    return this._request('', data);
+    return this._request('GET', '', data).toPromise();
   }
 
   /**
    * Returns a cached API response if it exists, otherwise queries the API.
    */
-  async cachedGet(cacheDurationSeconds: number, path: string, params: string) {
+  async cachedGet(
+    cacheDurationSeconds: number,
+    method: string,
+    path: string,
+    params: Array<Pair<string, string>>,
+    headers?: Array<Pair<string, string>>,
+    body?: string
+  ) {
     if (cacheDurationSeconds === 0) {
-      return await this.get(path, params);
+      return await this.get(method, path, params, headers, body);
     }
 
     const rawUrl = this.baseUrl + path;
@@ -67,7 +84,7 @@ export default class Api {
     }
     this.lastCacheDuration = cacheDurationSeconds;
 
-    const result = await this.get(path, params);
+    const result = await this.get(method, path, params, headers, body);
 
     this.cache.put(rawUrl, result, Math.max(cacheDurationSeconds * 1000, 1));
 
@@ -79,13 +96,32 @@ export default class Api {
    * Allows the user to append a path, or override query parameters.
    *
    * @param path to append to URL
-   * @param data to set as query parameters
+   * @param params to set as query parameters
    */
-  async _request(path: string, data?: Record<string, string>) {
-    const req = {
+  _request(
+    method: string,
+    path: string,
+    params?: Record<string, string>,
+    headers?: Array<Pair<string, string>>,
+    data?: string
+  ): Observable<any> {
+    const recordHeaders: Record<string, any> = {};
+
+    (headers ?? [])
+      .filter(([key, _]) => key)
+      .forEach(([key, value]) => {
+        recordHeaders[key] = value;
+      });
+
+    const req: BackendSrvRequest = {
       url: `${this.baseUrl}${path}`,
-      method: 'GET',
+      method,
+      headers: recordHeaders,
     };
+
+    if (method !== 'GET' && data) {
+      req.data = data;
+    }
 
     // Deduplicate forward slashes, i.e. /// becomes /. This enables sensible
     // defaults for empty variables.
@@ -94,15 +130,15 @@ export default class Api {
     // `/orgs//list`.
     req.url = req.url.replace(/[\/]+/g, '/');
 
-    if (data && Object.keys(data).length > 0) {
+    if (params && Object.keys(params).length > 0) {
       req.url =
         req.url +
         (req.url.search(/\?/) >= 0 ? '&' : '?') +
-        Object.entries(data)
+        Object.entries(params)
           .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
           .join('&');
     }
 
-    return getBackendSrv().datasourceRequest(req);
+    return getBackendSrv().fetch(req);
   }
 }

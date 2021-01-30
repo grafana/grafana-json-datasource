@@ -14,7 +14,7 @@ import {
 import { getTemplateSrv } from '@grafana/runtime';
 
 import API from './api';
-import { JsonApiQuery, JsonApiVariableQuery, JsonApiDataSourceOptions } from './types';
+import { JsonApiQuery, JsonApiVariableQuery, JsonApiDataSourceOptions, Pair } from './types';
 
 export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;
@@ -34,10 +34,29 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     };
 
     const promises = request.targets.map(async query => {
-      const queryParamsTreated = replaceMacros(templateSrv.replace(query.queryParams, request.scopedVars));
       const urlPathTreated = templateSrv.replace(query.urlPath, request.scopedVars);
+      const bodyTreated = templateSrv.replace(query.body, request.scopedVars);
 
-      const response = await this.api.cachedGet(query.cacheDurationSeconds, urlPathTreated, queryParamsTreated);
+      const paramsTreated: Array<Pair<string, string>> = (query.params ?? []).map(([key, value]) => {
+        const keyTreated = replaceMacros(templateSrv.replace(key, request.scopedVars));
+        const valueTreated = replaceMacros(templateSrv.replace(value, request.scopedVars));
+        return [keyTreated, valueTreated];
+      });
+
+      const headersTreated: Array<Pair<string, string>> = (query.headers ?? []).map(([key, value]) => {
+        const keyTreated = templateSrv.replace(key, request.scopedVars);
+        const valueTreated = templateSrv.replace(value, request.scopedVars);
+        return [keyTreated, valueTreated];
+      });
+
+      const response = await this.api.cachedGet(
+        query.cacheDurationSeconds,
+        query.method,
+        urlPathTreated,
+        paramsTreated,
+        headersTreated,
+        bodyTreated
+      );
 
       const fields = query.fields
         .filter(field => field.jsonPath)
