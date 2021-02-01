@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.1 (2021-02-01)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.0...v0.9.1)
+
+### Bug fixes
+
+- Cannot read property 'toString' of null ([#46](https://github.com/marcusolsson/grafana-json-datasource/issues/46))
+
 ## 0.9.0 (2021-02-01)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.8.0...v0.9.0)
