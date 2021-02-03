@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.2 (2021-02-03)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.1...v0.9.2)
+
+### Bug fixes
+
+- Variable queries fail with error ([#48](https://github.com/marcusolsson/grafana-json-datasource/issues/48))
+
 ## 0.9.1 (2021-02-01)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.0...v0.9.1)

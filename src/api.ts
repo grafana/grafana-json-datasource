@@ -119,7 +119,7 @@ export default class Api {
       headers: recordHeaders,
     };
 
-    if (method !== 'GET' && data) {
+    if (req.method !== 'GET' && data) {
       req.data = data;
     }
 

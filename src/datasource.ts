@@ -116,7 +116,12 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     const urlPathTreated = templateSrv.replace(query.urlPath);
     const jsonPathTreated = templateSrv.replace(query.jsonPath);
 
-    const response = await this.api.get(urlPathTreated, queryParamsTreated);
+    const params: Array<Pair<string, string>> = [];
+    new URLSearchParams('?' + queryParamsTreated).forEach((value: string, key: string) => {
+      params.push([key, value]);
+    });
+
+    const response = await this.api.get('GET', urlPathTreated, params);
 
     return JSONPath({
       path: jsonPathTreated,
