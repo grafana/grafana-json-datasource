@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { css } from 'emotion';
-import { Button, Icon, useTheme } from '@grafana/ui';
+import { Button, Icon, stylesFactory, useTheme } from '@grafana/ui';
 import { Pair } from '../types';
+import { GrafanaTheme } from '@grafana/data';
 
 interface Props {
   columns: string[];
@@ -15,6 +16,7 @@ interface Props {
 
 export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur }: Props) => {
   const theme = useTheme();
+  const styles = getStyles(theme);
 
   const updateCell = (colIdx: number, rowIdx: number, value: string) => {
     onChange(
@@ -39,75 +41,6 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
 
   const removeRow = (i: number) => {
     onChange([...values.slice(0, i), ...values.slice(i + 1)]);
-  };
-
-  const styles = {
-    root: css`
-      table-layout: auto;
-      border: 1px solid ${theme.colors.formInputBorder};
-      border-collapse: separate;
-      border-radius: ${theme.border.radius.sm};
-      border-spacing: 0;
-      border-left: 0;
-      width: 100%;
-    `,
-    thead: css`
-      display: table-header-group;
-      vertical-align: middle;
-      border-color: inherit;
-      border-collapse: separate;
-
-      &:first-child tr:first-child th:first-child {
-        border-radius: ${theme.border.radius.sm} 0 0 0;
-      }
-      &:last-child tr:last-child th:first-child {
-        border-radius: 0 0 0 ${theme.border.radius.sm};
-      }
-    `,
-    tbody: css`
-      &:first-child tr:first-child td:first-child {
-        border-radius: ${theme.border.radius.sm} 0 0 0;
-      }
-
-      &:last-child tr:last-child td:first-child {
-        border-radius: 0 0 0 ${theme.border.radius.sm};
-      }
-    `,
-    input: css`
-      outline: none;
-      border: 0;
-      background: transparent;
-      width: 100%;
-    `,
-    row: css`
-      display: table-row;
-      vertical-align: inherit;
-      border-color: inherit;
-    `,
-    th: css`
-      padding: ${theme.spacing.xs} ${theme.spacing.sm};
-      border-left: solid ${theme.colors.formInputBorder} 1px;
-      font-size: ${theme.typography.size.sm};
-      color: ${theme.colors.textSemiWeak};
-      font-weight: ${theme.typography.weight.regular};
-
-      &:last-child {
-        border-left: 0;
-      }
-    `,
-    td: css`
-      padding: ${theme.spacing.xs} ${theme.spacing.sm};
-      border: 1px solid transparent;
-      border-left: solid ${theme.colors.formInputBorder} 1px;
-      border-top: solid ${theme.colors.formInputBorder} 1px;
-      background-color: ${theme.colors.formInputBg};
-      &:last-child {
-        border-left: 0;
-        width: 32px;
-        padding-left: 0;
-        padding-right: ${theme.spacing.xs};
-      }
-    `,
   };
 
   return values.length === 0 ? (
@@ -186,3 +119,74 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
     </table>
   );
 };
+
+const getStyles = stylesFactory((theme: GrafanaTheme) => {
+  return {
+    root: css`
+      table-layout: auto;
+      border: 1px solid ${theme.colors.formInputBorder};
+      border-collapse: separate;
+      border-radius: ${theme.border.radius.sm};
+      border-spacing: 0;
+      border-left: 0;
+      width: 100%;
+    `,
+    thead: css`
+      display: table-header-group;
+      vertical-align: middle;
+      border-color: inherit;
+      border-collapse: separate;
+
+      &:first-child tr:first-child th:first-child {
+        border-radius: ${theme.border.radius.sm} 0 0 0;
+      }
+      &:last-child tr:last-child th:first-child {
+        border-radius: 0 0 0 ${theme.border.radius.sm};
+      }
+    `,
+    tbody: css`
+      &:first-child tr:first-child td:first-child {
+        border-radius: ${theme.border.radius.sm} 0 0 0;
+      }
+
+      &:last-child tr:last-child td:first-child {
+        border-radius: 0 0 0 ${theme.border.radius.sm};
+      }
+    `,
+    input: css`
+      outline: none;
+      border: 0;
+      background: transparent;
+      width: 100%;
+    `,
+    row: css`
+      display: table-row;
+      vertical-align: inherit;
+      border-color: inherit;
+    `,
+    th: css`
+      padding: ${theme.spacing.xs} ${theme.spacing.sm};
+      border-left: solid ${theme.colors.formInputBorder} 1px;
+      font-size: ${theme.typography.size.sm};
+      color: ${theme.colors.textSemiWeak};
+      font-weight: ${theme.typography.weight.regular};
+
+      &:last-child {
+        border-left: 0;
+      }
+    `,
+    td: css`
+      padding: ${theme.spacing.xs} ${theme.spacing.sm};
+      border: 1px solid transparent;
+      border-left: solid ${theme.colors.formInputBorder} 1px;
+      border-top: solid ${theme.colors.formInputBorder} 1px;
+      background-color: ${theme.colors.formInputBg};
+      &:last-child {
+        border-left: 0;
+        width: 32px;
+        padding-left: 0;
+        padding-right: ${theme.spacing.xs};
+      }
+    `,
+  };
+});
