@@ -9,7 +9,7 @@
 
 A data source plugin for loading JSON APIs into [Grafana](https://grafana.com).
 
-![Screenshot](https://github.com/marcusolsson/grafana-json-datasource/raw/master/src/img/screenshot.png)
+![Screenshot](https://github.com/marcusolsson/grafana-json-datasource/raw/main/src/img/screenshot.png)
 
 Extract one or more values from a JSON API using [JSON Path](https://goessner.net/articles/JsonPath/). Each path results in a field in the query result. All fields need to be of the same length.
 
