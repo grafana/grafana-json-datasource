@@ -15,12 +15,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - name: Setup Go environment
         uses: actions/setup-go@v2
         with:
-          go-version: '1.14'
+          go-version: '1.15'
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -76,7 +76,7 @@ jobs:
           args: buildAll
 
       - name: Sign plugin
-        run: yarn run grafana-toolkit plugin:sign
+        run: yarn sign
         env:
           GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }} # Requires a Grafana API key from Grafana.com.
 
@@ -159,6 +159,6 @@ jobs:
 
       - name: Publish to Grafana.com
         run: |
-          echo Publish your plugin to grafana.com/plugins by opening a PR to https://github.com/grafana/grafana-plugin-repository with the following entry:
+          echo A draft release has been created for your plugin. Please review and publish it. Then submit your plugin to grafana.com/plugins by opening a PR to https://github.com/grafana/grafana-plugin-repository with the following entry:
           echo
-          echo '{ "id": "${{ steps.metadata.outputs.plugin-id }}", "type": "${{ steps.metadata.outputs.plugin-type }}", "url": "https://github.com/${{ github.repository }}", "versions": [ { "version": "${{ steps.metadata.outputs.plugin-version }}", "commit": "${{ github.sha }}", "url": "https://github.com/${{ github.repository }}", "download": { "any": { "url": "${{ steps.upload-plugin-asset.outputs.browser_download_url }}", "md5": "${{ steps.package-plugin.outputs.checksum }}" } } } ] }' | jq .
+          echo '{ "id": "${{ steps.metadata.outputs.plugin-id }}", "type": "${{ steps.metadata.outputs.plugin-type }}", "url": "https://github.com/${{ github.repository }}", "versions": [ { "version": "${{ steps.metadata.outputs.plugin-version }}", "commit": "${{ github.sha }}", "url": "https://github.com/${{ github.repository }}", "download": { "any": { "url": "https://github.com/${{ github.repository }}/releases/download/v${{ steps.metadata.outputs.plugin-version }}/${{ steps.metadata.outputs.archive }}", "md5": "${{ steps.package-plugin.outputs.checksum }}" } } } ] }' | jq .
