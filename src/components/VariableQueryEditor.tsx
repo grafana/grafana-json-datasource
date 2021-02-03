@@ -10,6 +10,7 @@ interface VariableQueryProps {
   onChange: (query: JsonApiVariableQuery, definition: string) => void;
 }
 
+// VariableQueryEditor is used to query values for a dashboard variable.
 export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, query }) => {
   const init = defaults(query, defaultVariableQuery);
 
