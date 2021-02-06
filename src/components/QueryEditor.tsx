@@ -12,18 +12,24 @@ import {
   useTheme,
   InfoBox,
 } from '@grafana/ui';
-import { QueryEditorProps, SelectableValue, FieldType } from '@grafana/data';
-import { DataSource } from '../datasource';
-import { JsonApiDataSourceOptions, JsonApiQuery, defaultQuery } from '../types';
+import { SelectableValue, FieldType } from '@grafana/data';
+import { JsonApiQuery, defaultQuery } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
 import { KeyValueEditor } from './KeyValueEditor';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { css } from 'emotion';
 import { Pair } from '../types';
 
-type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
+// type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
 
-export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) => {
+interface Props {
+  onRunQuery: () => void;
+  onChange: (query: JsonApiQuery) => void;
+  query: JsonApiQuery;
+  limitFields?: number;
+}
+
+export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limitFields }) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
@@ -72,10 +78,13 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
   };
 
   const addField = (i: number) => () => {
-    if (fields) {
-      fields.splice(i + 1, 0, { name: '', jsonPath: '' });
+    console.log(limitFields, fields.length);
+    if (!limitFields || fields.length < limitFields) {
+      if (fields) {
+        fields.splice(i + 1, 0, { name: '', jsonPath: '' });
+      }
+      onChange({ ...query, fields });
     }
-    onChange({ ...query, fields });
   };
 
   const removeField = (i: number) => () => {
@@ -121,9 +130,13 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query }) =>
                   ]}
                 />
               </InlineField>
-              <a className="gf-form-label" onClick={addField(index)}>
-                <Icon name="plus" />
-              </a>
+
+              {(!limitFields || fields.length < limitFields) && (
+                <a className="gf-form-label" onClick={addField(index)}>
+                  <Icon name="plus" />
+                </a>
+              )}
+
               {fields.length > 1 ? (
                 <a className="gf-form-label" onClick={removeField(index)}>
                   <Icon name="minus" />

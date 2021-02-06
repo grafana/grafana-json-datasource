@@ -10,11 +10,13 @@ import {
   toDataFrame,
   MetricFindValue,
   FieldType,
+  ScopedVars,
+  TimeRange,
 } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
 
 import API from './api';
-import { JsonApiQuery, JsonApiVariableQuery, JsonApiDataSourceOptions, Pair } from './types';
+import { JsonApiQuery, JsonApiDataSourceOptions, Pair } from './types';
 
 export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;
@@ -25,76 +27,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
-    const templateSrv = getTemplateSrv();
-
-    const replaceMacros = (str: string) => {
-      return str
-        .replace(/\$__unixEpochFrom\(\)/g, request.range.from.unix().toString())
-        .replace(/\$__unixEpochTo\(\)/g, request.range.to.unix().toString());
-    };
-
-    const promises = request.targets.map(async query => {
-      const urlPathTreated = templateSrv.replace(query.urlPath, request.scopedVars);
-      const bodyTreated = templateSrv.replace(query.body, request.scopedVars);
-
-      const paramsTreated: Array<Pair<string, string>> = (query.params ?? []).map(([key, value]) => {
-        const keyTreated = replaceMacros(templateSrv.replace(key, request.scopedVars));
-        const valueTreated = replaceMacros(templateSrv.replace(value, request.scopedVars));
-        return [keyTreated, valueTreated];
-      });
-
-      const headersTreated: Array<Pair<string, string>> = (query.headers ?? []).map(([key, value]) => {
-        const keyTreated = templateSrv.replace(key, request.scopedVars);
-        const valueTreated = templateSrv.replace(value, request.scopedVars);
-        return [keyTreated, valueTreated];
-      });
-
-      const response = await this.api.cachedGet(
-        query.cacheDurationSeconds,
-        query.method,
-        urlPathTreated,
-        paramsTreated,
-        headersTreated,
-        bodyTreated
-      );
-
-      const fields = query.fields
-        .filter(field => field.jsonPath)
-        .map(field => {
-          const jsonPathTreated = replaceMacros(templateSrv.replace(field.jsonPath, request.scopedVars));
-          const nameTreated = templateSrv.replace(field.name, request.scopedVars);
-
-          const values = JSONPath({ path: jsonPathTreated, json: response });
-
-          // Get the path for automatic setting of the field name.
-          //
-          // Casted to any due to typing issues with JSONPath-Plus
-          const paths = (JSONPath as any).toPathArray(jsonPathTreated);
-
-          const propertyType = field.type ? field.type : detectFieldType(values);
-          const typedValues = parseValues(values, propertyType);
-
-          return {
-            name: nameTreated || paths[paths.length - 1],
-            type: propertyType,
-            values: typedValues,
-          };
-        });
-
-      const fieldLengths = fields.map(field => field.values.length);
-      const uniqueFieldLengths = Array.from(new Set(fieldLengths)).length;
-
-      // All fields need to have the same length for the data frame to be valid.
-      if (uniqueFieldLengths > 1) {
-        throw new Error('Fields have different lengths');
-      }
-
-      return toDataFrame({
-        name: query.refId,
-        refId: query.refId,
-        fields: fields,
-      });
-    });
+    const promises = request.targets.map(query => this.doRequest(query, request.range, request.scopedVars));
 
     // Wait for all queries to finish before returning the result.
     return Promise.all(promises).then(data => ({ data }));
@@ -105,28 +38,9 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
    *
    * @param query
    */
-  async metricFindQuery?(query: JsonApiVariableQuery): Promise<MetricFindValue[]> {
-    if (!query.jsonPath) {
-      return [];
-    }
-
-    const templateSrv = getTemplateSrv();
-
-    const queryParamsTreated = templateSrv.replace(query.queryParams);
-    const urlPathTreated = templateSrv.replace(query.urlPath);
-    const jsonPathTreated = templateSrv.replace(query.jsonPath);
-
-    const params: Array<Pair<string, string>> = [];
-    new URLSearchParams('?' + queryParamsTreated).forEach((value: string, key: string) => {
-      params.push([key, value]);
-    });
-
-    const response = await this.api.get('GET', urlPathTreated, params);
-
-    return JSONPath({
-      path: jsonPathTreated,
-      json: response,
-    }).map((_: any) => ({ text: _ }));
+  async metricFindQuery?(query: JsonApiQuery): Promise<MetricFindValue[]> {
+    const frame = await this.doRequest(query);
+    return frame.fields[0].values.toArray().map(_ => ({ text: _ }));
   }
 
   /**
@@ -168,6 +82,83 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
         };
       }
     }
+  }
+
+  async doRequest(query: JsonApiQuery, range?: TimeRange, scopedVars?: ScopedVars) {
+    const templateSrv = getTemplateSrv();
+
+    const replaceMacros = (str: string) => {
+      return range
+        ? str
+            .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
+            .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
+        : str;
+    };
+
+    const urlPathTreated = templateSrv.replace(query.urlPath, scopedVars);
+    const bodyTreated = templateSrv.replace(query.body, scopedVars);
+
+    const paramsTreated: Array<Pair<string, string>> = (query.params ?? []).map(([key, value]) => {
+      const keyTreated = replaceMacros(templateSrv.replace(key, scopedVars));
+      const valueTreated = replaceMacros(templateSrv.replace(value, scopedVars));
+      return [keyTreated, valueTreated];
+    });
+
+    const headersTreated: Array<Pair<string, string>> = (query.headers ?? []).map(([key, value]) => {
+      const keyTreated = templateSrv.replace(key, scopedVars);
+      const valueTreated = templateSrv.replace(value, scopedVars);
+      return [keyTreated, valueTreated];
+    });
+
+    const response = await this.api.cachedGet(
+      query.cacheDurationSeconds,
+      query.method,
+      urlPathTreated,
+      paramsTreated,
+      headersTreated,
+      bodyTreated
+    );
+
+    if (!response) {
+      throw new Error('Query returned empty data');
+    }
+
+    const fields = query.fields
+      .filter(field => field.jsonPath)
+      .map(field => {
+        const jsonPathTreated = replaceMacros(templateSrv.replace(field.jsonPath, scopedVars));
+        const nameTreated = templateSrv.replace(field.name, scopedVars);
+
+        const values = JSONPath({ path: jsonPathTreated, json: response });
+
+        // Get the path for automatic setting of the field name.
+        //
+        // Casted to any due to typing issues with JSONPath-Plus
+        const paths = (JSONPath as any).toPathArray(jsonPathTreated);
+
+        const propertyType = field.type ? field.type : detectFieldType(values);
+        const typedValues = parseValues(values, propertyType);
+
+        return {
+          name: nameTreated || paths[paths.length - 1],
+          type: propertyType,
+          values: typedValues,
+        };
+      });
+
+    const fieldLengths = fields.map(field => field.values.length);
+    const uniqueFieldLengths = Array.from(new Set(fieldLengths)).length;
+
+    // All fields need to have the same length for the data frame to be valid.
+    if (uniqueFieldLengths > 1) {
+      throw new Error('Fields have different lengths');
+    }
+
+    return toDataFrame({
+      name: query.refId,
+      refId: query.refId,
+      fields: fields,
+    });
   }
 }
 

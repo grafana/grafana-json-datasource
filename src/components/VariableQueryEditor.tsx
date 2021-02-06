@@ -1,71 +1,24 @@
-import defaults from 'lodash/defaults';
-
 import React, { useState } from 'react';
-import { JsonApiVariableQuery, defaultVariableQuery } from '../types';
-import { InlineField, InlineFieldRow, Input } from '@grafana/ui';
-import { JsonPathQueryField } from './JsonPathQueryField';
+import { JsonApiQuery } from '../types';
+import { QueryEditor } from './QueryEditor';
 
 interface VariableQueryProps {
-  query: JsonApiVariableQuery;
-  onChange: (query: JsonApiVariableQuery, definition: string) => void;
+  query: JsonApiQuery;
+  onChange: (query: JsonApiQuery, definition: string) => void;
 }
 
 // VariableQueryEditor is used to query values for a dashboard variable.
 export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, query }) => {
-  const init = defaults(query, defaultVariableQuery);
+  // Backwards compatibility with previous query editor for variables.
+  const compatQuery = query.jsonPath ? { ...query, fields: [{ jsonPath: query.jsonPath }] } : query;
 
-  const [state, setState] = useState<JsonApiVariableQuery>(init);
+  const [state, setState] = useState<JsonApiQuery>(compatQuery);
 
   const saveQuery = () => {
-    onChange(state, state.jsonPath);
+    if (state && state.fields[0].jsonPath) {
+      onChange(state, state.fields[0].jsonPath);
+    }
   };
 
-  const onChangePath = (jsonPath: string) => setState({ ...state, jsonPath });
-  const onChangeUrlPath = (urlPath: string) => setState({ ...state, urlPath });
-  const onQueryParams = (queryParams: string) => setState({ ...state, queryParams });
-
-  return (
-    <>
-      <InlineFieldRow>
-        <InlineField
-          label="Path"
-          tooltip="Append a custom path to the data source URL. Should start with a forward slash (/)."
-          grow
-        >
-          <Input
-            placeholder="/orders/${orderId}"
-            value={query.urlPath}
-            onChange={e => onChangeUrlPath(e.currentTarget.value)}
-            onBlur={saveQuery}
-          />
-        </InlineField>
-        <InlineField
-          label="Query string"
-          tooltip="Add custom query parameters to your URL. Any parameters you add here overrides the custom parameters that have been configured by the data source."
-          grow
-        >
-          <Input
-            placeholder="page=1&limit=100"
-            value={state.queryParams}
-            onChange={e => onQueryParams(e.currentTarget.value)}
-            onBlur={saveQuery}
-          />
-        </InlineField>
-      </InlineFieldRow>
-      <InlineFieldRow>
-        <InlineField
-          label="Query"
-          tooltip={
-            <div>
-              A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more values
-              from a JSON object.
-            </div>
-          }
-          grow
-        >
-          <JsonPathQueryField onBlur={saveQuery} onChange={onChangePath} query={state.jsonPath} />
-        </InlineField>
-      </InlineFieldRow>
-    </>
-  );
+  return <QueryEditor onRunQuery={saveQuery} onChange={setState} query={state} limitFields={1} />;
 };

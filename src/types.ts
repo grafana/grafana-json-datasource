@@ -1,7 +1,7 @@
 import { DataQuery, DataSourceJsonData, FieldType } from '@grafana/data';
 
 interface JsonField {
-  name: string;
+  name?: string;
   jsonPath: string;
   type?: FieldType;
 }
@@ -17,23 +17,14 @@ export interface JsonApiQuery extends DataQuery {
   headers: Array<Pair<string, string>>;
   body: string;
   cacheDurationSeconds: number;
-}
 
-export interface JsonApiVariableQuery extends DataQuery {
-  jsonPath: string;
-  queryParams: string;
-  urlPath: string;
+  // Keep for backwards compatibility with older version of variables query editor.
+  jsonPath?: string;
 }
 
 export const defaultQuery: Partial<JsonApiQuery> = {
   cacheDurationSeconds: 300,
   method: 'GET',
-  queryParams: '',
-  urlPath: '',
-};
-
-export const defaultVariableQuery: Partial<JsonApiVariableQuery> = {
-  jsonPath: '',
   queryParams: '',
   urlPath: '',
 };
