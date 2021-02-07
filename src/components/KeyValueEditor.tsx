@@ -56,8 +56,10 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
     <table className={styles.root}>
       <thead className={styles.thead}>
         <tr className={styles.row}>
-          {columns.map(_ => (
-            <th className={styles.th}>{_}</th>
+          {columns.map((_, key) => (
+            <th key={key} className={styles.th}>
+              {_}
+            </th>
           ))}
           <th className={styles.th}></th>
         </tr>
@@ -69,7 +71,7 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
               <td key={colIdx} className={styles.td}>
                 <input
                   value={cell}
-                  onChange={e => updateCell(colIdx, rowIdx, e.currentTarget.value)}
+                  onChange={(e) => updateCell(colIdx, rowIdx, e.currentTarget.value)}
                   onBlur={onBlur}
                   className={styles.input}
                 />

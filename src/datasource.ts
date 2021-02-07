@@ -27,10 +27,10 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
-    const promises = request.targets.map(query => this.doRequest(query, request.range, request.scopedVars));
+    const promises = request.targets.map((query) => this.doRequest(query, request.range, request.scopedVars));
 
     // Wait for all queries to finish before returning the result.
-    return Promise.all(promises).then(data => ({ data }));
+    return Promise.all(promises).then((data) => ({ data }));
   }
 
   /**
@@ -40,7 +40,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
    */
   async metricFindQuery?(query: JsonApiQuery): Promise<MetricFindValue[]> {
     const frame = await this.doRequest(query);
-    return frame.fields[0].values.toArray().map(_ => ({ text: _ }));
+    return frame.fields[0].values.toArray().map((_) => ({ text: _ }));
   }
 
   /**
@@ -124,8 +124,8 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
     }
 
     const fields = query.fields
-      .filter(field => field.jsonPath)
-      .map(field => {
+      .filter((field) => field.jsonPath)
+      .map((field) => {
         const jsonPathTreated = replaceMacros(templateSrv.replace(field.jsonPath, scopedVars));
         const nameTreated = templateSrv.replace(field.name, scopedVars);
 
@@ -146,7 +146,7 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
         };
       });
 
-    const fieldLengths = fields.map(field => field.values.length);
+    const fieldLengths = fields.map((field) => field.values.length);
     const uniqueFieldLengths = Array.from(new Set(fieldLengths)).length;
 
     // All fields need to have the same length for the data frame to be valid.
@@ -167,20 +167,20 @@ export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOpt
  */
 export const detectFieldType = (values: any[]): FieldType => {
   // If all values are null, default to strings.
-  if (values.every(_ => _ === null)) {
+  if (values.every((_) => _ === null)) {
     return FieldType.string;
   }
 
   // If all values are valid ISO 8601, then assume that it's a time field.
   const isValidISO = values
-    .filter(value => value !== null)
-    .every(value => value.length >= 10 && isValid(parseISO(value)));
+    .filter((value) => value !== null)
+    .every((value) => value.length >= 10 && isValid(parseISO(value)));
   if (isValidISO) {
     return FieldType.time;
   }
 
-  if (values.every(value => typeof value === 'number')) {
-    const uniqueLengths = Array.from(new Set(values.map(value => Math.round(value).toString().length)));
+  if (values.every((value) => typeof value === 'number')) {
+    const uniqueLengths = Array.from(new Set(values.map((value) => Math.round(value).toString().length)));
     const hasSameLength = uniqueLengths.length === 1;
 
     // If all the values have the same length of either 10 (seconds) or 13
@@ -198,7 +198,7 @@ export const detectFieldType = (values: any[]): FieldType => {
     return FieldType.number;
   }
 
-  if (values.every(value => typeof value === 'boolean')) {
+  if (values.every((value) => typeof value === 'boolean')) {
     return FieldType.boolean;
   }
 
@@ -214,16 +214,16 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
       // For time field, values are expected to be numbers representing a Unix
       // epoch in milliseconds.
 
-      if (values.filter(_ => _).every(value => typeof value === 'string')) {
-        return values.map(_ => (_ !== null ? parseISO(_).valueOf() : _));
+      if (values.filter((_) => _).every((value) => typeof value === 'string')) {
+        return values.map((_) => (_ !== null ? parseISO(_).valueOf() : _));
       }
 
-      if (values.filter(_ => _).every(value => typeof value === 'number')) {
+      if (values.filter((_) => _).every((value) => typeof value === 'number')) {
         const ms = 1_000_000_000_000;
 
         // If there are no "big" numbers, assume seconds.
-        if (values.filter(_ => _).every(_ => _ < ms)) {
-          return values.map(_ => (_ !== null ? _ * 1000.0 : _));
+        if (values.filter((_) => _).every((_) => _ < ms)) {
+          return values.map((_) => (_ !== null ? _ * 1000.0 : _));
         }
 
         // ... otherwise assume milliseconds.
@@ -232,13 +232,13 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
 
       throw new Error('Unsupported time property');
     case FieldType.string:
-      return values.every(_ => typeof _ === 'string') ? values : values.map(_ => (_ !== null ? _.toString() : _));
+      return values.every((_) => typeof _ === 'string') ? values : values.map((_) => (_ !== null ? _.toString() : _));
     case FieldType.number:
-      return values.every(_ => typeof _ === 'number') ? values : values.map(_ => (_ !== null ? parseFloat(_) : _));
+      return values.every((_) => typeof _ === 'number') ? values : values.map((_) => (_ !== null ? parseFloat(_) : _));
     case FieldType.boolean:
-      return values.every(_ => typeof _ === 'boolean')
+      return values.every((_) => typeof _ === 'boolean')
         ? values
-        : values.map(_ => {
+        : values.map((_) => {
             if (_ === null) {
               return _;
             }

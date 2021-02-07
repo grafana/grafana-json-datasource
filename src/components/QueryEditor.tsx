@@ -157,14 +157,14 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
                 { label: 'GET', value: 'GET' },
                 { label: 'POST', value: 'POST' },
               ]}
-              onChange={v => onMethodChange(v.value ?? 'GET')}
+              onChange={(v) => onMethodChange(v.value ?? 'GET')}
             />
           </InlineField>
           <InlineField grow>
             <Input
               placeholder="/orders/${orderId}"
               value={query.urlPath}
-              onChange={e => onChange({ ...query, urlPath: e.currentTarget.value })}
+              onChange={(e) => onChange({ ...query, urlPath: e.currentTarget.value })}
             />
           </InlineField>
         </InlineFieldRow>
@@ -202,7 +202,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
             <InlineField label="Syntax highlighting">
               <RadioButtonGroup
                 value={bodyType}
-                onChange={v => setBodyType(v ?? 'plaintext')}
+                onChange={(v) => setBodyType(v ?? 'plaintext')}
                 options={[
                   { label: 'Text', value: 'plaintext' },
                   { label: 'JSON', value: 'json' },
@@ -244,7 +244,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
       <InlineFieldRow>
         <InlineField>
           <RadioButtonGroup
-            onChange={e => setTabIndex(e ?? 0)}
+            onChange={(e) => setTabIndex(e ?? 0)}
             value={tabIndex}
             options={tabs.map((tab, idx) => ({ label: tab.title, value: idx }))}
           />
@@ -255,7 +255,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
         >
           <Segment
             value={{ label: formatCacheTimeLabel(query.cacheDurationSeconds), value: query.cacheDurationSeconds }}
-            options={[0, 5, 10, 30, 60, 60 * 2, 60 * 5, 60 * 10, 60 * 30, 3600, 3600 * 2, 3600 * 5].map(value => ({
+            options={[0, 5, 10, 30, 60, 60 * 2, 60 * 5, 60 * 10, 60 * 30, 3600, 3600 * 2, 3600 * 5].map((value) => ({
               label: formatCacheTimeLabel(value),
               value,
               description: value ? '' : 'Response is not cached at all',
@@ -265,12 +265,15 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
         </InlineField>
       </InlineFieldRow>
       {query.method === 'GET' && query.body && (
-        <InfoBox severity="warning">GET requests can't have a body. The body you've defined will be ignored.</InfoBox>
-      )}
-      {(query.headers ?? []).map(([key, _]) => key.toLowerCase()).find(_ => sensitiveHeaders.includes(_)) && (
         <InfoBox severity="warning">
-          It looks like you're adding credentials in the header. Since queries are stored unencrypted, it's strongly
-          recommended that you add any secrets to the data source config instead.
+          {"GET requests can't have a body. The body you've defined will be ignored."}
+        </InfoBox>
+      )}
+      {(query.headers ?? []).map(([key, _]) => key.toLowerCase()).find((_) => sensitiveHeaders.includes(_)) && (
+        <InfoBox severity="warning">
+          {
+            "It looks like you're adding credentials in the header. Since queries are stored unencrypted, it's strongly recommended that you add any secrets to the data source config instead."
+          }
         </InfoBox>
       )}
       {tabs[tabIndex].content}
