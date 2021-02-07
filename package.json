@@ -1,7 +1,12 @@
 {
   "name": "marcusolsson-json-datasource",
   "version": "0.9.2",
-  "description": "A data source plugin for loading JSON APIs into Grafana.",
+  "description": "A data source plugin for loading JSON APIs into Grafana",
+  "keywords": [
+    "grafana",
+    "json"
+  ],
+  "license": "Apache-2.0",
   "scripts": {
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
@@ -9,8 +14,19 @@
     "watch": "grafana-toolkit plugin:dev --watch",
     "sign": "grafana-toolkit plugin:sign"
   },
-  "author": "Marcus Olsson",
-  "license": "Apache-2.0",
+  "homepage": "https://grafana.com/plugins/marcusolsson-json-datasource",
+  "bugs": "https://github.com/marcusolsson/grafana-json-datasource/issues",
+  "repository": "github:marcusolsson/grafana-json-datasource",
+  "author": {
+    "name": "Marcus Olsson",
+    "email": "marcus.olsson@hey.com",
+    "url": "https://marcus.se.net"
+  },
+  "dependencies": {
+    "date-fns": "^2.16.1",
+    "jsonpath-plus": "^4.0.0",
+    "memory-cache": "^0.2.0"
+  },
   "devDependencies": {
     "@grafana/data": "^7.3.0",
     "@grafana/runtime": "^7.3.0",
@@ -26,10 +42,5 @@
   },
   "engines": {
     "node": ">=14"
-  },
-  "dependencies": {
-    "date-fns": "^2.16.1",
-    "jsonpath-plus": "^4.0.0",
-    "memory-cache": "^0.2.0"
   }
 }
