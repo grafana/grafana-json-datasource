@@ -12,18 +12,60 @@ import {
   FieldType,
   ScopedVars,
   TimeRange,
+  LanguageProvider,
 } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
 
 import API from './api';
 import { JsonApiQuery, JsonApiDataSourceOptions, Pair } from './types';
+import { JsonPathLanguageProvider } from './languageProvider';
 
-export class DataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
+export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
+  languageProvider: LanguageProvider;
   api: API;
 
   constructor(instanceSettings: DataSourceInstanceSettings<JsonApiDataSourceOptions>) {
     super(instanceSettings);
+
     this.api = new API(instanceSettings.url!, instanceSettings.jsonData.queryParams || '');
+    this.languageProvider = new JsonPathLanguageProvider(this);
+  }
+
+  async metadataRequest(query: JsonApiQuery, range?: TimeRange) {
+    const scopedVars = {};
+    const templateSrv = getTemplateSrv();
+
+    const replaceMacros = (str: string) => {
+      return range
+        ? str
+            .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
+            .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
+        : str;
+    };
+
+    const urlPathTreated = templateSrv.replace(query.urlPath, scopedVars);
+    const bodyTreated = templateSrv.replace(query.body, scopedVars);
+
+    const paramsTreated: Array<Pair<string, string>> = (query.params ?? []).map(([key, value]) => {
+      const keyTreated = replaceMacros(templateSrv.replace(key, scopedVars));
+      const valueTreated = replaceMacros(templateSrv.replace(value, scopedVars));
+      return [keyTreated, valueTreated];
+    });
+
+    const headersTreated: Array<Pair<string, string>> = (query.headers ?? []).map(([key, value]) => {
+      const keyTreated = templateSrv.replace(key, scopedVars);
+      const valueTreated = templateSrv.replace(value, scopedVars);
+      return [keyTreated, valueTreated];
+    });
+
+    return await this.api.cachedGet(
+      query.cacheDurationSeconds,
+      query.method,
+      urlPathTreated,
+      paramsTreated,
+      headersTreated,
+      bodyTreated
+    );
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {

@@ -12,13 +12,14 @@ import {
   useTheme,
   InfoBox,
 } from '@grafana/ui';
-import { SelectableValue, FieldType } from '@grafana/data';
+import { SelectableValue, FieldType, TimeRange } from '@grafana/data';
 import { JsonApiQuery, defaultQuery } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
 import { KeyValueEditor } from './KeyValueEditor';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { css } from 'emotion';
 import { Pair } from '../types';
+import { JsonDataSource } from 'datasource';
 
 // type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
 
@@ -27,9 +28,20 @@ interface Props {
   onChange: (query: JsonApiQuery) => void;
   query: JsonApiQuery;
   limitFields?: number;
+  datasource: JsonDataSource;
+  range?: TimeRange;
+  disableSuggestions: boolean;
 }
 
-export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limitFields }) => {
+export const QueryEditor: React.FC<Props> = ({
+  onRunQuery,
+  onChange,
+  query,
+  limitFields,
+  datasource,
+  range,
+  disableSuggestions,
+}) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
@@ -111,7 +123,15 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
                 }
                 grow
               >
-                <JsonPathQueryField onBlur={onRunQuery} onChange={onChangePath(index)} query={field.jsonPath} />
+                <JsonPathQueryField
+                  datasource={datasource}
+                  onBlur={onRunQuery}
+                  onChange={onChangePath(index)}
+                  query={field.jsonPath}
+                  context={query}
+                  timeRange={range}
+                  suggestions={!disableSuggestions}
+                />
               </InlineField>
               <InlineField
                 label="Type"

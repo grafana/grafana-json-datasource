@@ -1,3 +1,5 @@
+import { TimeRange } from '@grafana/data';
+import { JsonDataSource } from 'datasource';
 import React, { useState } from 'react';
 import { JsonApiQuery } from '../types';
 import { QueryEditor } from './QueryEditor';
@@ -5,10 +7,15 @@ import { QueryEditor } from './QueryEditor';
 interface VariableQueryProps {
   query: JsonApiQuery;
   onChange: (query: JsonApiQuery, definition: string) => void;
+  datasource: JsonDataSource;
+  range: TimeRange;
+  disableSuggestions: boolean;
 }
 
 // VariableQueryEditor is used to query values for a dashboard variable.
-export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, query }) => {
+export const VariableQueryEditor: React.FC<VariableQueryProps> = (props) => {
+  const { query, onChange } = props;
+
   // Backwards compatibility with previous query editor for variables.
   const compatQuery = query.jsonPath ? { ...query, fields: [{ jsonPath: query.jsonPath }] } : query;
 
@@ -20,5 +27,5 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = ({ onChange, qu
     }
   };
 
-  return <QueryEditor onRunQuery={saveQuery} onChange={setState} query={state} limitFields={1} />;
+  return <QueryEditor {...props} onRunQuery={saveQuery} onChange={setState} query={state} limitFields={1} />;
 };
