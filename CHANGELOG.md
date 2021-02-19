@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 (2021-02-19)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.2...v0.10.0)
+
+### Enhancements
+
+- Add auto-completion to JSON Path queries
+
 ## 0.9.2 (2021-02-03)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.1...v0.9.2)
