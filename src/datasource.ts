@@ -17,17 +17,14 @@ import { getTemplateSrv } from '@grafana/runtime';
 
 import API from './api';
 import { JsonApiQuery, JsonApiDataSourceOptions, Pair } from './types';
-import { JsonPathLanguageProvider } from './languageProvider';
 
 export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
-  languageProvider: JsonPathLanguageProvider;
   api: API;
 
   constructor(instanceSettings: DataSourceInstanceSettings<JsonApiDataSourceOptions>) {
     super(instanceSettings);
 
     this.api = new API(instanceSettings.url!, instanceSettings.jsonData.queryParams || '');
-    this.languageProvider = new JsonPathLanguageProvider(this);
   }
 
   /**

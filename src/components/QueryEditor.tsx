@@ -122,13 +122,11 @@ export const QueryEditor: React.FC<Props> = ({
                 grow
               >
                 <JsonPathQueryField
-                  datasource={datasource}
                   onBlur={onRunQuery}
                   onChange={onChangePath(index)}
                   query={field.jsonPath}
-                  context={query}
-                  timeRange={range}
                   suggestions={!disableSuggestions}
+                  onData={() => datasource.metadataRequest(query, range)}
                 />
               </InlineField>
               <InlineField
