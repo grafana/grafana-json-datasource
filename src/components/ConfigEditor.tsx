@@ -6,7 +6,7 @@ import { JsonApiDataSourceOptions } from '../types';
 
 import {} from '@emotion/core';
 
-interface Props extends DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions> {}
+type Props = DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions>;
 
 /**
  * ConfigEditor lets the user configure connection details like the URL or

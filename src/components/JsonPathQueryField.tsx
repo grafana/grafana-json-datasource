@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { QueryField, SlatePrism, BracesPlugin, TypeaheadInput, TypeaheadOutput } from '@grafana/ui';
-import { JsonPathLanguageProvider } from 'languageProvider';
 import { JsonDataSource } from 'datasource';
 import { JsonApiQuery } from 'types';
 import { TimeRange } from '@grafana/data';
@@ -39,25 +38,15 @@ export const JsonPathQueryField: React.FC<Props> = ({
     }),
   ];
 
-  const jsonPathLanguageProvider = datasource.languageProvider as JsonPathLanguageProvider;
-
-  const cleanText = datasource.languageProvider ? jsonPathLanguageProvider.cleanText : undefined;
-
   const onTypeahead = async (input: TypeaheadInput): Promise<TypeaheadOutput> => {
-    if (!datasource.languageProvider) {
-      return { suggestions: [] };
-    }
-
-    const languageProvider = datasource.languageProvider as JsonPathLanguageProvider;
-
-    return languageProvider.provideCompletionItems(input, context, timeRange);
+    return datasource.languageProvider.getSuggestions(input, context, timeRange);
   };
 
   return (
     <QueryField
       additionalPlugins={plugins}
       query={query}
-      cleanText={cleanText}
+      cleanText={datasource.languageProvider.cleanText}
       onTypeahead={suggestions ? onTypeahead : undefined}
       onRunQuery={onBlur}
       onChange={onChange}

@@ -21,8 +21,6 @@ import { css } from 'emotion';
 import { Pair } from '../types';
 import { JsonDataSource } from 'datasource';
 
-// type Props = QueryEditorProps<DataSource, JsonApiQuery, JsonApiDataSourceOptions>;
-
 interface Props {
   onRunQuery: () => void;
   onChange: (query: JsonApiQuery) => void;

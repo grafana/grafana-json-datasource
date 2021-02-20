@@ -12,7 +12,6 @@ import {
   FieldType,
   ScopedVars,
   TimeRange,
-  LanguageProvider,
 } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
 
@@ -21,7 +20,7 @@ import { JsonApiQuery, JsonApiDataSourceOptions, Pair } from './types';
 import { JsonPathLanguageProvider } from './languageProvider';
 
 export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
-  languageProvider: LanguageProvider;
+  languageProvider: JsonPathLanguageProvider;
   api: API;
 
   constructor(instanceSettings: DataSourceInstanceSettings<JsonApiDataSourceOptions>) {
