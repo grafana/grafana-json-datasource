@@ -75,9 +75,7 @@ export class JsonPathLanguageProvider {
       return emptyResult;
     }
 
-    // Get the actual JSON for parsing.
-    const response = await this.datasource.metadataRequest(context, timeRange);
-
+    // Suggest operators inside brackets.
     if (enterBrackets.test(toCursor)) {
       return {
         suggestions: [
@@ -104,6 +102,9 @@ export class JsonPathLanguageProvider {
     const path = insideBrackets
       ? toCursor.slice(0, toCursor.lastIndexOf('[') + 1) + ':]'
       : currentLine.slice(0, currentLine.lastIndexOf('.'));
+
+    // Get the actual JSON for parsing.
+    const response = await this.datasource.metadataRequest(context, timeRange);
 
     const values = JSONPath({ path, json: response });
 
