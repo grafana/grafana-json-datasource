@@ -30,6 +30,13 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
     this.languageProvider = new JsonPathLanguageProvider(this);
   }
 
+  /**
+   * metadataRequest is used by the language provider to return the JSON
+   * document to generate suggestions for the QueryField.
+   *
+   * This is a custom method and is not part of the DataSourceApi, feel free to
+   * name it as you like.
+   */
   async metadataRequest(query: JsonApiQuery, range?: TimeRange) {
     const scopedVars = {};
     const templateSrv = getTemplateSrv();
