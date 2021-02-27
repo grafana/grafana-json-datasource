@@ -66,7 +66,7 @@ export default class Api {
     headers?: Array<Pair<string, string>>,
     body?: string
   ) {
-    if (cacheDurationSeconds === 0) {
+    if (!cacheDurationSeconds) {
       return await this.get(method, path, params, headers, body);
     }
 
@@ -86,7 +86,7 @@ export default class Api {
 
     const result = await this.get(method, path, params, headers, body);
 
-    this.cache.put(rawUrl, result, Math.max(cacheDurationSeconds * 1000, 1));
+    this.cache.put(rawUrl, result, cacheDurationSeconds * 1000);
 
     return result;
   }
