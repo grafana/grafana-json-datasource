@@ -9,7 +9,6 @@ interface VariableQueryProps {
   onChange: (query: JsonApiQuery, definition: string) => void;
   datasource: JsonDataSource;
   range: TimeRange;
-  disableSuggestions: boolean;
 }
 
 // VariableQueryEditor is used to query values for a dashboard variable.

@@ -12,8 +12,8 @@ import {
   useTheme,
   InfoBox,
 } from '@grafana/ui';
-import { SelectableValue, FieldType, TimeRange } from '@grafana/data';
-import { JsonApiQuery, defaultQuery } from '../types';
+import { SelectableValue, FieldType, QueryEditorProps } from '@grafana/data';
+import { JsonApiQuery, defaultQuery, JsonApiDataSourceOptions } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
 import { KeyValueEditor } from './KeyValueEditor';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -21,25 +21,11 @@ import { css } from 'emotion';
 import { Pair } from '../types';
 import { JsonDataSource } from 'datasource';
 
-interface Props {
-  onRunQuery: () => void;
-  onChange: (query: JsonApiQuery) => void;
-  query: JsonApiQuery;
+interface Props extends QueryEditorProps<JsonDataSource, JsonApiQuery, JsonApiDataSourceOptions> {
   limitFields?: number;
-  datasource: JsonDataSource;
-  range?: TimeRange;
-  disableSuggestions: boolean;
 }
 
-export const QueryEditor: React.FC<Props> = ({
-  onRunQuery,
-  onChange,
-  query,
-  limitFields,
-  datasource,
-  range,
-  disableSuggestions,
-}) => {
+export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limitFields, datasource, range }) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
@@ -77,31 +63,36 @@ export const QueryEditor: React.FC<Props> = ({
   };
 
   const onChangePath = (i: number) => (e: string) => {
-    fields[i] = { ...fields[i], jsonPath: e };
-    onChange({ ...query, fields });
+    onChange({
+      ...query,
+      fields: fields.map((field, n) => (i === n ? { ...fields[i], jsonPath: e } : field)),
+    });
   };
 
   const onChangeType = (i: number) => (e: SelectableValue<string>) => {
-    fields[i] = { ...fields[i], type: (e.value === 'auto' ? undefined : e.value) as FieldType };
-    onChange({ ...query, fields });
+    onChange({
+      ...query,
+      fields: fields.map((field, n) =>
+        i === n ? { ...fields[i], type: (e.value === 'auto' ? undefined : e.value) as FieldType } : field
+      ),
+    });
     onRunQuery();
   };
 
   const addField = (i: number) => () => {
-    console.log(limitFields, fields.length);
     if (!limitFields || fields.length < limitFields) {
-      if (fields) {
-        fields.splice(i + 1, 0, { name: '', jsonPath: '' });
-      }
-      onChange({ ...query, fields });
+      onChange({
+        ...query,
+        fields: [...fields.slice(0, i + 1), { name: '', jsonPath: '' }, ...fields.slice(i + 1)],
+      });
     }
   };
 
   const removeField = (i: number) => () => {
-    if (fields) {
-      fields.splice(i, 1);
-    }
-    onChange({ ...query, fields });
+    onChange({
+      ...query,
+      fields: [...fields.slice(0, i), ...fields.slice(i + 1)],
+    });
     onRunQuery();
   };
 
@@ -125,7 +116,6 @@ export const QueryEditor: React.FC<Props> = ({
                   onBlur={onRunQuery}
                   onChange={onChangePath(index)}
                   query={field.jsonPath}
-                  suggestions={!disableSuggestions}
                   onData={() => datasource.metadataRequest(query, range)}
                 />
               </InlineField>
