@@ -1,6 +1,6 @@
 {
   "name": "marcusolsson-json-datasource",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "A data source plugin for loading JSON APIs into Grafana",
   "keywords": [
     "grafana",

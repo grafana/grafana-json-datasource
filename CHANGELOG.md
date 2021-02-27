@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.0 (2021-02-27)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.10.0...v0.10.1)
+
+### Bug fixes
+
+- Undefined cache duration isn't handled
+- Query editor tries to update read only property
+
 ## 0.10.0 (2021-02-19)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.2...v0.10.0)
