@@ -28,10 +28,10 @@
     "memory-cache": "^0.2.0"
   },
   "devDependencies": {
-    "@grafana/data": "^7.3.0",
-    "@grafana/runtime": "^7.3.0",
-    "@grafana/toolkit": "^7.3.0",
-    "@grafana/ui": "^7.3.0",
+    "@grafana/data": "latest",
+    "@grafana/runtime": "latest",
+    "@grafana/toolkit": "latest",
+    "@grafana/ui": "latest",
     "@testing-library/jest-dom": "5.4.0",
     "@testing-library/react": "^10.0.2",
     "@types/jsonpath": "^0.2.0",
