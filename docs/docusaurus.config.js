@@ -1,6 +1,6 @@
 module.exports = {
-  url: 'https://github.com/marcusolsson/grafana-json-datasource',
-  baseUrl: '/',
+  url: 'https://marcusolsson.github.io',
+  baseUrl: '/grafana-json-datasource/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
