@@ -41,6 +41,10 @@ module.exports = {
               label: 'Configuration',
               to: 'configuration/',
             },
+            {
+              label: 'Query editor',
+              to: 'query-editor/',
+            },
           ],
         },
         {
@@ -48,29 +52,35 @@ module.exports = {
           items: [
             {
               label: 'Discussions',
-              href: 'https://github.com/marcusolsson/grafana-json-datasource',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/marcusolsson',
+              href: 'https://github.com/marcusolsson/grafana-json-datasource/discussions',
             },
             {
               label: 'Support',
               href: 'https://github.com/marcusolsson/grafana-json-datasource/discussions/categories/q-a',
             },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/marcusolsson',
+            },
           ],
         },
         {
-          title: 'More',
+          title: 'Data sources',
           items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/marcusolsson/grafana-json-datasource',
-            },
-            {
-              label: 'Marketplace',
-              href: 'https://grafana.com/plugins/marcusolsson-json-datasource',
-            },
+            { label: 'CSV', href: 'https://github.com/marcusolsson/grafana-csv-datasource' },
+            { label: 'JSON API', href: 'https://github.com/marcusolsson/grafana-json-datasource' },
+            { label: 'Static', href: 'https://github.com/marcusolsson/grafana-static-datasource' },
+          ],
+        },
+        {
+          title: 'Panels',
+          items: [
+            { label: 'Calendar', href: 'https://github.com/marcusolsson/grafana-calendar-panel' },
+            { label: 'Dynamic text', href: 'https://github.com/marcusolsson/grafana-dynamictext-panel' },
+            { label: 'Gantt', href: 'https://github.com/marcusolsson/grafana-gantt-panel' },
+            { label: 'Hexmap', href: 'https://github.com/marcusolsson/grafana-hexmap-panel' },
+            { label: 'Hourly heatmap', href: 'https://github.com/marcusolsson/grafana-hourly-heatmap-panel' },
+            { label: 'Treemap', href: 'https://github.com/marcusolsson/grafana-treemap-panel' },
           ],
         },
       ],
