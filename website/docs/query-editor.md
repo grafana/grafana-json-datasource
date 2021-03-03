@@ -18,6 +18,39 @@ The **Fields** tab is where you select the data to extract from the JSON documen
 
   This can be useful in cases where the API returns quoted numbers, e.g. `"price": "3.49"`.
 
+#### `Fields have different lengths`
+
+All fields must return the same number of values. If you get this error it means that one or more of the objects is missing the queried element.
+
+In the following example, the `name` property is present in both object, but `version` isn't.
+
+```json
+{
+  "services": [
+    {
+      "name": "order-api",
+      "version": "1"
+    },
+    {
+      "name": "billing-api"
+    }
+  ]
+}
+```
+
+In the example below, you can see a couple of expressions and their results for the JSON structure in the previous example. Since JSONPath expressions are evaluated individually, Grafana can't tell which version that was missing.
+
+| Expression              | Result                         |
+|-------------------------|--------------------------------|
+| `$.services[*].name`    | `["order-api", "billing-api"]` |
+| `$.services[*].version` | `["1"]`                        |
+
+Depending on your use case, you can use a filter expression to only return items that contain a version:
+
+```json
+$.services[?(@.version)].name
+```
+
 ### Path
 
 ![Path](../static/img/editor-path.png)
@@ -55,3 +88,7 @@ Sets the text to send as a request body.
 - **Syntax highlighting** sets the active syntax for the editor. This is only for visual purposes and doesn't change the actual request.
 
 > **Note:** Due to limitations in modern browsers, Grafana ignores the request body if the HTTP method is set to GET.
+
+### Cache time
+
+By default, Grafana caches the JSON document returned by the last request to avoid hitting rate limits while configuring your query. Once you're happy with your query, consider setting the cache time to **0s** to disable caching.
