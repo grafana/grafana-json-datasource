@@ -1,7 +1,7 @@
 module.exports = {
   title: 'JSON API for Grafana',
   url: 'https://marcusolsson.github.io',
-  baseUrl: '/grafana-json-datasource/',
+  baseUrl: '/grafana-json-datasource',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -83,7 +83,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/marcusolsson/grafana-json-datasource/edit/main/docs/',
+          editUrl: 'https://github.com/marcusolsson/grafana-json-datasource/edit/main/website/',
           routeBasePath: '/',
         },
         theme: {
