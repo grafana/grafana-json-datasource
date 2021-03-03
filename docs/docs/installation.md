@@ -60,25 +60,25 @@ grafana-cli.exe plugins install marcusolsson-json-datasource
      ]}>
      <TabItem value="linux">
 
-       ```
-       unzip marcusolsson-json-datasource-<version>.zip
-       mv marcusolsson-json-datasource /var/lib/grafana/plugins
-       ```
+     ```
+     unzip marcusolsson-json-datasource-<version>.zip
+     mv marcusolsson-json-datasource /var/lib/grafana/plugins
+     ```
 
      </TabItem>
      <TabItem value="macos">
 
-       ```
-       unzip marcusolsson-json-datasource-<version>.zip
-       mv marcusolsson-json-datasource /usr/local/var/lib/grafana/plugins
-       ```
+     ```
+     unzip marcusolsson-json-datasource-<version>.zip
+     mv marcusolsson-json-datasource /usr/local/var/lib/grafana/plugins
+     ```
 
      </TabItem>
      <TabItem value="windows">
 
-       ```
-       Expand-Archive -Path marcusolsson-json-datasource-<version>.zip -DestinationPath C:\grafana\data\plugins
-       ```
+     ```
+     Expand-Archive -Path marcusolsson-json-datasource-<version>.zip -DestinationPath C:\grafana\data\plugins
+     ```
 
      </TabItem>
    </Tabs>

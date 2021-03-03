@@ -1,4 +1,5 @@
 module.exports = {
+  title: 'JSON API for Grafana',
   url: 'https://marcusolsson.github.io',
   baseUrl: '/grafana-json-datasource/',
   onBrokenLinks: 'throw',
