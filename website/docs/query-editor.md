@@ -69,7 +69,9 @@ Add any parameters you'd like to send as part of the query string. For example, 
 
 Both the **Key** and **Value** fields support [variables](https://grafana.com/docs/grafana/latest/variables/).
 
-> **Note:** Any query parameters that have been set by the administrator in the data source configuration has higher priority and overrides the parameters set by the query.
+:::caution
+Any query parameters that have been set by the administrator in the data source configuration has higher priority and overrides the parameters set by the query.
+:::
 
 ### Headers
 
@@ -87,7 +89,9 @@ Sets the text to send as a request body.
 
 - **Syntax highlighting** sets the active syntax for the editor. This is only for visual purposes and doesn't change the actual request.
 
-> **Note:** Due to limitations in modern browsers, Grafana ignores the request body if the HTTP method is set to GET.
+:::info
+Due to limitations in modern browsers, Grafana ignores the request body if the HTTP method is set to GET.
+:::
 
 ### Cache time
 
