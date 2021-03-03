@@ -42,4 +42,4 @@ jobs:
           GIT_USER: git
         run: |
           yarn install
-          yarn deploy
+          npx docusaurus deploy
