@@ -20,7 +20,7 @@ The **Fields** tab is where you select the data to extract from the JSON documen
 
 #### `Fields have different lengths`
 
-All fields must return the same number of values. If you get this error it means that one or more of the objects is missing the queried element.
+All fields must return the same number of values. If you get this error it means that one or more of the objects are missing the queried element.
 
 In the following example, the `name` property is present in both objects, but `version` isn't.
 
