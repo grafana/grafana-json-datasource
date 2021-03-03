@@ -10,9 +10,16 @@ module.exports = {
       items: ['installation', 'configuration'],
     },
     {
-      type: 'category',
-      label: 'Basics',
-      items: ['query-editor', 'macros'],
+      type: 'doc',
+      id: 'query-editor',
+    },
+    {
+      type: 'doc',
+      id: 'macros',
+    },
+    {
+      type: 'doc',
+      id: 'jsonpath',
     },
   ],
 };
