@@ -6,5 +6,5 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://marcusolsson.github.io/blog"/>
     <subtitle>JSON API for Grafana Blog</subtitle>
-    <icon>https://marcusolsson.github.io/img/favicon.ico</icon>
+    <icon>https://marcusolsson.github.io/img/favicon.svg</icon>
 </feed>
