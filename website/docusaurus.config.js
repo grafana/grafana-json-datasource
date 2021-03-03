@@ -4,7 +4,7 @@ module.exports = {
   baseUrl: '/grafana-json-datasource/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
   organizationName: 'marcusolsson', // Usually your GitHub org/user name.
   projectName: 'grafana-json-datasource', // Usually your repo name.
   themeConfig: {
