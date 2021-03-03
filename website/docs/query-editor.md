@@ -55,3 +55,12 @@ Sets the text to send as a request body.
 - **Syntax highlighting** sets the active syntax for the editor. This is only for visual purposes and doesn't change the actual request.
 
 > **Note:** Due to limitations in modern browsers, Grafana ignores the request body if the HTTP method is set to GET.
+
+## Macros
+
+Use macros in your query string and JSON Path queries to add dashboard context to your queries.
+
+| Macro                | Description                                                               |
+|----------------------|---------------------------------------------------------------------------|
+| `$__unixEpochFrom()` | Start of the dashboard time interval as a Unix timestamp, i.e. 1494410783 |
+| `$__unixEpochTo()`   | End of the dashboard time interval as a Unix timestamp, i.e. 1494410783   |
