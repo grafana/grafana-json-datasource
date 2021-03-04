@@ -19,12 +19,16 @@
     },
     "links": [
       {
+        "name": "Documentation",
+        "url": "https://marcusolsson.github.io/grafana-json-datasource"
+      },
+      {
         "name": "Website",
-        "url": "https://github.com/marcusolsson/grafana-jsonapi-datasource"
+        "url": "https://github.com/marcusolsson/grafana-json-datasource"
       },
       {
         "name": "License",
-        "url": "https://github.com/marcusolsson/grafana-jsonapi-datasource/blob/master/LICENSE"
+        "url": "https://github.com/marcusolsson/grafana-json-datasource/blob/main/LICENSE"
       }
     ],
     "screenshots": [
