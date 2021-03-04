@@ -17,6 +17,9 @@
   --ifm-code-font-size: 95%;
 
   --ifm-footer-background-color: #f1f5f9;
+  --ifm-color-info: #5794f2;
+  --ifm-color-warning: #eb7b18;
+  --ifm-color-danger: #e02f44;
 }
 
 html[data-theme='dark'] {
