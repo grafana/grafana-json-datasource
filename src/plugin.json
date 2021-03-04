@@ -5,6 +5,7 @@
   "id": "marcusolsson-json-datasource",
   "metrics": true,
   "logs": true,
+  "annotations": true,
   "info": {
     "description": "A data source plugin for loading JSON APIs into Grafana.",
     "author": {

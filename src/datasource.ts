@@ -89,6 +89,11 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   }
 
   /**
+   * This line adds support for annotation queries in >=7.2.
+   */
+  annotations = {};
+
+  /**
    * Checks whether we can connect to the API.
    */
   async testDatasource() {
