@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.10.0 (2021-02-27)
+## 1.0.0 (2021-03-04)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.10.1...v1.0.0)
+
+No noteworthy features or bug fixes in this release. Mostly metadata updates.
+
+## 0.10.1 (2021-02-27)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.10.0...v0.10.1)
 
