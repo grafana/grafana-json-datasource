@@ -114,7 +114,7 @@ export default class Api {
       });
 
     const req: BackendSrvRequest = {
-      url: `${this.baseUrl}${path}`,
+      url: encodeURI(this.baseUrl + path),
       method,
       headers: recordHeaders,
     };
