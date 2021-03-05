@@ -15,6 +15,14 @@ module.exports = {
     },
     {
       type: 'doc',
+      id: 'variables',
+    },
+    {
+      type: 'doc',
+      id: 'annotations',
+    },
+    {
+      type: 'doc',
       id: 'macros',
     },
     {
