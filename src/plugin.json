@@ -38,8 +38,12 @@
         "path": "img/screenshot.png"
       },
       {
-        "name": "Query variable",
+        "name": "Variables",
         "path": "img/variable.png"
+      },
+      {
+        "name": "Annotations",
+        "path": "img/annotations.png"
       }
     ],
     "version": "%VERSION%",
