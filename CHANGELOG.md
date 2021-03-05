@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.1 (2021-03-05)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.0.0...v1.0.1)
+
+### Enhancements
+
+- Add annotation support
+
+### Bug fixes
+
+- Can't connect to API when URL contains encoded slash ([#59](https://github.com/marcusolsson/grafana-json-datasource/issues/59))
+
 ## 1.0.0 (2021-03-04)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.10.1...v1.0.0)
