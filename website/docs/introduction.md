@@ -20,7 +20,7 @@ export const Logo= ({ children }) =>(
       style={{
         fontSize: "3rem",
         margin: 0,
-        marginLeft: 8,
+        marginLeft: "1rem",
       }}>
       JSON API
     </h1>
