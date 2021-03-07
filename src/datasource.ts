@@ -35,40 +35,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
    * name it as you like.
    */
   async metadataRequest(query: JsonApiQuery, range?: TimeRange) {
-    const scopedVars = {};
-    const templateSrv = getTemplateSrv();
-
-    const replaceMacros = (str: string) => {
-      return range
-        ? str
-            .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
-            .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
-        : str;
-    };
-
-    const urlPathTreated = templateSrv.replace(query.urlPath, scopedVars);
-    const bodyTreated = templateSrv.replace(query.body, scopedVars);
-
-    const paramsTreated: Array<Pair<string, string>> = (query.params ?? []).map(([key, value]) => {
-      const keyTreated = replaceMacros(templateSrv.replace(key, scopedVars));
-      const valueTreated = replaceMacros(templateSrv.replace(value, scopedVars));
-      return [keyTreated, valueTreated];
-    });
-
-    const headersTreated: Array<Pair<string, string>> = (query.headers ?? []).map(([key, value]) => {
-      const keyTreated = templateSrv.replace(key, scopedVars);
-      const valueTreated = templateSrv.replace(value, scopedVars);
-      return [keyTreated, valueTreated];
-    });
-
-    return await this.api.cachedGet(
-      query.cacheDurationSeconds,
-      query.method,
-      urlPathTreated,
-      paramsTreated,
-      headersTreated,
-      bodyTreated
-    );
+    return this.requestJson(query, replace({}, range));
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
@@ -135,62 +102,30 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   }
 
   async doRequest(query: JsonApiQuery, range?: TimeRange, scopedVars?: ScopedVars) {
-    const templateSrv = getTemplateSrv();
+    const replaceWithVars = replace(scopedVars, range);
 
-    const replaceMacros = (str: string) => {
-      return range
-        ? str
-            .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
-            .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
-        : str;
-    };
+    const json = await this.requestJson(query, replaceWithVars);
 
-    const urlPathTreated = templateSrv.replace(query.urlPath, scopedVars);
-    const bodyTreated = templateSrv.replace(query.body, scopedVars);
-
-    const paramsTreated: Array<Pair<string, string>> = (query.params ?? []).map(([key, value]) => {
-      const keyTreated = replaceMacros(templateSrv.replace(key, scopedVars));
-      const valueTreated = replaceMacros(templateSrv.replace(value, scopedVars));
-      return [keyTreated, valueTreated];
-    });
-
-    const headersTreated: Array<Pair<string, string>> = (query.headers ?? []).map(([key, value]) => {
-      const keyTreated = templateSrv.replace(key, scopedVars);
-      const valueTreated = templateSrv.replace(value, scopedVars);
-      return [keyTreated, valueTreated];
-    });
-
-    const response = await this.api.cachedGet(
-      query.cacheDurationSeconds,
-      query.method,
-      urlPathTreated,
-      paramsTreated,
-      headersTreated,
-      bodyTreated
-    );
-
-    if (!response) {
+    if (!json) {
       throw new Error('Query returned empty data');
     }
 
     const fields = query.fields
       .filter((field) => field.jsonPath)
       .map((field) => {
-        const jsonPathTreated = replaceMacros(templateSrv.replace(field.jsonPath, scopedVars));
-        const nameTreated = templateSrv.replace(field.name, scopedVars);
-
-        const values = JSONPath({ path: jsonPathTreated, json: response });
+        const path = replaceWithVars(field.jsonPath);
+        const values = JSONPath({ path, json });
 
         // Get the path for automatic setting of the field name.
         //
         // Casted to any due to typing issues with JSONPath-Plus
-        const paths = (JSONPath as any).toPathArray(jsonPathTreated);
+        const paths = (JSONPath as any).toPathArray(path);
 
         const propertyType = field.type ? field.type : detectFieldType(values);
         const typedValues = parseValues(values, propertyType);
 
         return {
-          name: nameTreated || paths[paths.length - 1],
+          name: paths[paths.length - 1],
           type: propertyType,
           values: typedValues,
         };
@@ -210,7 +145,35 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       fields: fields,
     });
   }
+
+  async requestJson(query: JsonApiQuery, interpolate: (text: string) => string) {
+    const interpolateKeyValue = ([key, value]: Pair<string, string>): Pair<string, string> => {
+      return [interpolate(key), interpolate(value)];
+    };
+
+    return await this.api.cachedGet(
+      query.cacheDurationSeconds,
+      query.method,
+      interpolate(query.urlPath),
+      (query.params ?? []).map(interpolateKeyValue),
+      (query.headers ?? []).map(interpolateKeyValue),
+      interpolate(query.body)
+    );
+  }
 }
+
+const replace = (scopedVars?: any, range?: TimeRange) => (str: string): string => {
+  return replaceMacros(getTemplateSrv().replace(str, scopedVars), range);
+};
+
+// replaceMacros substitutes all available macros with their current value.
+const replaceMacros = (str: string, range?: TimeRange) => {
+  return range
+    ? str
+        .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
+        .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
+    : str;
+};
 
 /**
  * Detects the field type from an array of values.
