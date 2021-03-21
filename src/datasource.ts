@@ -39,7 +39,9 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
-    const promises = request.targets.map((query) => this.doRequest(query, request.range, request.scopedVars));
+    const promises = request.targets
+      .filter((query) => !query.hide)
+      .map((query) => this.doRequest(query, request.range, request.scopedVars));
 
     // Wait for all queries to finish before returning the result.
     return Promise.all(promises).then((data) => ({ data }));
