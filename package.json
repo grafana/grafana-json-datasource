@@ -23,9 +23,9 @@
     "url": "https://marcus.se.net"
   },
   "dependencies": {
-    "date-fns": "^2.16.1",
     "jsonpath-plus": "^4.0.0",
-    "memory-cache": "^0.2.0"
+    "memory-cache": "^0.2.0",
+    "dayjs": "^1.10.4"
   },
   "devDependencies": {
     "@grafana/data": "latest",

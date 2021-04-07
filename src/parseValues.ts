@@ -1,5 +1,5 @@
-import { parseISO } from 'date-fns';
 import { FieldType } from '@grafana/data';
+import dayjs from 'dayjs';
 
 /**
  * parseValues converts values to the given field type.
@@ -11,7 +11,7 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
       // epoch in milliseconds.
 
       if (values.filter((_) => _).every((value) => typeof value === 'string')) {
-        return values.map((_) => (_ !== null ? parseISO(_).valueOf() : _));
+        return values.map((_) => (_ !== null ? dayjs(_).valueOf() : _));
       }
 
       if (values.filter((_) => _).every((value) => typeof value === 'number')) {
