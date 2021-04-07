@@ -1,4 +1,4 @@
-import { detectFieldType } from './datasource';
+import { detectFieldType } from './detectFieldType';
 
 test('years and months gets parsed as string to reduce false positives', () => {
   expect(detectFieldType(['2005', '2006'])).toStrictEqual('string');
@@ -7,6 +7,14 @@ test('years and months gets parsed as string to reduce false positives', () => {
 
 test('iso8601 date without time zone gets parsed as time', () => {
   expect(detectFieldType(['2005-01-02', '2006-01-02'])).toStrictEqual('time');
+});
+
+test('unix epoch in seconds gets parsed as number', () => {
+  expect(detectFieldType([1617774880])).toStrictEqual('number');
+});
+
+test('unix epoch in milliseconds gets parsed as number', () => {
+  expect(detectFieldType([1617774880000])).toStrictEqual('number');
 });
 
 test('iso8601 gets parsed as time', () => {

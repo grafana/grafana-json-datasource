@@ -1,5 +1,5 @@
 import { FieldType } from '@grafana/data';
-import { parseValues } from './datasource';
+import { parseValues } from './parseValues';
 
 test('parse numbers', () => {
   const values = [2005, 2006];
