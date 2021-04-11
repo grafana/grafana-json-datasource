@@ -37,7 +37,7 @@ export default class Api {
       paramsData[key] = value;
     });
 
-    const response = await this._request(method, path, paramsData, headers, body);
+    const response = this._request(method, path, paramsData, headers, body);
 
     return (await response.toPromise()).data;
   }
@@ -70,23 +70,28 @@ export default class Api {
       return await this.get(method, path, params, headers, body);
     }
 
-    const rawUrl = this.baseUrl + path;
+    let cacheKey = this.baseUrl + path;
 
-    const force = this.lastCacheDuration !== cacheDurationSeconds;
-
-    if (force) {
-      this.cache.del(rawUrl);
+    if (params && Object.keys(params).length > 0) {
+      cacheKey =
+        cacheKey +
+        (cacheKey.search(/\?/) >= 0 ? '&' : '?') +
+        params.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
     }
 
-    const cachedItem = this.cache.get(rawUrl);
-    if (cachedItem && !force) {
-      return Promise.resolve(cachedItem);
+    if (this.lastCacheDuration !== cacheDurationSeconds) {
+      this.cache.del(cacheKey);
     }
     this.lastCacheDuration = cacheDurationSeconds;
 
+    const cachedItem = this.cache.get(cacheKey);
+    if (cachedItem) {
+      return Promise.resolve(cachedItem);
+    }
+
     const result = await this.get(method, path, params, headers, body);
 
-    this.cache.put(rawUrl, result, cacheDurationSeconds * 1000);
+    this.cache.put(cacheKey, result, cacheDurationSeconds * 1000);
 
     return result;
   }
