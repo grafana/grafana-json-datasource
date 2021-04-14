@@ -29,5 +29,9 @@ module.exports = {
       type: 'doc',
       id: 'jsonpath',
     },
+    {
+      type: 'doc',
+      id: 'troubleshooting',
+    },
   ],
 };
