@@ -13,7 +13,7 @@ import {
   InfoBox,
 } from '@grafana/ui';
 import { SelectableValue, FieldType, QueryEditorProps } from '@grafana/data';
-import { JsonApiQuery, defaultQuery, JsonApiDataSourceOptions } from '../types';
+import { JsonApiQuery, JsonApiDataSourceOptions, defaultQuery } from '../types';
 import { JsonPathQueryField } from './JsonPathQueryField';
 import { KeyValueEditor } from './KeyValueEditor';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -21,28 +21,19 @@ import { css } from 'emotion';
 import { Pair } from '../types';
 import { JsonDataSource } from 'datasource';
 
+// Display a warning message when user adds any of the following headers.
+const sensitiveHeaders = ['authorization', 'proxy-authorization', 'x-api-key'];
+
 interface Props extends QueryEditorProps<JsonDataSource, JsonApiQuery, JsonApiDataSourceOptions> {
   limitFields?: number;
 }
 
-export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limitFields, datasource, range }) => {
+export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields, datasource, range, ...props }) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
 
-  const { fields } = defaults(query, { ...defaultQuery, fields: [{ name: '', jsonPath: '' }] }) as JsonApiQuery;
-
-  // Display a warning message when user adds any of the following headers.
-  const sensitiveHeaders = ['authorization', 'proxy-authorization', 'x-api-key'];
-
-  const params: Array<Pair<string, string>> = query.params ?? [];
-
-  // Backwards-compatibility with old queryString property.
-  if (!query.params) {
-    new URLSearchParams('?' + query.queryParams).forEach((value: string, key: string) => {
-      params.push([key, value]);
-    });
-  }
+  const query = defaults(props.query, defaultQuery);
 
   const onMethodChange = (method: string) => {
     onChange({ ...query, method });
@@ -56,20 +47,25 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
 
   const onParamsChange = (params: Array<Pair<string, string>>) => {
     onChange({ ...query, params });
+    onRunQuery();
   };
 
   const onHeadersChange = (headers: Array<Pair<string, string>>) => {
     onChange({ ...query, headers });
+    onRunQuery();
   };
 
   const onChangePath = (i: number) => (e: string) => {
+    const { fields } = query;
     onChange({
       ...query,
       fields: fields.map((field, n) => (i === n ? { ...fields[i], jsonPath: e } : field)),
     });
+    onRunQuery();
   };
 
   const onChangeType = (i: number) => (e: SelectableValue<string>) => {
+    const { fields } = query;
     onChange({
       ...query,
       fields: fields.map((field, n) =>
@@ -80,15 +76,18 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
   };
 
   const addField = (i: number) => () => {
+    const { fields } = query;
     if (!limitFields || fields.length < limitFields) {
       onChange({
         ...query,
         fields: [...fields.slice(0, i + 1), { name: '', jsonPath: '' }, ...fields.slice(i + 1)],
       });
+      onRunQuery();
     }
   };
 
   const removeField = (i: number) => () => {
+    const { fields } = query;
     onChange({
       ...query,
       fields: [...fields.slice(0, i), ...fields.slice(i + 1)],
@@ -99,8 +98,8 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
   const tabs = [
     {
       title: 'Fields',
-      content: fields
-        ? fields.map((field, index) => (
+      content: query.fields
+        ? query.fields.map((field, index) => (
             <InlineFieldRow key={index}>
               <InlineField
                 label="Field"
@@ -137,13 +136,13 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
                 />
               </InlineField>
 
-              {(!limitFields || fields.length < limitFields) && (
+              {(!limitFields || query.fields.length < limitFields) && (
                 <a className="gf-form-label" onClick={addField(index)}>
                   <Icon name="plus" />
                 </a>
               )}
 
-              {fields.length > 1 ? (
+              {query.fields.length > 1 ? (
                 <a className="gf-form-label" onClick={removeField(index)}>
                   <Icon name="minus" />
                 </a>
@@ -182,7 +181,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
         <KeyValueEditor
           addRowLabel={'Add param'}
           columns={['Key', 'Value']}
-          values={params ?? []}
+          values={query.params ?? []}
           onChange={onParamsChange}
           onBlur={() => onRunQuery()}
         />
@@ -287,9 +286,7 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, query, limi
   );
 };
 
-const defaultCacheDuration = 300;
-
-export const formatCacheTimeLabel = (s: number = defaultCacheDuration) => {
+export const formatCacheTimeLabel = (s: number) => {
   if (s < 60) {
     return s + 's';
   } else if (s < 3600) {

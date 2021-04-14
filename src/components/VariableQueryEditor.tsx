@@ -1,6 +1,6 @@
 import { TimeRange } from '@grafana/data';
 import { JsonDataSource } from 'datasource';
-import React, { useState } from 'react';
+import React from 'react';
 import { JsonApiQuery } from '../types';
 import { QueryEditor } from './QueryEditor';
 
@@ -15,16 +15,11 @@ interface VariableQueryProps {
 export const VariableQueryEditor: React.FC<VariableQueryProps> = (props) => {
   const { query, onChange } = props;
 
-  // Backwards compatibility with previous query editor for variables.
-  const compatQuery = query.jsonPath ? { ...query, fields: [{ jsonPath: query.jsonPath }] } : query;
-
-  const [state, setState] = useState<JsonApiQuery>(compatQuery);
-
-  const saveQuery = () => {
-    if (state && state.fields[0].jsonPath) {
-      onChange(state, state.fields[0].jsonPath);
+  const saveQuery = (newQuery: JsonApiQuery) => {
+    if (newQuery) {
+      onChange(newQuery, newQuery.fields[0].jsonPath);
     }
   };
 
-  return <QueryEditor {...props} onRunQuery={saveQuery} onChange={setState} query={state} limitFields={1} />;
+  return <QueryEditor {...props} onRunQuery={() => {}} onChange={saveQuery} query={query} limitFields={1} />;
 };

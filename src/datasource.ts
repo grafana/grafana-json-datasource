@@ -54,7 +54,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
    */
   async metricFindQuery?(query: JsonApiQuery): Promise<MetricFindValue[]> {
     const frame = await this.doRequest(query);
-    return frame.fields[0].values.toArray().map((_) => ({ text: _ }));
+    return frame.fields.length > 0 ? frame.fields[0].values.toArray().map((_) => ({ text: _ })) : [];
   }
 
   /**

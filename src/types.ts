@@ -27,6 +27,7 @@ export const defaultQuery: Partial<JsonApiQuery> = {
   method: 'GET',
   queryParams: '',
   urlPath: '',
+  fields: [{ jsonPath: '' }],
 };
 
 export interface JsonApiDataSourceOptions extends DataSourceJsonData {
