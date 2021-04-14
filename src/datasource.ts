@@ -10,6 +10,9 @@ import {
   MetricFindValue,
   ScopedVars,
   TimeRange,
+  DataFrame,
+  Field,
+  ArrayVector,
 } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
 
@@ -39,12 +42,14 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
-    const promises = request.targets
+    const promises = await request.targets
       .filter((query) => !query.hide)
-      .map((query) => this.doRequest(query, request.range, request.scopedVars));
+      .flatMap((query) => this.doRequest(query, request.range, request.scopedVars));
+
+    const res: DataFrame[][] = await Promise.all(promises);
 
     // Wait for all queries to finish before returning the result.
-    return Promise.all(promises).then((data) => ({ data }));
+    return { data: res.flatMap((frames) => frames) };
   }
 
   /**
@@ -53,7 +58,8 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
    * @param query
    */
   async metricFindQuery?(query: JsonApiQuery): Promise<MetricFindValue[]> {
-    const frame = await this.doRequest(query);
+    const frames = await this.doRequest(query);
+    const frame = frames[0];
     return frame.fields.length > 0 ? frame.fields[0].values.toArray().map((_) => ({ text: _ })) : [];
   }
 
@@ -103,7 +109,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
     }
   }
 
-  async doRequest(query: JsonApiQuery, range?: TimeRange, scopedVars?: ScopedVars) {
+  async doRequest(query: JsonApiQuery, range?: TimeRange, scopedVars?: ScopedVars): Promise<DataFrame[]> {
     const replaceWithVars = replace(scopedVars, range);
 
     const json = await this.requestJson(query, replaceWithVars);
@@ -141,11 +147,24 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Fields have different lengths');
     }
 
-    return toDataFrame({
-      name: query.refId,
-      refId: query.refId,
-      fields: fields,
-    });
+    if (query.groupByField) {
+      return groupBy(
+        toDataFrame({
+          name: query.refId,
+          refId: query.refId,
+          fields: fields,
+        }),
+        query.groupByField
+      );
+    }
+
+    return [
+      toDataFrame({
+        name: query.refId,
+        refId: query.refId,
+        fields: fields,
+      }),
+    ];
   }
 
   async requestJson(query: JsonApiQuery, interpolate: (text: string) => string) {
@@ -175,4 +194,38 @@ const replaceMacros = (str: string, range?: TimeRange) => {
         .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
         .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
     : str;
+};
+
+export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
+  const groupByField = frame.fields.find((field) => field.name === fieldName);
+  if (!groupByField) {
+    return [frame];
+  }
+
+  const uniqueValues = new Set<string>(groupByField.values.toArray());
+
+  const frames = [...uniqueValues].map((groupByValue) => {
+    const fields: Field[] = frame.fields
+      // Skip the field we're grouping on.
+      .filter((field) => field.name !== groupByField.name)
+      .map((field) => ({
+        ...field,
+        config: {
+          // displayNameFromDS: groupByValue,
+        },
+        values: new ArrayVector(
+          field.values.toArray().filter((_, idx) => {
+            return groupByField.values.get(idx) === groupByValue;
+          })
+        ),
+      }));
+
+    return toDataFrame({
+      name: groupByValue,
+      refId: frame.refId,
+      fields,
+    });
+  });
+
+  return frames;
 };

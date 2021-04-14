@@ -20,6 +20,9 @@ export interface JsonApiQuery extends DataQuery {
 
   // Keep for backwards compatibility with older version of variables query editor.
   jsonPath?: string;
+
+  // Experimental
+  groupByField?: string;
 }
 
 export const defaultQuery: Partial<JsonApiQuery> = {

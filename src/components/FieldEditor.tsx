@@ -27,16 +27,12 @@ export const FieldEditor = ({ value, onChange, limit, onComplete }: Props) => {
 
   const addField = (i: number) => () => {
     if (!limit || value.length < limit) {
-      onChange({
-        fields: [...value.slice(0, i + 1), { name: '', jsonPath: '' }, ...value.slice(i + 1)],
-      });
+      onChange([...value.slice(0, i + 1), { name: '', jsonPath: '' }, ...value.slice(i + 1)]);
     }
   };
 
   const removeField = (i: number) => () => {
-    onChange({
-      fields: [...value.slice(0, i), ...value.slice(i + 1)],
-    });
+    onChange([...value.slice(0, i), ...value.slice(i + 1)]);
   };
 
   return (

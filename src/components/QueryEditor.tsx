@@ -10,6 +10,7 @@ import { Pair } from '../types';
 import { JsonDataSource } from 'datasource';
 import { FieldEditor } from './FieldEditor';
 import { PathEditor } from './PathEditor';
+import { ExperimentalEditor } from './ExperimentalEditor';
 
 // Display a warning message when user adds any of the following headers.
 const sensitiveHeaders = ['authorization', 'proxy-authorization', 'x-api-key'];
@@ -140,6 +141,10 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields
           </InlineFieldRow>
         </>
       ),
+    },
+    {
+      title: 'Experimental',
+      content: <ExperimentalEditor query={query} onChange={onChange} onRunQuery={onRunQuery} />,
     },
   ];
 
