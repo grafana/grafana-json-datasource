@@ -1,7 +1,6 @@
 import defaults from 'lodash/defaults';
 import React, { useState } from 'react';
 import {
-  Icon,
   InlineFieldRow,
   InlineField,
   Segment,
@@ -12,14 +11,14 @@ import {
   useTheme,
   InfoBox,
 } from '@grafana/ui';
-import { SelectableValue, FieldType, QueryEditorProps } from '@grafana/data';
+import { QueryEditorProps } from '@grafana/data';
 import { JsonApiQuery, JsonApiDataSourceOptions, defaultQuery } from '../types';
-import { JsonPathQueryField } from './JsonPathQueryField';
 import { KeyValueEditor } from './KeyValueEditor';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { css } from 'emotion';
 import { Pair } from '../types';
 import { JsonDataSource } from 'datasource';
+import { FieldEditor } from './FieldEditor';
 
 // Display a warning message when user adds any of the following headers.
 const sensitiveHeaders = ['authorization', 'proxy-authorization', 'x-api-key'];
@@ -55,101 +54,20 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields
     onRunQuery();
   };
 
-  const onChangePath = (i: number) => (e: string) => {
-    const { fields } = query;
-    onChange({
-      ...query,
-      fields: fields.map((field, n) => (i === n ? { ...fields[i], jsonPath: e } : field)),
-    });
-    onRunQuery();
-  };
-
-  const onChangeType = (i: number) => (e: SelectableValue<string>) => {
-    const { fields } = query;
-    onChange({
-      ...query,
-      fields: fields.map((field, n) =>
-        i === n ? { ...fields[i], type: (e.value === 'auto' ? undefined : e.value) as FieldType } : field
-      ),
-    });
-    onRunQuery();
-  };
-
-  const addField = (i: number) => () => {
-    const { fields } = query;
-    if (!limitFields || fields.length < limitFields) {
-      onChange({
-        ...query,
-        fields: [...fields.slice(0, i + 1), { name: '', jsonPath: '' }, ...fields.slice(i + 1)],
-      });
-      onRunQuery();
-    }
-  };
-
-  const removeField = (i: number) => () => {
-    const { fields } = query;
-    onChange({
-      ...query,
-      fields: [...fields.slice(0, i), ...fields.slice(i + 1)],
-    });
-    onRunQuery();
-  };
-
   const tabs = [
     {
       title: 'Fields',
-      content: query.fields
-        ? query.fields.map((field, index) => (
-            <InlineFieldRow key={index}>
-              <InlineField
-                label="Field"
-                tooltip={
-                  <div>
-                    A <a href="https://goessner.net/articles/JsonPath/">JSON Path</a> query that selects one or more
-                    values from a JSON object.
-                  </div>
-                }
-                grow
-              >
-                <JsonPathQueryField
-                  onBlur={onRunQuery}
-                  onChange={onChangePath(index)}
-                  query={field.jsonPath}
-                  onData={() => datasource.metadataRequest(query, range)}
-                />
-              </InlineField>
-              <InlineField
-                label="Type"
-                tooltip="If Auto is set, the JSON property type is used to detect the field type."
-              >
-                <Select
-                  value={field.type ?? 'auto'}
-                  width={12}
-                  onChange={onChangeType(index)}
-                  options={[
-                    { label: 'Auto', value: 'auto' },
-                    { label: 'String', value: 'string' },
-                    { label: 'Number', value: 'number' },
-                    { label: 'Time', value: 'time' },
-                    { label: 'Boolean', value: 'boolean' },
-                  ]}
-                />
-              </InlineField>
-
-              {(!limitFields || query.fields.length < limitFields) && (
-                <a className="gf-form-label" onClick={addField(index)}>
-                  <Icon name="plus" />
-                </a>
-              )}
-
-              {query.fields.length > 1 ? (
-                <a className="gf-form-label" onClick={removeField(index)}>
-                  <Icon name="minus" />
-                </a>
-              ) : null}
-            </InlineFieldRow>
-          ))
-        : null,
+      content: query.fields && (
+        <FieldEditor
+          value={query.fields}
+          onChange={(value) => {
+            onChange({ ...query, fields: value });
+            onRunQuery();
+          }}
+          limit={limitFields}
+          onComplete={() => datasource.metadataRequest(query, range)}
+        />
+      ),
     },
     {
       title: 'Path',
