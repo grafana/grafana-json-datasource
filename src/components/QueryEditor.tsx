@@ -1,16 +1,6 @@
 import defaults from 'lodash/defaults';
 import React, { useState } from 'react';
-import {
-  InlineFieldRow,
-  InlineField,
-  Segment,
-  Input,
-  Select,
-  RadioButtonGroup,
-  CodeEditor,
-  useTheme,
-  InfoBox,
-} from '@grafana/ui';
+import { InlineFieldRow, InlineField, Segment, RadioButtonGroup, CodeEditor, useTheme, InfoBox } from '@grafana/ui';
 import { QueryEditorProps } from '@grafana/data';
 import { JsonApiQuery, JsonApiDataSourceOptions, defaultQuery } from '../types';
 import { KeyValueEditor } from './KeyValueEditor';
@@ -19,6 +9,7 @@ import { css } from 'emotion';
 import { Pair } from '../types';
 import { JsonDataSource } from 'datasource';
 import { FieldEditor } from './FieldEditor';
+import { PathEditor } from './PathEditor';
 
 // Display a warning message when user adds any of the following headers.
 const sensitiveHeaders = ['authorization', 'proxy-authorization', 'x-api-key'];
@@ -34,10 +25,10 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields
 
   const query = defaults(props.query, defaultQuery);
 
-  const onMethodChange = (method: string) => {
-    onChange({ ...query, method });
-    onRunQuery();
-  };
+  // const onMethodChange = (method: string) => {
+  //   onChange({ ...query, method });
+  //   onRunQuery();
+  // };
 
   const onBodyChange = (body: string) => {
     onChange({ ...query, body });
@@ -72,25 +63,18 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields
     {
       title: 'Path',
       content: (
-        <InlineFieldRow>
-          <InlineField>
-            <Select
-              value={query.method}
-              options={[
-                { label: 'GET', value: 'GET' },
-                { label: 'POST', value: 'POST' },
-              ]}
-              onChange={(v) => onMethodChange(v.value ?? 'GET')}
-            />
-          </InlineField>
-          <InlineField grow>
-            <Input
-              placeholder="/orders/${orderId}"
-              value={query.urlPath}
-              onChange={(e) => onChange({ ...query, urlPath: e.currentTarget.value })}
-            />
-          </InlineField>
-        </InlineFieldRow>
+        <PathEditor
+          method={query.method ?? 'GET'}
+          onMethodChange={(method) => {
+            onChange({ ...query, method });
+            onRunQuery();
+          }}
+          path={query.urlPath ?? ''}
+          onPathChange={(path) => {
+            onChange({ ...query, urlPath: path });
+            onRunQuery();
+          }}
+        />
       ),
     },
     {
@@ -153,9 +137,6 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields
                 />
               )}
             </AutoSizer>
-            {/* <InlineField label="Body" tooltip="foo" grow>
-          <JsonQueryField value={body || ''} onChange={} />
-        </InlineField> */}
           </InlineFieldRow>
         </>
       ),
