@@ -3,7 +3,7 @@ id: annotations
 title: Annotations
 ---
 
-![Annotations](../static/img/annotations.png)
+![Annotations](../static/img/annotation.png)
 
 [Annotations](https://grafana.com/docs/grafana/latest/dashboards/annotations) let you extract data from a data source and use it to annotate a dashboard.
 
