@@ -20,6 +20,14 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
     onRunQuery();
   };
 
+  // Metric
+  const { metricField } = query;
+
+  const onMetricChange = (field?: string) => {
+    onChange({ ...query, metricField: field });
+    onRunQuery();
+  };
+
   // Variable label
   const { variableTextField } = query;
 
@@ -77,6 +85,32 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 value={fieldNames.find((v) => v.value === groupByField)}
                 options={fieldNames}
                 onChange={(value) => onGroupByChange(value?.value)}
+              />
+            </InlineField>
+          </InlineFieldRow>
+          <InlineFieldRow>
+            <InlineField
+              label="Metric"
+              tooltip={
+                <>
+                  <p>{'Set the display name of the selected field to the name of the query result.'}</p>
+                  <a
+                    href="https://github.com/marcusolsson/grafana-json-datasource/issues/36"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Share feedback
+                  </a>
+                </>
+              }
+            >
+              <Select
+                placeholder={'Field'}
+                width={12}
+                isClearable={true}
+                value={fieldNames.find((v) => v.value === metricField)}
+                options={fieldNames}
+                onChange={(value) => onMetricChange(value?.value)}
               />
             </InlineField>
           </InlineFieldRow>

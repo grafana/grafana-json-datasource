@@ -1,6 +1,6 @@
 import { DataQuery, DataSourceJsonData, FieldType } from '@grafana/data';
 
-interface JsonField {
+export interface JsonField {
   name?: string;
   jsonPath: string;
   type?: FieldType;
@@ -23,6 +23,7 @@ export interface JsonApiQuery extends DataQuery {
 
   // Experimental
   groupByField?: string;
+  metricField?: string;
   variableTextField?: string;
   variableValueField?: string;
 }

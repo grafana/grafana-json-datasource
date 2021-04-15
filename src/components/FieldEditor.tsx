@@ -1,15 +1,16 @@
 import React from 'react';
 
 import { SelectableValue, FieldType } from '@grafana/data';
-import { Icon, InlineFieldRow, InlineField, Select } from '@grafana/ui';
+import { Icon, InlineFieldRow, InlineField, Select, Input } from '@grafana/ui';
 
 import { JsonPathQueryField } from './JsonPathQueryField';
+import { JsonField } from 'types';
 
 interface Props {
   limit?: number;
-  onChange: (value: any) => void;
+  onChange: (value: JsonField[]) => void;
   onComplete: () => Promise<any>;
-  value: any[];
+  value: JsonField[];
 }
 
 export const FieldEditor = ({ value, onChange, limit, onComplete }: Props) => {
@@ -23,6 +24,10 @@ export const FieldEditor = ({ value, onChange, limit, onComplete }: Props) => {
         i === n ? { ...value[i], type: (e.value === 'auto' ? undefined : e.value) as FieldType } : field
       )
     );
+  };
+
+  const onAliasChange = (i: number) => (e: any) => {
+    onChange(value.map((field, n) => (i === n ? { ...value[i], name: e.currentTarget.value } : field)));
   };
 
   const addField = (i: number) => () => {
@@ -71,6 +76,9 @@ export const FieldEditor = ({ value, onChange, limit, onComplete }: Props) => {
                 { label: 'Boolean', value: 'boolean' },
               ]}
             />
+          </InlineField>
+          <InlineField label="Alias" tooltip="If left blank, the field uses the name of the queried element.">
+            <Input width={12} value={field.name} onChange={onAliasChange(index)} />
           </InlineField>
 
           {(!limit || value.length < limit) && (

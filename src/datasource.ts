@@ -129,7 +129,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Query returned empty data');
     }
 
-    const fields = query.fields
+    const fields: Field[] = query.fields
       .filter((field) => field.jsonPath)
       .map((field) => {
         const path = replaceWithVars(field.jsonPath);
@@ -144,9 +144,10 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
         const typedValues = parseValues(values, propertyType);
 
         return {
-          name: paths[paths.length - 1],
+          name: field.name || paths[paths.length - 1],
           type: propertyType,
-          values: typedValues,
+          values: new ArrayVector(typedValues),
+          config: {},
         };
       });
 
@@ -158,24 +159,32 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Fields have different lengths');
     }
 
-    if (query.groupByField) {
-      return groupBy(
-        toDataFrame({
-          name: query.refId,
-          refId: query.refId,
-          fields: fields,
-        }),
-        query.groupByField
-      );
-    }
+    const frames = query.groupByField
+      ? groupBy(
+          toDataFrame({
+            name: query.refId,
+            refId: query.refId,
+            fields: fields,
+          }),
+          query.groupByField
+        )
+      : [
+          toDataFrame({
+            name: query.refId,
+            refId: query.refId,
+            fields: fields,
+          }),
+        ];
 
-    return [
-      toDataFrame({
-        name: query.refId,
-        refId: query.refId,
-        fields: fields,
-      }),
-    ];
+    const res = frames.map((frame) => ({
+      ...frame,
+      fields: fields.map(
+        (field: Field): Field =>
+          field.name === query.metricField ? { ...field, config: { displayNameFromDS: frame.name } } : field
+      ),
+    }));
+
+    return res;
   }
 
   async requestJson(query: JsonApiQuery, interpolate: (text: string) => string) {
