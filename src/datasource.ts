@@ -60,7 +60,18 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   async metricFindQuery?(query: JsonApiQuery): Promise<MetricFindValue[]> {
     const frames = await this.doRequest(query);
     const frame = frames[0];
-    return frame.fields.length > 0 ? frame.fields[0].values.toArray().map((_) => ({ text: _ })) : [];
+
+    if (!frame.fields.length) {
+      return [];
+    }
+
+    const labelField = frame.fields.find((field) => field.name === query.variableTextField) ?? frame.fields[0];
+    const valueField = frame.fields.find((field) => field.name === query.variableValueField) ?? labelField;
+
+    return Array.from({ length: frame.length }).map((_, idx) => ({
+      text: labelField.values.get(idx),
+      value: valueField.values.get(idx),
+    }));
   }
 
   /**

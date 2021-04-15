@@ -17,9 +17,18 @@ const sensitiveHeaders = ['authorization', 'proxy-authorization', 'x-api-key'];
 
 interface Props extends QueryEditorProps<JsonDataSource, JsonApiQuery, JsonApiDataSourceOptions> {
   limitFields?: number;
+  editorContext?: string;
 }
 
-export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields, datasource, range, ...props }) => {
+export const QueryEditor: React.FC<Props> = ({
+  onRunQuery,
+  onChange,
+  limitFields,
+  datasource,
+  range,
+  editorContext = 'default',
+  ...props
+}) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
@@ -144,7 +153,9 @@ export const QueryEditor: React.FC<Props> = ({ onRunQuery, onChange, limitFields
     },
     {
       title: 'Experimental',
-      content: <ExperimentalEditor query={query} onChange={onChange} onRunQuery={onRunQuery} />,
+      content: (
+        <ExperimentalEditor query={query} onChange={onChange} onRunQuery={onRunQuery} editorContext={editorContext} />
+      ),
     },
   ];
 

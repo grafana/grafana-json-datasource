@@ -21,5 +21,14 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = (props) => {
     }
   };
 
-  return <QueryEditor {...props} onRunQuery={() => {}} onChange={saveQuery} query={query} limitFields={1} />;
+  return (
+    <QueryEditor
+      {...props}
+      onRunQuery={() => {}}
+      onChange={saveQuery}
+      query={query}
+      limitFields={2}
+      editorContext="variables"
+    />
+  );
 };
