@@ -22,10 +22,10 @@ export interface JsonApiQuery extends DataQuery {
   jsonPath?: string;
 
   // Experimental
-  groupByField?: string;
-  metricField?: string;
-  variableTextField?: string;
-  variableValueField?: string;
+  experimentalGroupByField?: string;
+  experimentalMetricField?: string;
+  experimentalVariableTextField?: string;
+  experimentalVariableValueField?: string;
 }
 
 export const defaultQuery: Partial<JsonApiQuery> = {

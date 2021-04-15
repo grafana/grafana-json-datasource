@@ -13,39 +13,43 @@ interface Props {
 
 export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext }: Props) => {
   // Group by
-  const { groupByField } = query;
+  const { experimentalGroupByField: groupByField } = query;
 
   const onGroupByChange = (field?: string) => {
-    onChange({ ...query, groupByField: field });
+    onChange({ ...query, experimentalGroupByField: field });
     onRunQuery();
   };
 
   // Metric
-  const { metricField } = query;
+  const { experimentalMetricField: metricField } = query;
 
   const onMetricChange = (field?: string) => {
-    onChange({ ...query, metricField: field });
+    onChange({ ...query, experimentalMetricField: field });
     onRunQuery();
   };
 
   // Variable label
-  const { variableTextField } = query;
+  const { experimentalVariableTextField: variableTextField } = query;
 
   const onVariableLabelChange = (field?: string) => {
-    onChange({ ...query, variableTextField: field });
+    onChange({ ...query, experimentalVariableTextField: field });
     onRunQuery();
   };
 
   // Variable value
-  const { variableValueField } = query;
+  const { experimentalVariableValueField: variableValueField } = query;
 
   const onVariableValueChange = (field?: string) => {
-    onChange({ ...query, variableValueField: field });
+    onChange({ ...query, experimentalVariableValueField: field });
     onRunQuery();
   };
 
   const fieldNames = query.fields
     .map((field) => {
+      if (field.name) {
+        return field.name;
+      }
+
       const pathArray = (JSONPath as any).toPathArray(field.jsonPath);
       return pathArray[pathArray.length - 1];
     })

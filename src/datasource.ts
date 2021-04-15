@@ -65,8 +65,9 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       return [];
     }
 
-    const labelField = frame.fields.find((field) => field.name === query.variableTextField) ?? frame.fields[0];
-    const valueField = frame.fields.find((field) => field.name === query.variableValueField) ?? labelField;
+    const labelField =
+      frame.fields.find((field) => field.name === query.experimentalVariableTextField) ?? frame.fields[0];
+    const valueField = frame.fields.find((field) => field.name === query.experimentalVariableValueField) ?? labelField;
 
     return Array.from({ length: frame.length }).map((_, idx) => ({
       text: labelField.values.get(idx),
@@ -159,14 +160,14 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Fields have different lengths');
     }
 
-    const frames = query.groupByField
+    const frames = query.experimentalGroupByField
       ? groupBy(
           toDataFrame({
             name: query.refId,
             refId: query.refId,
             fields: fields,
           }),
-          query.groupByField
+          query.experimentalGroupByField
         )
       : [
           toDataFrame({
@@ -180,7 +181,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       ...frame,
       fields: fields.map(
         (field: Field): Field =>
-          field.name === query.metricField ? { ...field, config: { displayNameFromDS: frame.name } } : field
+          field.name === query.experimentalMetricField ? { ...field, config: { displayNameFromDS: frame.name } } : field
       ),
     }));
 
