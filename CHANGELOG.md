@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.1.0 (2021-04-15)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.0.1...v1.1.0)
+
+This release introduces an Experimental tab to the query editor. This will be used to let users try out features while they're being developed. Each feature has a link the the GitHub issue where you can share you feedback, before the feature is considered stable.
+
+### Enhancements
+
+- Extend variables support to options
+- Don't detect time fields from Unix epoch ([#82](https://github.com/marcusolsson/grafana-json-datasource/issues/82))
+- Add params to cache key ([#85](https://github.com/marcusolsson/grafana-json-datasource/issues/85))
+- Add Experimental section to query editor to test features under development
+- Experimental: Group query results by field ([#36](https://github.com/marcusolsson/grafana-json-datasource/issues/36))
+- Experimental: Set display name for metric fields ([#36](https://github.com/marcusolsson/grafana-json-datasource/issues/36))
+- Experimental: Set optional label for variables ([#79](https://github.com/marcusolsson/grafana-json-datasource/issues/79))
+
+### Bug fixes
+
+- Ignore hidden queries ([#83](https://github.com/marcusolsson/grafana-json-datasource/issues/83))
+- New queries don't use default values
+
 ## 1.0.1 (2021-03-05)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.0.0...v1.0.1)
