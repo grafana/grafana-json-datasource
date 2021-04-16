@@ -185,12 +185,12 @@ export const QueryEditor: React.FC<Props> = ({
         </InlineField>
       </InlineFieldRow>
       {query.method === 'GET' && query.body && (
-        <InfoBox severity="warning">
+        <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
           {"GET requests can't have a body. The body you've defined will be ignored."}
         </InfoBox>
       )}
       {(query.headers ?? []).map(([key, _]) => key.toLowerCase()).find((_) => sensitiveHeaders.includes(_)) && (
-        <InfoBox severity="warning">
+        <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
           {
             "It looks like you're adding credentials in the header. Since queries are stored unencrypted, it's strongly recommended that you add any secrets to the data source config instead."
           }

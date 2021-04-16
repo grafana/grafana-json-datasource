@@ -57,13 +57,17 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
 
   return (
     <>
-      <InfoBox severity="warning">
-        {`The features listed here are experimental. They might change or be removed without notice. In the tooltip for each feature, there's a link to a pull request where you can submit feedback for that feature.`}
+      <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
+        <p>
+          The features listed here are experimental. They might change or be removed without notice. In the tooltip for
+          each feature, there's a link to a pull request where you can submit feedback for that feature.
+        </p>
       </InfoBox>
       {editorContext === 'default' && (
         <>
           <InlineFieldRow>
             <InlineField
+              labelWidth={12}
               label="Group by"
               tooltip={
                 <>
@@ -84,7 +88,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
             >
               <Select
                 placeholder={'Field'}
-                width={12}
+                width={20}
                 isClearable={true}
                 value={fieldNames.find((v) => v.value === groupByField)}
                 options={fieldNames}
@@ -94,6 +98,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
           </InlineFieldRow>
           <InlineFieldRow>
             <InlineField
+              labelWidth={12}
               label="Metric"
               tooltip={
                 <>
@@ -110,7 +115,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
             >
               <Select
                 placeholder={'Field'}
-                width={12}
+                width={20}
                 isClearable={true}
                 value={fieldNames.find((v) => v.value === metricField)}
                 options={fieldNames}
@@ -124,6 +129,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
         <>
           <InlineFieldRow>
             <InlineField
+              labelWidth={15}
               label="Variable text"
               tooltip={
                 <>
@@ -140,7 +146,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
             >
               <Select
                 placeholder={'Field'}
-                width={12}
+                width={20}
                 isClearable={true}
                 value={fieldNames.find((v) => v.value === variableTextField)}
                 options={fieldNames}
@@ -150,6 +156,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
           </InlineFieldRow>
           <InlineFieldRow>
             <InlineField
+              labelWidth={15}
               label="Variable value"
               tooltip={
                 <>
@@ -166,7 +173,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
             >
               <Select
                 placeholder={'Field'}
-                width={12}
+                width={20}
                 isClearable={true}
                 value={fieldNames.find((v) => v.value === variableValueField)}
                 options={fieldNames}
