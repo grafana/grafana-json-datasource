@@ -59,8 +59,8 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
     <>
       <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
         <p>
-          The features listed here are experimental. They might change or be removed without notice. In the tooltip for
-          each feature, there's a link to a pull request where you can submit feedback for that feature.
+          {`The features listed here are experimental. They might change or be removed without notice. In the tooltip for
+          each feature, there's a link to a pull request where you can submit feedback for that feature.`}
         </p>
       </InfoBox>
       {editorContext === 'default' && (
