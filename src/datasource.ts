@@ -179,7 +179,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
 
     const res = frames.map((frame) => ({
       ...frame,
-      fields: fields.map(
+      fields: frame.fields.map(
         (field: Field): Field =>
           field.name === query.experimentalMetricField ? { ...field, config: { displayNameFromDS: frame.name } } : field
       ),
@@ -223,17 +223,14 @@ export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
     return [frame];
   }
 
-  const uniqueValues = new Set<string>(groupByField.values.toArray());
+  const uniqueValues = new Set<string>(groupByField.values.toArray().map((value) => value.toString()));
 
   const frames = [...uniqueValues].map((groupByValue) => {
     const fields: Field[] = frame.fields
       // Skip the field we're grouping on.
-      .filter((field) => field.name !== groupByField.name)
+      .filter((field) => field.name.toString() !== groupByField.name)
       .map((field) => ({
         ...field,
-        config: {
-          // displayNameFromDS: groupByValue,
-        },
         values: new ArrayVector(
           field.values.toArray().filter((_, idx) => {
             return groupByField.values.get(idx) === groupByValue;
