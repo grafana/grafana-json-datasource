@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.1 (2021-04-17)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.1.0...v1.1.1)
+
+### Enhancements
+
+- Improve editor styling
+
+### Bug fixes
+
+- Fix issue where wrong fields were used when grouping
+- Add variable support for aliases
+
 ## 1.1.0 (2021-04-15)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.0.1...v1.1.0)
