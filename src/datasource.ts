@@ -145,7 +145,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
         const typedValues = parseValues(values, propertyType);
 
         return {
-          name: field.name || paths[paths.length - 1],
+          name: replaceWithVars(field.name ?? '') || paths[paths.length - 1],
           type: propertyType,
           values: new ArrayVector(typedValues),
           config: {},
