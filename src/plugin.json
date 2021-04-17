@@ -35,15 +35,7 @@
     "screenshots": [
       {
         "name": "JSON API",
-        "path": "img/screenshot.png"
-      },
-      {
-        "name": "Variables",
-        "path": "img/variable.png"
-      },
-      {
-        "name": "Annotations",
-        "path": "img/annotations.png"
+        "path": "img/product.png"
       }
     ],
     "version": "%VERSION%",
