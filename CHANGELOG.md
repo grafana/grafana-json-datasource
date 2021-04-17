@@ -24,6 +24,7 @@ This release introduces an Experimental tab to the query editor. This will be us
 - Extend variables support to options
 - Don't detect time fields from Unix epoch ([#82](https://github.com/marcusolsson/grafana-json-datasource/issues/82))
 - Add params to cache key ([#85](https://github.com/marcusolsson/grafana-json-datasource/issues/85))
+- Add support for field aliases
 - Add Experimental section to query editor to test features under development
 - Experimental: Group query results by field ([#36](https://github.com/marcusolsson/grafana-json-datasource/issues/36))
 - Experimental: Set display name for metric fields ([#36](https://github.com/marcusolsson/grafana-json-datasource/issues/36))
