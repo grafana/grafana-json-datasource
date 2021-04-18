@@ -15,6 +15,7 @@ The **Fields** tab is where you select the data to extract from the JSON documen
 
 - **Field** must contain a valid [JSONPath](./jsonpath.md) expression and can return one or more elements.
 - **Type** defines the JSON type of the elements returned by the **Field** expression. By default, Grafana uses the types in the JSON document. If **Type** is set to a different type than the original property type, Grafana tries to parse the value.
+- **Alias** overrides the default name of the field.
 
   This can be useful in cases where the API returns quoted numbers, e.g. `"price": "3.49"`.
 
