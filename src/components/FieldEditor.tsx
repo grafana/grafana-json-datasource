@@ -13,7 +13,7 @@ interface Props {
   value: JsonField[];
 }
 
-export const FieldEditor = ({ value, onChange, limit, onComplete }: Props) => {
+export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) => {
   const onChangePath = (i: number) => (e: string) => {
     onChange(value.map((field, n) => (i === n ? { ...value[i], jsonPath: e } : field)));
   };
