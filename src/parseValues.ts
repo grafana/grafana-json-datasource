@@ -28,7 +28,11 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
 
       throw new Error('Unsupported time property');
     case FieldType.string:
-      return values.every((_) => typeof _ === 'string') ? values : values.map((_) => (_ !== null ? _.toString() : _));
+      return values.every((_) => typeof _ === 'string') ? values : values.map((_) => {
+        if(_ === null) return _;
+        else if(typeof(_) === 'object') return JSON.stringify(_);
+        else return _.toString();
+      });
     case FieldType.number:
       return values.every((_) => typeof _ === 'number') ? values : values.map((_) => (_ !== null ? parseFloat(_) : _));
     case FieldType.boolean:
