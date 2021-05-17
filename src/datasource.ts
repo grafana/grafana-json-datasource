@@ -209,11 +209,13 @@ const replace = (scopedVars?: any, range?: TimeRange) => (str: string): string =
 };
 
 // replaceMacros substitutes all available macros with their current value.
-const replaceMacros = (str: string, range?: TimeRange) => {
+export const replaceMacros = (str: string, range?: TimeRange) => {
   return range
     ? str
         .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
         .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
+        .replace(/\$__isoFrom\(\)/g, range.from.toISOString())
+        .replace(/\$__isoTo\(\)/g, range.to.toISOString())
     : str;
 };
 
