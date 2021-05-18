@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/grafana/grafana/raw/master/docs/sources/developers/plugins/plugin.schema.json",
+  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "datasource",
   "name": "JSON API",
   "id": "marcusolsson-json-datasource",
