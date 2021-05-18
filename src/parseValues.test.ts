@@ -70,3 +70,8 @@ test('parse nullable booleans', () => {
   expect(parseValues(values, FieldType.string)).toStrictEqual([null, 'true', 'false']);
   expect(() => parseValues(values, FieldType.time)).toThrow();
 });
+
+test('parse objects', () => {
+  const values = [[1, 2, 3], { '123': 123 }, null];
+  expect(parseValues(values, FieldType.string)).toStrictEqual(['[1,2,3]', '{"123":123}', null]);
+});
