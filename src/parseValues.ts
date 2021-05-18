@@ -31,9 +31,13 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
       return values.every((_) => typeof _ === 'string')
         ? values
         : values.map((_) => {
-            if (_ === null) return _;
-            else if (typeof _ === 'object') return JSON.stringify(_);
-            else return _.toString();
+            if (_ === null) {
+              return _;
+            } else if (typeof _ === 'object') {
+              return JSON.stringify(_);
+            } else {
+              return _.toString();
+            }
           });
     case FieldType.number:
       return values.every((_) => typeof _ === 'number') ? values : values.map((_) => (_ !== null ? parseFloat(_) : _));
