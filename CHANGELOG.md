@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.0 (2021-05-18)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.1.1...v1.2.0)
+
+### Enhancements
+
+- Adding $__isoFrom() and $__isoTo() macros ([#115](https://github.com/marcusolsson/grafana-json-datasource/pull/115)) (thanks [@jirkafajfr](https://github.com/jirkafajfr)!)
+- Using JSON.stringify instead of toString for object types in parseValue ([#111](https://github.com/marcusolsson/grafana-json-datasource/pull/111)) (thanks [@Totalus](https://github.com/Totalus)!)
+
+### Bug fixes
+
+- Fix for macros not running in variable queries ([#100](https://github.com/marcusolsson/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
+
 ## 1.1.1 (2021-04-17)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.1.0...v1.1.1)
