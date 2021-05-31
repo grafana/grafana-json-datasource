@@ -31,7 +31,7 @@ Grafana loads plugins from any directory under the Grafana plugin directory.
 
 By default, Grafana doesn't load unsigned plugins. To load the development build of the plugin, you need to configure Grafana to allow it by adding the following to your Grafana configuration file:
 
-```bash
+```ini
 [plugins]
 allow_loading_unsigned_plugins = marcusolsson-json-datasource
 ```
@@ -71,7 +71,7 @@ For more information about writing documentation using Docusaurus, refer to the 
 
 The individual documentation pages are written in Markdown. You can find them under [website/docs](website/docs).
 
-To preview the documentation site on your local machine, run the following commands in your terminal:
+To preview the documentation site on your local machine, run the following in your terminal:
 
 ```bash
 cd website/docs
