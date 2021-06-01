@@ -1,8 +1,47 @@
 # Contributing
 
-Thank you for your interest in contributing to the plugin! 🙏
+Thank you for your interest in contributing to the plugin! 🙏 This document explains the ways you can contribute the project!
+
+- How do I ...
+  - [Contribute code](#contribute-code)
+  - [Contribute documentation](#contribute-documentation)
+  - [Set up the project](#set-up-the-project)
+
+If you get stuck along the way, feel free to [ask for help](https://github.com/marcusolsson/grafana-json-datasource/discussions/new?category=q-a).
 
 ## Contribute code
+
+To contribute code:
+
+1. Check if there's an already existing issue that describes the reason or motivation behind your pull request.
+2. If there are no issues describing what you want to do, go ahead and [create one](https://github.com/marcusolsson/grafana-json-datasource/issues/new). By creating an issue before you start working on a fix, you can increase the chance of your pull request getting accepted! 💪
+3. Include any [documentation](contribute-documentation) that your changes might need.
+4. Write or update tests to verify that your changes work as expected.
+5. Now you're ready to [open a pull request](https://github.com/marcusolsson/grafana-json-datasource/compare)!
+6. In the description for your pull request, add a line that says `Fixes #123`, where `123` is the number of the issue the pull request fixes.
+
+After you've created the pull request:
+
+- If the maintainer asks for any changes, edit your changes, push, and ask for another review.
+- If the maintainer decides to pass on your pull request, they will thank you for the contribution and explain why they won't be accepting the changes.
+- If your pull request gets accepted, it'll be merged into the main branch soon after. Your contribution will be available in the next release! 🎉
+
+## Contribute documentation
+
+This plugin uses [Docusaurus](https://docusaurus.io/) to build the [documentation](https://marcus.se.net/grafana-json-datasource).
+
+For more information about writing documentation using Docusaurus, refer to the [Docusaurus documentation](https://docusaurus.io/docs/).
+
+The individual documentation pages are written in Markdown. You can find them under [website/docs](website/docs).
+
+To preview the documentation site on your local machine, run the following in your terminal:
+
+```bash
+cd website/docs
+yarn start
+```
+
+## Set up the project
 
 ### Set up the plugin
 
@@ -61,19 +100,4 @@ docker run --rm \
     -e GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=marcusolsson-json-datasource \
     -p 3000:3000 \
     grafana/grafana:8.0.0-beta2
-```
-
-## Contribute documentation
-
-This plugin uses [Docusaurus](https://docusaurus.io/) to build the [documentation](https://marcus.se.net/grafana-json-datasource).
-
-For more information about writing documentation using Docusaurus, refer to the [Docusaurus documentation](https://docusaurus.io/docs/).
-
-The individual documentation pages are written in Markdown. You can find them under [website/docs](website/docs).
-
-To preview the documentation site on your local machine, run the following in your terminal:
-
-```bash
-cd website/docs
-yarn start
 ```
