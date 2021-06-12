@@ -1,10 +1,8 @@
+import { FieldType, SelectableValue } from '@grafana/data';
+import { Icon, InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
 import React from 'react';
-
-import { SelectableValue, FieldType } from '@grafana/data';
-import { Icon, InlineFieldRow, InlineField, Select, Input } from '@grafana/ui';
-
-import { JsonPathQueryField } from './JsonPathQueryField';
 import { JsonField } from 'types';
+import { JsonPathQueryField } from './JsonPathQueryField';
 
 interface Props {
   limit?: number;

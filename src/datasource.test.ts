@@ -1,5 +1,5 @@
+import { dateTime, TimeRange } from '@grafana/data';
 import { replaceMacros } from './datasource';
-import { TimeRange, dateTime } from '@grafana/data';
 
 const sampleTimestampFrom = '2021-05-17T20:48:09.000Z'; // -> 1621284489
 const sampleTimestmapTo = '2021-05-17T20:50:23.000Z'; // -> 1621284623

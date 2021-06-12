@@ -1,9 +1,8 @@
-import React from 'react';
-
-import { css } from 'emotion';
-import { Button, Icon, stylesFactory, useTheme } from '@grafana/ui';
-import { Pair } from '../types';
 import { GrafanaTheme } from '@grafana/data';
+import { Button, Icon, stylesFactory, useTheme } from '@grafana/ui';
+import { css } from 'emotion';
+import React from 'react';
+import { Pair } from '../types';
 
 interface Props {
   columns: string[];

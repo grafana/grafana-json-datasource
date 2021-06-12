@@ -1,25 +1,23 @@
-import _ from 'lodash';
-import { JSONPath } from 'jsonpath-plus';
-
 import {
+  ArrayVector,
+  DataFrame,
   DataQueryRequest,
   DataQueryResponse,
   DataSourceApi,
   DataSourceInstanceSettings,
-  toDataFrame,
+  Field,
   MetricFindValue,
   ScopedVars,
   TimeRange,
-  DataFrame,
-  Field,
-  ArrayVector,
+  toDataFrame,
 } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
-
+import { JSONPath } from 'jsonpath-plus';
+import _ from 'lodash';
 import API from './api';
 import { detectFieldType } from './detectFieldType';
 import { parseValues } from './parseValues';
-import { JsonApiQuery, JsonApiDataSourceOptions, Pair } from './types';
+import { JsonApiDataSourceOptions, JsonApiQuery, Pair } from './types';
 
 export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;

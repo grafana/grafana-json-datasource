@@ -1,7 +1,7 @@
-import React from 'react';
-import { InfoBox, InlineFieldRow, InlineField, Select } from '@grafana/ui';
-import { JsonApiQuery } from 'types';
+import { InfoBox, InlineField, InlineFieldRow, Select } from '@grafana/ui';
 import { JSONPath } from 'jsonpath-plus';
+import React from 'react';
+import { JsonApiQuery } from 'types';
 
 interface Props {
   query: JsonApiQuery;

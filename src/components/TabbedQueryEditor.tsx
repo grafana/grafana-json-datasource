@@ -1,12 +1,12 @@
+import { TimeRange } from '@grafana/data';
+import { CodeEditor, InfoBox, InlineField, InlineFieldRow, RadioButtonGroup, Segment, useTheme } from '@grafana/ui';
+import { JsonDataSource } from 'datasource';
+import { css } from 'emotion';
 import defaults from 'lodash/defaults';
 import React, { useState } from 'react';
-import { InlineFieldRow, InlineField, Segment, RadioButtonGroup, CodeEditor, useTheme, InfoBox } from '@grafana/ui';
-import { TimeRange } from '@grafana/data';
-import { JsonApiQuery, defaultQuery, Pair } from '../types';
-import { KeyValueEditor } from './KeyValueEditor';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { css } from 'emotion';
-import { JsonDataSource } from 'datasource';
+import { defaultQuery, JsonApiQuery, Pair } from '../types';
+import { KeyValueEditor } from './KeyValueEditor';
 import { PathEditor } from './PathEditor';
 
 // Display a warning message when user adds any of the following headers.

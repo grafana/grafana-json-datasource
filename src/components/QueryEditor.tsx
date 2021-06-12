@@ -1,10 +1,10 @@
-import React from 'react';
 import { QueryEditorProps } from '@grafana/data';
-import { JsonApiQuery, JsonApiDataSourceOptions } from '../types';
 import { JsonDataSource } from 'datasource';
-import { TabbedQueryEditor } from './TabbedQueryEditor';
-import { FieldEditor } from './FieldEditor';
+import React from 'react';
+import { JsonApiDataSourceOptions, JsonApiQuery } from '../types';
 import { ExperimentalEditor } from './ExperimentalEditor';
+import { FieldEditor } from './FieldEditor';
+import { TabbedQueryEditor } from './TabbedQueryEditor';
 
 interface Props extends QueryEditorProps<JsonDataSource, JsonApiQuery, JsonApiDataSourceOptions> {
   limitFields?: number;

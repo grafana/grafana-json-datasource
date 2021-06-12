@@ -1,6 +1,6 @@
-import React from 'react';
-import { InlineFieldRow, InlineField, Input, Select } from '@grafana/ui';
 import {} from '@emotion/core';
+import { InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
+import React from 'react';
 
 interface Props {
   method: string;

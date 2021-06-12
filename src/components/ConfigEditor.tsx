@@ -1,10 +1,8 @@
-import React, { ChangeEvent } from 'react';
-
-import { DataSourceHttpSettings, InlineFieldRow, InlineField, Input } from '@grafana/ui';
-import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
-import { JsonApiDataSourceOptions } from '../types';
-
 import {} from '@emotion/core';
+import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
+import { DataSourceHttpSettings, InlineField, InlineFieldRow, Input } from '@grafana/ui';
+import React, { ChangeEvent } from 'react';
+import { JsonApiDataSourceOptions } from '../types';
 
 type Props = DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions>;
 
