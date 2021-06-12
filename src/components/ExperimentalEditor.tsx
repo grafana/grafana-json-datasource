@@ -1,6 +1,5 @@
-import { InfoBox } from '@grafana/ui';
 import React from 'react';
-import { InlineFieldRow, InlineField, Select } from '@grafana/ui';
+import { InfoBox, InlineFieldRow, InlineField, Select } from '@grafana/ui';
 import { JsonApiQuery } from 'types';
 import { JSONPath } from 'jsonpath-plus';
 

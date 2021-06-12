@@ -28,10 +28,10 @@
     "dayjs": "^1.10.4"
   },
   "devDependencies": {
-    "@grafana/data": "latest",
-    "@grafana/runtime": "latest",
-    "@grafana/toolkit": "latest",
-    "@grafana/ui": "latest",
+    "@grafana/data": "7.5.7",
+    "@grafana/runtime": "7.5.7",
+    "@grafana/toolkit": "7.5.7",
+    "@grafana/ui": "7.5.7",
     "@testing-library/jest-dom": "5.4.0",
     "@testing-library/react": "^10.0.2",
     "@types/jsonpath": "^0.2.0",
