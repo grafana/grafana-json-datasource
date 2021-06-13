@@ -9,7 +9,7 @@
 
 A data source plugin for loading JSON APIs into [Grafana](https://grafana.com) using [JSONPath](https://goessner.net/articles/JsonPath/).
 
-![Screenshot](https://github.com/marcusolsson/grafana-json-datasource/raw/main/src/img/screenshot.png)
+![Screenshot](https://github.com/marcusolsson/grafana-json-datasource/raw/main/src/img/dark.png)
 
 ## Documentation
 
