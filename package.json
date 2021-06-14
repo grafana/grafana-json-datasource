@@ -23,21 +23,24 @@
     "url": "https://marcus.se.net"
   },
   "dependencies": {
+    "dayjs": "^1.10.4",
     "jsonpath-plus": "^4.0.0",
     "memory-cache": "^0.2.0",
-    "dayjs": "^1.10.4"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@grafana/data": "7.5.7",
-    "@grafana/runtime": "7.5.7",
-    "@grafana/toolkit": "7.5.7",
-    "@grafana/ui": "7.5.7",
+    "@emotion/core": "10.0.27",
+    "@grafana/data": "8.0.1",
+    "@grafana/runtime": "8.0.1",
+    "@grafana/toolkit": "8.0.1",
+    "@grafana/ui": "8.0.1",
     "@testing-library/jest-dom": "5.4.0",
     "@testing-library/react": "^10.0.2",
     "@types/jsonpath": "^0.2.0",
     "@types/lodash": "^4.14.168",
     "@types/memory-cache": "^0.2.1",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "emotion": "10.0.27",
     "react-virtualized-auto-sizer": "^1.0.4"
   },
   "engines": {
