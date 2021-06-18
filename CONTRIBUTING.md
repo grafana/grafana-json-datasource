@@ -99,5 +99,5 @@ docker run --rm \
     -v /path/to/your/clone:/var/lib/grafana/plugins \
     -e GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=marcusolsson-json-datasource \
     -p 3000:3000 \
-    grafana/grafana:8.0.0-beta2
+    grafana/grafana:latest
 ```

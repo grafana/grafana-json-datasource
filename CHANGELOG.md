@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1 (2021-06-18)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.2.0...v1.2.1)
+
+### Enhancements
+
+- Update dependencies, docs, and metadata
+
 ## 1.2.0 (2021-05-18)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.1.1...v1.2.0)
