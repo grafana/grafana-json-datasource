@@ -11,7 +11,7 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
       // epoch in milliseconds.
 
       if (values.filter((_) => _).every((value) => typeof value === 'string')) {
-        return values.map((_) => (_ !== null ? dayjs(_).valueOf() : _));
+        return values.map(parseStringAsTime);
       }
 
       if (values.filter((_) => _).every((value) => typeof value === 'number')) {
@@ -67,4 +67,14 @@ export const parseValues = (values: any[], type: FieldType): any[] => {
     default:
       throw new Error('Unsupported field type');
   }
+};
+
+const parseStringAsTime = (timeString: string | null) => {
+  if (timeString === null) {
+    return timeString;
+  }
+  if (!isNaN(+timeString)) {
+    return dayjs(+timeString).valueOf();
+  }
+  return dayjs(timeString).valueOf();
 };
