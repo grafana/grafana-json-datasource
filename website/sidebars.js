@@ -31,6 +31,10 @@ module.exports = {
     },
     {
       type: 'doc',
+      id: 'jsonata',
+    },
+    {
+      type: 'doc',
       id: 'troubleshooting',
     },
   ],

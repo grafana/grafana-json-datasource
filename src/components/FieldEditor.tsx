@@ -1,7 +1,8 @@
 import { FieldType, SelectableValue } from '@grafana/data';
 import { Icon, InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
 import React from 'react';
-import { JsonField } from 'types';
+import { JsonField, QueryLanguage } from 'types';
+import { JsonataQueryField } from './JsonataQueryField';
 import { JsonPathQueryField } from './JsonPathQueryField';
 
 interface Props {
@@ -15,7 +16,9 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
   const onChangePath = (i: number) => (e: string) => {
     onChange(value.map((field, n) => (i === n ? { ...value[i], jsonPath: e } : field)));
   };
-
+  const onLanguageChange = (i: number) => (e: SelectableValue<QueryLanguage>) => {
+    onChange(value.map((field, n) => (i === n ? { ...value[i], language: e.value } : field)));
+  };
   const onChangeType = (i: number) => (e: SelectableValue<string>) => {
     onChange(
       value.map((field, n) =>
@@ -23,17 +26,15 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
       )
     );
   };
-
   const onAliasChange = (i: number) => (e: any) => {
     onChange(value.map((field, n) => (i === n ? { ...value[i], name: e.currentTarget.value } : field)));
   };
 
-  const addField = (i: number) => () => {
+  const addField = (i: number, defaults?: { language: QueryLanguage }) => () => {
     if (!limit || value.length < limit) {
-      onChange([...value.slice(0, i + 1), { name: '', jsonPath: '' }, ...value.slice(i + 1)]);
+      onChange([...value.slice(0, i + 1), { name: '', jsonPath: '', ...defaults }, ...value.slice(i + 1)]);
     }
   };
-
   const removeField = (i: number) => () => {
     onChange([...value.slice(0, i), ...value.slice(i + 1)]);
   };
@@ -52,13 +53,26 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
             }
             grow
           >
-            <JsonPathQueryField
-              onBlur={() => {
-                onChange(value);
-              }}
-              onChange={onChangePath(index)}
-              query={field.jsonPath}
-              onData={onComplete}
+            {field.language === 'jsonata' ? (
+              <JsonataQueryField onBlur={() => onChange(value)} onChange={onChangePath(index)} query={field.jsonPath} />
+            ) : (
+              <JsonPathQueryField
+                onBlur={() => onChange(value)}
+                onChange={onChangePath(index)}
+                query={field.jsonPath}
+                onData={onComplete}
+              />
+            )}
+          </InlineField>
+          <InlineField>
+            <Select
+              value={field.language ?? 'jsonpath'}
+              width={14}
+              onChange={onLanguageChange(index)}
+              options={[
+                { label: 'JSONPath', value: 'jsonpath' },
+                { label: 'JSONata', value: 'jsonata' },
+              ]}
             />
           </InlineField>
           <InlineField label="Type" tooltip="If Auto is set, the JSON property type is used to detect the field type.">
@@ -80,7 +94,7 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
           </InlineField>
 
           {(!limit || value.length < limit) && (
-            <a className="gf-form-label" onClick={addField(index)}>
+            <a className="gf-form-label" onClick={addField(index, { language: field.language ?? 'jsonpath' })}>
               <Icon name="plus" />
             </a>
           )}

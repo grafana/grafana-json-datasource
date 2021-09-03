@@ -43,15 +43,21 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
     onRunQuery();
   };
 
+  // TODO: Extract field names from the actual result.
   const fieldNames = query.fields
     .map((field) => {
-      if (field.name) {
-        return field.name;
+      if (field.language === 'jsonpath') {
+        if (field.name) {
+          return field.name;
+        }
+
+        const pathArray = (JSONPath as any).toPathArray(field.jsonPath);
+        return pathArray[pathArray.length - 1];
       }
 
-      const pathArray = (JSONPath as any).toPathArray(field.jsonPath);
-      return pathArray[pathArray.length - 1];
+      return field.name;
     })
+    .filter((name) => name)
     .map((path) => ({ label: path, value: path }));
 
   return (

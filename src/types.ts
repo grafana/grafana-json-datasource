@@ -1,9 +1,12 @@
 import { DataQuery, DataSourceJsonData, FieldType } from '@grafana/data';
 
+export type QueryLanguage = 'jsonpath' | 'jsonata';
+
 export interface JsonField {
   name?: string;
   jsonPath: string;
   type?: FieldType;
+  language?: QueryLanguage;
 }
 
 export type Pair<T, K> = [T, K];

@@ -12,6 +12,7 @@ import {
   toDataFrame,
 } from '@grafana/data';
 import { getTemplateSrv } from '@grafana/runtime';
+import jsonata from 'jsonata';
 import { JSONPath } from 'jsonpath-plus';
 import _ from 'lodash';
 import API from './api';
@@ -98,7 +99,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
           message: response.statusText ? response.statusText : defaultErrorMessage,
         };
       }
-    } catch (err) {
+    } catch (err: any) {
       if (_.isString(err)) {
         return {
           status: 'error',
@@ -130,24 +131,51 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
 
     const fields: Field[] = query.fields
       .filter((field) => field.jsonPath)
-      .map((field) => {
-        const path = replaceWithVars(field.jsonPath);
-        const values = JSONPath({ path, json });
+      .map((field, index) => {
+        switch (field.language) {
+          case 'jsonata':
+            const expression = jsonata(field.jsonPath);
 
-        // Get the path for automatic setting of the field name.
-        //
-        // Casted to any due to typing issues with JSONPath-Plus
-        const paths = (JSONPath as any).toPathArray(path);
+            const bindings: Record<string, any> = {};
 
-        const propertyType = field.type ? field.type : detectFieldType(values);
-        const typedValues = parseValues(values, propertyType);
+            // Bind dashboard variables to JSONata variables.
+            getTemplateSrv()
+              .getVariables()
+              .map((v) => ({ name: v.name, value: getVariable(v.name) }))
+              .forEach((v) => {
+                bindings[v.name] = v.value;
+              });
 
-        return {
-          name: replaceWithVars(field.name ?? '') || paths[paths.length - 1],
-          type: propertyType,
-          values: new ArrayVector(typedValues),
-          config: {},
-        };
+            const result = expression.evaluate(json, bindings);
+
+            // Ensure that we always return an array.
+            const arrayResult = Array.isArray(result) ? result : [result];
+
+            return {
+              name: replaceWithVars(field.name ?? '') || (query.fields.length > 1 ? `result${index}` : 'result'),
+              type: field.type ? field.type : detectFieldType(arrayResult),
+              values: new ArrayVector(arrayResult),
+              config: {},
+            };
+          default:
+            const path = replaceWithVars(field.jsonPath);
+            const values = JSONPath({ path, json });
+
+            // Get the path for automatic setting of the field name.
+            //
+            // Casted to any due to typing issues with JSONPath-Plus
+            const paths = (JSONPath as any).toPathArray(path);
+
+            const propertyType = field.type ? field.type : detectFieldType(values);
+            const typedValues = parseValues(values, propertyType);
+
+            return {
+              name: replaceWithVars(field.name ?? '') || paths[paths.length - 1],
+              type: propertyType,
+              values: new ArrayVector(typedValues),
+              config: {},
+            };
+        }
       });
 
     const fieldLengths = fields.map((field) => field.values.length);
@@ -246,4 +274,23 @@ export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
   });
 
   return frames;
+};
+
+// Helper function to extract the values of a variable instead of interpolating it.
+const getVariable = (name: any): string[] => {
+  const values: string[] = [];
+
+  // Instead of interpolating the string, we collect the values in an array.
+  getTemplateSrv().replace(`$${name}`, {}, (value: string | string[]) => {
+    if (Array.isArray(value)) {
+      values.push(...value);
+    } else {
+      values.push(value);
+    }
+
+    // We don't really care about the string here.
+    return '';
+  });
+
+  return values;
 };

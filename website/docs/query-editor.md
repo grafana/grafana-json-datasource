@@ -13,7 +13,7 @@ The query editor for the JSON API data source consists of a number of tabs. Each
 
 The **Fields** tab is where you select the data to extract from the JSON document returned by the URL configured in the data source configuration.
 
-- **Field** must contain a valid [JSONPath](./jsonpath.md) expression and can return one or more elements.
+- **Field** lets you define a query expression that determines the data to extract from the JSON document. There are two supported query languages: [JSONPath](./jsonpath.md) and [JSONata](./jsonata.md).
 - **Type** defines the JSON type of the elements returned by the **Field** expression. By default, Grafana uses the types in the JSON document. If **Type** is set to a different type than the original property type, Grafana tries to parse the value.
 - **Alias** overrides the default name of the field.
 
