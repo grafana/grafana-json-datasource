@@ -64,7 +64,7 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
               />
             )}
           </InlineField>
-          <InlineField label="Query language">
+          <InlineField>
             <Select
               value={field.language ?? 'jsonpath'}
               width={14}
