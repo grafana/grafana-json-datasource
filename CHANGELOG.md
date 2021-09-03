@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.0 (2021-09-03)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.2.1...v1.3.0)
+
+### Enhancements
+
+- Add support for JSONata ([#114](https://github.com/marcusolsson/grafana-json-datasource/issues/114)), a query language similar to JSONPath with support for transformations.
+
+### Bug fixes
+
+- Cannot read property 'filter' of undefined ([#156](https://github.com/marcusolsson/grafana-json-datasource/issues/156))
+
+
 ## 1.2.1 (2021-06-18)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.2.0...v1.2.1)
