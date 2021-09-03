@@ -1,7 +1,8 @@
 import { TimeRange } from '@grafana/data';
 import { JsonDataSource } from 'datasource';
+import defaults from 'lodash/defaults';
 import React from 'react';
-import { JsonApiQuery } from '../types';
+import { defaultQuery, JsonApiQuery } from '../types';
 import { QueryEditor } from './QueryEditor';
 
 interface VariableQueryProps {
@@ -15,6 +16,8 @@ interface VariableQueryProps {
 export const VariableQueryEditor: React.FC<VariableQueryProps> = (props) => {
   const { query, onChange } = props;
 
+  const q = defaults(query, defaultQuery);
+
   const saveQuery = (newQuery: JsonApiQuery) => {
     if (newQuery) {
       onChange(newQuery, newQuery.fields[0].jsonPath);
@@ -26,7 +29,7 @@ export const VariableQueryEditor: React.FC<VariableQueryProps> = (props) => {
       {...props}
       onRunQuery={() => {}}
       onChange={saveQuery}
-      query={query}
+      query={q}
       limitFields={2}
       editorContext="variables"
     />
