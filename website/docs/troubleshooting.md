@@ -14,7 +14,7 @@ The Graph and Time series panels can only display _time series_. To create a que
 
 ## Why do I only get the value from the last query?
 
-The JSON API doesn't store historical data from previous queries. It can only visualize the data from the last query that was run. If you want to store metrics over time, you're likely be better of switching to a proper time series database, such as [Prometheus](https://prometheus.org).
+The JSON API doesn't store historical data from previous queries. It can only visualize the data from the last query that was run. If you want to store metrics over time, you're likely be better of switching to a proper time series database, such as [Prometheus](https://prometheus.io/).
 
 ## `Minified React error`
 
