@@ -119,7 +119,7 @@ jobs:
       - name: Lint plugin
         run: |
           git clone https://github.com/grafana/plugin-validator
-          pushd ./plugin-validator/cmd/plugincheck
+          pushd ./plugin-validator/pkg/cmd/plugincheck
           go install
           popd
           plugincheck ${{ steps.metadata.outputs.archive }}
