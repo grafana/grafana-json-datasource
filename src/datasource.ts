@@ -134,7 +134,8 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       .map((field, index) => {
         switch (field.language) {
           case 'jsonata':
-            const expression = jsonata(replaceWithVars(field.jsonPath));
+            const expression = jsonata(field.jsonPath);
+            expression.evaluate
 
             const bindings: Record<string, any> = {};
 
@@ -145,7 +146,12 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
               .forEach((v) => {
                 bindings[v.name] = v.value;
               });
-
+            
+            bindings["__unixEpochFrom"] = range.from.unix().toString()
+            bindings["__unixEpochTo"] = range.to.unix().toString()
+            bindings["__isoFrom"] = range.from.unix().toISOString()
+            bindings["__isoTo"] = range.to.unix().toISOString()
+            
             const result = expression.evaluate(json, bindings);
 
             // Ensure that we always return an array.
