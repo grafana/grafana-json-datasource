@@ -135,7 +135,6 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
         switch (field.language) {
           case 'jsonata':
             const expression = jsonata(field.jsonPath);
-            expression.evaluate
 
             const bindings: Record<string, any> = {};
 
