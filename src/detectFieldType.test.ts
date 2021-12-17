@@ -25,6 +25,10 @@ test('nullable iso8601 gets parsed as time', () => {
   expect(detectFieldType(['2006-01-02T15:06:13Z', null])).toStrictEqual('time');
 });
 
+test('regression for #202', () => {
+  expect(detectFieldType(['foo bar 1.1'])).toStrictEqual('string');
+});
+
 test('floating-point numbers with string length 13 get parsed as number', () => {
   expect(detectFieldType([12.0000000003, 72.0000000001])).toStrictEqual('number');
 });

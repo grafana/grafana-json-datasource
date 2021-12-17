@@ -1,5 +1,5 @@
 import { FieldType } from '@grafana/data';
-import dayjs from 'dayjs';
+import moment from 'moment';
 
 /**
  * Detects the field type from an array of values.
@@ -13,7 +13,7 @@ export const detectFieldType = (values: any[]): FieldType => {
   // If all values are valid ISO 8601, then assume that it's a time field.
   const isValidISO = values
     .filter((value) => value !== null)
-    .every((value) => value.length >= 10 && dayjs(value).isValid());
+    .every((value) => moment(value, ['YYYY-MM-DD', moment.defaultFormat], true).isValid());
   if (isValidISO) {
     return FieldType.time;
   }
