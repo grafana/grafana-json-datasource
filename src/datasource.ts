@@ -145,12 +145,14 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
               .forEach((v) => {
                 bindings[v.name] = v.value;
               });
-            
-            bindings["__unixEpochFrom"] = range.from.unix().toString()
-            bindings["__unixEpochTo"] = range.to.unix().toString()
-            bindings["__isoFrom"] = range.from.unix().toISOString()
-            bindings["__isoTo"] = range.to.unix().toISOString()
-            
+
+            if (range) {
+              bindings['__unixEpochFrom'] = range.from.valueOf();
+              bindings['__unixEpochTo'] = range.to.valueOf();
+              bindings['__isoFrom'] = range.from.toISOString();
+              bindings['__isoTo'] = range.to.toISOString();
+            }
+
             const result = expression.evaluate(json, bindings);
 
             // Ensure that we always return an array.
