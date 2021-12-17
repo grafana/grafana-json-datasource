@@ -146,6 +146,13 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
                 bindings[v.name] = v.value;
               });
 
+            //Bind Global variables to JSONata variables.
+            globalVariables
+              .map((v) => ({ name: v, value: getVariable(v) }))
+              .forEach((v) => {
+                bindings[v.name] = v.value;
+              });
+
             const result = expression.evaluate(json, bindings);
 
             // Ensure that we always return an array.
@@ -294,3 +301,18 @@ const getVariable = (name: any): string[] => {
 
   return values;
 };
+
+const globalVariables: string[] = [
+  '__dashboard',
+  '__from',
+  '__to',
+  '__interval',
+  '__interval_ms',
+  '__name',
+  '__org',
+  '__user',
+  '__range',
+  '__rate_interval',
+  'timeFilter',
+  '__timeFilter',
+];
