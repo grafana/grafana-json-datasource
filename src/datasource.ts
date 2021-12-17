@@ -146,12 +146,20 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
                 bindings[v.name] = v.value;
               });
 
-            //Bind Global variables to JSONata variables.
+
+            // Bind Global variables to JSONata variables.
             globalVariables
               .map((v) => ({ name: v, value: getVariable(v) }))
               .forEach((v) => {
                 bindings[v.name] = v.value;
               });
+
+            if (range) {
+              bindings['__unixEpochFrom'] = range.from.valueOf();
+              bindings['__unixEpochTo'] = range.to.valueOf();
+              bindings['__isoFrom'] = range.from.toISOString();
+              bindings['__isoTo'] = range.to.toISOString();
+            }
 
             const result = expression.evaluate(json, bindings);
 
