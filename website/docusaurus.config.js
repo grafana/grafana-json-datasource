@@ -7,6 +7,7 @@ module.exports = {
   favicon: 'img/favicon.svg',
   organizationName: 'marcusolsson', // Usually your GitHub org/user name.
   projectName: 'grafana-json-datasource', // Usually your repo name.
+  scripts: [{src: 'https://plausible.io/js/plausible.js', defer: true, 'data-domain': 'marcus.se.net'}],
   themeConfig: {
     navbar: {
       title: 'JSON API Data Source for Grafana',
