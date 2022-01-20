@@ -26,10 +26,14 @@ export default class Api {
     body?: string
   ) {
     const paramsData: Record<string, string> = {};
-
+    // In order to allow for duplicate URL params add a suffix to it to
+    // uniquify the key.  We strip this suffix off as part of
+    // constructing the final URL in _request()
+    let i = 0;
     (params ?? []).forEach(([key, value]) => {
       if (key) {
-        paramsData[key] = value;
+        paramsData[key + '__' + i] = value;
+        i++;
       }
     });
 
@@ -140,7 +144,7 @@ export default class Api {
         req.url +
         (req.url.search(/\?/) >= 0 ? '&' : '?') +
         Object.entries(params)
-          .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+          .map(([k, v]) => `${encodeURIComponent(k.replace(/__\d+$/, ''))}=${encodeURIComponent(v)}`)
           .join('&');
     }
 
