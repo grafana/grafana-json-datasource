@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.1 (2022-01-24)
+
+[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.3.0...v1.3.1)
+
+### Enhancements
+
+- Append suffix to param key to uniquify duplicate param keys [#232](https://github.com/marcusolsson/grafana-json-datasource/pull/232) (thanks [@rejohnst](https://github.com/rejohnst)!)
+- Added grafana global variables when doing a query using jsonata [#223](https://github.com/marcusolsson/grafana-json-datasource/pull/223) (thanks [@amng](https://github.com/amng)!)
+
+### Bug fixes
+
+- Certain strings incorrectly identified as dates [#202](https://github.com/marcusolsson/grafana-json-datasource/issues/202)
+
 ## 1.3.0 (2021-09-03)
 
 [Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.2.1...v1.3.0)
