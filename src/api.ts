@@ -24,7 +24,7 @@ export default class Api {
     params?: Array<Pair<string, string>>,
     headers?: Array<Pair<string, string>>,
     body?: string
-  ) {
+  ): Promise<any> {
     const paramsData: Record<string, string> = {};
     // In order to allow for duplicate URL params add a suffix to it to
     // uniquify the key.  We strip this suffix off as part of
@@ -49,7 +49,7 @@ export default class Api {
   /**
    * Used as a health check.
    */
-  async test() {
+  async test(): Promise<any> {
     const data: Record<string, string> = {};
 
     this.params.forEach((value, key) => {
@@ -69,7 +69,7 @@ export default class Api {
     params: Array<Pair<string, string>>,
     headers?: Array<Pair<string, string>>,
     body?: string
-  ) {
+  ): Promise<any> {
     if (!cacheDurationSeconds) {
       return await this.get(method, path, params, headers, body);
     }

@@ -129,7 +129,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Query returned empty data');
     }
 
-    const fields: Field[] = query.fields
+    const fields: Field[] = (query.fields ?? [])
       .filter((field) => field.jsonPath)
       .map((field, index) => {
         switch (field.language) {
