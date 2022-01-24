@@ -146,7 +146,6 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
                 bindings[v.name] = v.value;
               });
 
-
             // Bind Global variables to JSONata variables.
             globalVariables
               .map((v) => ({ name: v, value: getVariable(v) }))
