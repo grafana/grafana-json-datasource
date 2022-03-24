@@ -7,7 +7,7 @@ module.exports = {
   favicon: 'img/favicon.svg',
   organizationName: 'marcusolsson', // Usually your GitHub org/user name.
   projectName: 'grafana-json-datasource', // Usually your repo name.
-  scripts: [{src: 'https://plausible.io/js/plausible.js', defer: true, 'data-domain': 'marcus.se.net'}],
+  scripts: [{ src: 'https://plausible.io/js/plausible.js', defer: true, 'data-domain': 'marcus.se.net' }],
   themeConfig: {
     navbar: {
       title: 'JSON API Data Source for Grafana',
@@ -24,6 +24,11 @@ module.exports = {
         {
           href: 'https://grafana.com/plugins/marcusolsson-json-datasource',
           label: 'Marketplace',
+          position: 'right',
+        },
+        {
+          href: 'https://marcus.se.net',
+          label: 'Who am I?',
           position: 'right',
         },
       ],
