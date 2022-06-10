@@ -26,7 +26,12 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   constructor(instanceSettings: DataSourceInstanceSettings<JsonApiDataSourceOptions>) {
     super(instanceSettings);
 
-    this.api = new API(instanceSettings.url!, instanceSettings.jsonData.queryParams || '');
+    this.api = new API(
+      instanceSettings.url!,
+      instanceSettings.jsonData.queryParams || '',
+      instanceSettings.jsonData.method,
+      instanceSettings.jsonData.body
+    );
   }
 
   /**
