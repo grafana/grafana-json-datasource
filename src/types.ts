@@ -20,12 +20,14 @@ export interface JsonApiQuery extends DataQuery {
   headers: Array<Pair<string, string>>;
   body: string;
   cacheDurationSeconds: number;
+  
+  groupByField?: string;
 
   // Keep for backwards compatibility with older version of variables query editor.
   jsonPath?: string;
+  experimentalGroupByField?: string;
 
   // Experimental
-  experimentalGroupByField?: string;
   experimentalMetricField?: string;
   experimentalVariableTextField?: string;
   experimentalVariableValueField?: string;

@@ -11,14 +11,6 @@ interface Props {
 }
 
 export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext }: Props) => {
-  // Group by
-  const { experimentalGroupByField: groupByField } = query;
-
-  const onGroupByChange = (field?: string) => {
-    onChange({ ...query, experimentalGroupByField: field });
-    onRunQuery();
-  };
-
   // Metric
   const { experimentalMetricField: metricField } = query;
 
@@ -70,37 +62,6 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
       </InfoBox>
       {editorContext === 'default' && (
         <>
-          <InlineFieldRow>
-            <InlineField
-              labelWidth={12}
-              label="Group by"
-              tooltip={
-                <>
-                  <p>
-                    {
-                      'Groups the query result into multiple results. This can be useful when you want to graph multiple time series in the same panel.'
-                    }
-                  </p>
-                  <a
-                    href="https://github.com/marcusolsson/grafana-json-datasource/issues/36"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Share feedback
-                  </a>
-                </>
-              }
-            >
-              <Select
-                placeholder={'Field'}
-                width={20}
-                isClearable={true}
-                value={fieldNames.find((v) => v.value === groupByField)}
-                options={fieldNames}
-                onChange={(value) => onGroupByChange(value?.value)}
-              />
-            </InlineField>
-          </InlineFieldRow>
           <InlineFieldRow>
             <InlineField
               labelWidth={12}
