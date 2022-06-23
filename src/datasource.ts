@@ -265,7 +265,7 @@ export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
     return [frame];
   }
 
-  const uniqueValues = new Set<string>(groupByField.values.toArray().map((value) => value.toString()));
+  const uniqueValues = new Set(groupByField.values.toArray());
 
   const frames = [...uniqueValues].map((groupByValue) => {
     const fields: Field[] = frame.fields
