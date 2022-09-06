@@ -7,6 +7,8 @@
 [![License](https://img.shields.io/github/license/marcusolsson/grafana-json-datasource)](LICENSE)
 [![Twitter](https://img.shields.io/twitter/follow/marcusolsson?color=%231DA1F2&label=twitter&style=plastic)](https://twitter.com/marcusolsson)
 
+> **Maintenance**: As I'm no longer working at Grafana Labs, nor am I using Grafana where I'm at now, I've decided to no longer maintain this plugin. Instead, consider using the [Infinity](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) data source.
+
 A data source plugin for loading JSON APIs into [Grafana](https://grafana.com) using [JSONPath](https://goessner.net/articles/JsonPath/).
 
 ![Screenshot](https://github.com/marcusolsson/grafana-json-datasource/raw/main/src/img/dark.png)
