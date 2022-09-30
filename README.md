@@ -9,7 +9,9 @@
 
 > **Maintenance**: As I'm no longer working at Grafana Labs, nor am I using Grafana where I'm at now, **I'm no longer able to actively maintain this plugin**.
 >
-> **Edit:** I'm exploring ways to keep the project going. Check back here to stay updated!
+> **Update 1:** I'm exploring ways to keep the project going. Check back here to stay updated!
+>
+> **Update 2:** I'm happy to say that the Grafana team has decided to take over as maintainers of this plugin! 🎉
 
 A data source plugin for loading JSON APIs into [Grafana](https://grafana.com) using [JSONPath](https://goessner.net/articles/JsonPath/).
 
