@@ -200,14 +200,15 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Fields have different lengths');
     }
 
-    const frames = query.experimentalGroupByField
+    //keep experimental value for backwards compatibility
+    const frames = (query.groupByField || query?.experimentalGroupByField)
       ? groupBy(
           toDataFrame({
             name: query.refId,
             refId: query.refId,
             fields: fields,
           }),
-          query.experimentalGroupByField
+          query.groupByField as string || query.experimentalGroupByField as string
         )
       : [
           toDataFrame({

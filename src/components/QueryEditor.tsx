@@ -3,6 +3,7 @@ import { JsonDataSource } from 'datasource';
 import React from 'react';
 import { JsonApiDataSourceOptions, JsonApiQuery } from '../types';
 import { ExperimentalEditor } from './ExperimentalEditor';
+import { OptionsEditor } from './OptionsEditor';
 import { FieldEditor } from './FieldEditor';
 import { TabbedQueryEditor } from './TabbedQueryEditor';
 
@@ -31,6 +32,14 @@ export const QueryEditor: React.FC<Props> = (props) => {
       }
       experimentalTab={
         <ExperimentalEditor
+          query={query}
+          onChange={onChange}
+          onRunQuery={onRunQuery}
+          editorContext={editorContext || 'default'}
+        />
+      }
+      optionsTab={
+        <OptionsEditor
           query={query}
           onChange={onChange}
           onRunQuery={onRunQuery}

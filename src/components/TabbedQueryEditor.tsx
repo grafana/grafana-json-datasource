@@ -22,10 +22,11 @@ interface Props {
   range?: TimeRange;
 
   fieldsTab: React.ReactNode;
+  optionsTab: React.ReactNode;
   experimentalTab: React.ReactNode;
 }
 
-export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, experimentalTab }: Props) => {
+export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, optionsTab, experimentalTab }: Props) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme();
@@ -132,6 +133,10 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
           </InlineFieldRow>
         </>
       ),
+    },
+    {
+      title: 'Options',
+      content: optionsTab,
     },
     {
       title: 'Experimental',
