@@ -33,4 +33,3 @@ JSON API is an open source data source plugin for Grafana that lets you visualiz
 
 Since the plugin doesn't keep a record of previous queries, each query needs to contain the complete data set you want to visualize. If you'd like to visualize how the data changes over time, you're probably better off storing the data in a database.
 
-> If you like the JSON API data source, make sure to check out [my other plugins](https://marcus.se.net/projects/) as well!

@@ -1,34 +1,39 @@
 # Changelog
 
+## 1.3.2 (2022-10-14)
+
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.3.1...v1.3.2)
+
+- Fixed the broken docs and links
+
 ## 1.3.1 (2022-01-24)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.3.0...v1.3.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.3.0...v1.3.1)
 
 ### Enhancements
 
-- Append suffix to param key to uniquify duplicate param keys [#232](https://github.com/marcusolsson/grafana-json-datasource/pull/232) (thanks [@rejohnst](https://github.com/rejohnst)!)
-- Added grafana global variables when doing a query using jsonata [#223](https://github.com/marcusolsson/grafana-json-datasource/pull/223) (thanks [@amng](https://github.com/amng)!)
+- Append suffix to param key to uniquify duplicate param keys [#232](https://github.com/grafana/grafana-json-datasource/pull/232) (thanks [@rejohnst](https://github.com/rejohnst)!)
+- Added grafana global variables when doing a query using jsonata [#223](https://github.com/grafana/grafana-json-datasource/pull/223) (thanks [@amng](https://github.com/amng)!)
 
 ### Bug fixes
 
-- Certain strings incorrectly identified as dates [#202](https://github.com/marcusolsson/grafana-json-datasource/issues/202)
+- Certain strings incorrectly identified as dates [#202](https://github.com/grafana/grafana-json-datasource/issues/202)
 
 ## 1.3.0 (2021-09-03)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.2.1...v1.3.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.2.1...v1.3.0)
 
 ### Enhancements
 
-- Add support for JSONata ([#114](https://github.com/marcusolsson/grafana-json-datasource/issues/114)), a query language similar to JSONPath with support for transformations.
+- Add support for JSONata ([#114](https://github.com/grafana/grafana-json-datasource/issues/114)), a query language similar to JSONPath with support for transformations.
 
 ### Bug fixes
 
-- Cannot read property 'filter' of undefined ([#156](https://github.com/marcusolsson/grafana-json-datasource/issues/156))
-
+- Cannot read property 'filter' of undefined ([#156](https://github.com/grafana/grafana-json-datasource/issues/156))
 
 ## 1.2.1 (2021-06-18)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.2.0...v1.2.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.2.0...v1.2.1)
 
 ### Enhancements
 
@@ -36,20 +41,20 @@
 
 ## 1.2.0 (2021-05-18)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.1.1...v1.2.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.1.1...v1.2.0)
 
 ### Enhancements
 
-- Adding $__isoFrom() and $__isoTo() macros ([#115](https://github.com/marcusolsson/grafana-json-datasource/pull/115)) (thanks [@jirkafajfr](https://github.com/jirkafajfr)!)
-- Using JSON.stringify instead of toString for object types in parseValue ([#111](https://github.com/marcusolsson/grafana-json-datasource/pull/111)) (thanks [@Totalus](https://github.com/Totalus)!)
+- Adding $**isoFrom() and $**isoTo() macros ([#115](https://github.com/grafana/grafana-json-datasource/pull/115)) (thanks [@jirkafajfr](https://github.com/jirkafajfr)!)
+- Using JSON.stringify instead of toString for object types in parseValue ([#111](https://github.com/grafana/grafana-json-datasource/pull/111)) (thanks [@Totalus](https://github.com/Totalus)!)
 
 ### Bug fixes
 
-- Fix for macros not running in variable queries ([#100](https://github.com/marcusolsson/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
+- Fix for macros not running in variable queries ([#100](https://github.com/grafana/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
 
 ## 1.1.1 (2021-04-17)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.1.0...v1.1.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.1.0...v1.1.1)
 
 ### Enhancements
 
@@ -62,29 +67,29 @@
 
 ## 1.1.0 (2021-04-15)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.0.1...v1.1.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.0.1...v1.1.0)
 
 This release introduces an Experimental tab to the query editor. This will be used to let users try out features while they're being developed. Each feature has a link the the GitHub issue where you can share you feedback, before the feature is considered stable.
 
 ### Enhancements
 
 - Extend variables support to options
-- Don't detect time fields from Unix epoch ([#82](https://github.com/marcusolsson/grafana-json-datasource/issues/82))
-- Add params to cache key ([#85](https://github.com/marcusolsson/grafana-json-datasource/issues/85))
+- Don't detect time fields from Unix epoch ([#82](https://github.com/grafana/grafana-json-datasource/issues/82))
+- Add params to cache key ([#85](https://github.com/grafana/grafana-json-datasource/issues/85))
 - Add support for field aliases
 - Add Experimental section to query editor to test features under development
-- Experimental: Group query results by field ([#36](https://github.com/marcusolsson/grafana-json-datasource/issues/36))
-- Experimental: Set display name for metric fields ([#36](https://github.com/marcusolsson/grafana-json-datasource/issues/36))
-- Experimental: Set optional label for variables ([#79](https://github.com/marcusolsson/grafana-json-datasource/issues/79))
+- Experimental: Group query results by field ([#36](https://github.com/grafana/grafana-json-datasource/issues/36))
+- Experimental: Set display name for metric fields ([#36](https://github.com/grafana/grafana-json-datasource/issues/36))
+- Experimental: Set optional label for variables ([#79](https://github.com/grafana/grafana-json-datasource/issues/79))
 
 ### Bug fixes
 
-- Ignore hidden queries ([#83](https://github.com/marcusolsson/grafana-json-datasource/issues/83))
+- Ignore hidden queries ([#83](https://github.com/grafana/grafana-json-datasource/issues/83))
 - New queries don't use default values
 
 ## 1.0.1 (2021-03-05)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v1.0.0...v1.0.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.0.0...v1.0.1)
 
 ### Enhancements
 
@@ -92,17 +97,17 @@ This release introduces an Experimental tab to the query editor. This will be us
 
 ### Bug fixes
 
-- Can't connect to API when URL contains encoded slash ([#59](https://github.com/marcusolsson/grafana-json-datasource/issues/59))
+- Can't connect to API when URL contains encoded slash ([#59](https://github.com/grafana/grafana-json-datasource/issues/59))
 
 ## 1.0.0 (2021-03-04)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.10.1...v1.0.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.10.1...v1.0.0)
 
 No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
 ## 0.10.1 (2021-02-27)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.10.0...v0.10.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.10.0...v0.10.1)
 
 ### Bug fixes
 
@@ -111,7 +116,7 @@ No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
 ## 0.10.0 (2021-02-19)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.2...v0.10.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.9.2...v0.10.0)
 
 ### Enhancements
 
@@ -119,23 +124,23 @@ No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
 ## 0.9.2 (2021-02-03)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.1...v0.9.2)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.9.1...v0.9.2)
 
 ### Bug fixes
 
-- Variable queries fail with error ([#48](https://github.com/marcusolsson/grafana-json-datasource/issues/48))
+- Variable queries fail with error ([#48](https://github.com/grafana/grafana-json-datasource/issues/48))
 
 ## 0.9.1 (2021-02-01)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.9.0...v0.9.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.9.0...v0.9.1)
 
 ### Bug fixes
 
-- Cannot read property 'toString' of null ([#46](https://github.com/marcusolsson/grafana-json-datasource/issues/46))
+- Cannot read property 'toString' of null ([#46](https://github.com/grafana/grafana-json-datasource/issues/46))
 
 ## 0.9.0 (2021-02-01)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.8.0...v0.9.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.8.0...v0.9.0)
 
 **BREAKING CHANGE:** Query parameters set by the query editor no longer overrides the data source config, to match how headers are handled in the Grafana proxy. This establishes the convention that any configuration made by an administrator should have higher priority.
 
@@ -153,44 +158,44 @@ This release deprecates the `queryString` property in the query model, in favor 
 
 ## 0.8.0 (2021-01-08)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.1...v0.8.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.7.1...v0.8.0)
 
 ### Enhancements
 
 - Use the refId as the series name
-- Add type configuration for queries ([#37](https://github.com/marcusolsson/grafana-json-datasource/issues/37))
+- Add type configuration for queries ([#37](https://github.com/grafana/grafana-json-datasource/issues/37))
 
 ### Bug fixes
 
-- Grafana Explore gets stuck when adding a second query ([#31](https://github.com/marcusolsson/grafana-json-datasource/issues/31))
+- Grafana Explore gets stuck when adding a second query ([#31](https://github.com/grafana/grafana-json-datasource/issues/31))
 - Multiple data source queries overwrite each other
 
 ## 0.7.1 (2020-12-07)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.7.0...v0.7.1)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.7.0...v0.7.1)
 
 ### Bug fixes
 
-- Falsy values are returned as NaN ([#25](https://github.com/marcusolsson/grafana-json-datasource/issues/25))
+- Falsy values are returned as NaN ([#25](https://github.com/grafana/grafana-json-datasource/issues/25))
 
 ## 0.7.0 (2020-12-04)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.6.4...v0.7.0)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.6.4...v0.7.0)
 
 ### Enhancements
 
-- Add support for custom paths ([#24](https://github.com/marcusolsson/grafana-json-datasource/pull/24))
-- Add epoch time macros ([#22](https://github.com/marcusolsson/grafana-json-datasource/pull/22))
+- Add support for custom paths ([#24](https://github.com/grafana/grafana-json-datasource/pull/24))
+- Add epoch time macros ([#22](https://github.com/grafana/grafana-json-datasource/pull/22))
 - Migrate to new form components. This bumps the minimum required Grafana version to 7.3.0
 
 ### Bug fixes
 
-- Template variable chaining is not working ([#23](https://github.com/marcusolsson/grafana-json-datasource/issues/23))
-- Cannot read property 'length' of null ([#21](https://github.com/marcusolsson/grafana-json-datasource/issues/21))
+- Template variable chaining is not working ([#23](https://github.com/grafana/grafana-json-datasource/issues/23))
+- Cannot read property 'length' of null ([#21](https://github.com/grafana/grafana-json-datasource/issues/21))
 
 ## 0.6.4 (2020-11-30)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.6.3...v0.6.4)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.6.3...v0.6.4)
 
 ### Bug fixes
 
@@ -198,7 +203,7 @@ This release deprecates the `queryString` property in the query model, in favor 
 
 ## 0.6.3 (2020-11-27)
 
-[Full changelog](https://github.com/marcusolsson/grafana-json-datasource/compare/v0.6.2...v0.6.3)
+[Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.6.2...v0.6.3)
 
 ### Enhancements
 

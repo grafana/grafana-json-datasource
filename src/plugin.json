@@ -9,9 +9,8 @@
   "info": {
     "description": "A data source plugin for loading JSON APIs into Grafana.",
     "author": {
-      "name": "Marcus Olsson",
-      "email": "marcus.olsson@hey.com",
-      "url": "https://marcus.se.net"
+      "name": "Grafana Labs",
+      "url": "https://grafana.com"
     },
     "keywords": ["json", "api"],
     "logos": {
@@ -21,15 +20,15 @@
     "links": [
       {
         "name": "Documentation",
-        "url": "https://marcusolsson.github.io/grafana-json-datasource"
+        "url": "https://grafana.github.io/grafana-json-datasource"
       },
       {
         "name": "Website",
-        "url": "https://github.com/marcusolsson/grafana-json-datasource"
+        "url": "https://github.com/grafana/grafana-json-datasource"
       },
       {
         "name": "License",
-        "url": "https://github.com/marcusolsson/grafana-json-datasource/blob/main/LICENSE"
+        "url": "https://github.com/grafana/grafana-json-datasource/blob/main/LICENSE"
       }
     ],
     "screenshots": [
