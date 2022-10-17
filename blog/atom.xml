@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://marcusolsson.github.io/blog</id>
+    <id>https://grafana.github.io/blog</id>
     <title>JSON API for Grafana Blog</title>
     <updated>2015-10-25T23:29:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://marcusolsson.github.io/blog"/>
+    <link rel="alternate" href="https://grafana.github.io/blog"/>
     <subtitle>JSON API for Grafana Blog</subtitle>
-    <icon>https://marcusolsson.github.io/img/favicon.svg</icon>
+    <icon>https://grafana.github.io/img/favicon.svg</icon>
 </feed>
