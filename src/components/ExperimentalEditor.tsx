@@ -82,7 +82,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                     }
                   </p>
                   <a
-                    href="https://github.com/marcusolsson/grafana-json-datasource/issues/36"
+                    href="https://github.com/grafana/grafana-json-datasource/issues/36"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -109,7 +109,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 <>
                   <p>{'Set the display name of the selected field to the name of the query result.'}</p>
                   <a
-                    href="https://github.com/marcusolsson/grafana-json-datasource/issues/36"
+                    href="https://github.com/grafana/grafana-json-datasource/issues/36"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -140,7 +140,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 <>
                   <p>{'Field to use for the text label of a variable query.'}</p>
                   <a
-                    href="https://github.com/marcusolsson/grafana-json-datasource/issues/79"
+                    href="https://github.com/grafana/grafana-json-datasource/issues/79"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -167,7 +167,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 <>
                   <p>{'Field to use for the value of a variable query.'}</p>
                   <a
-                    href="https://github.com/marcusolsson/grafana-json-datasource/issues/79"
+                    href="https://github.com/grafana/grafana-json-datasource/issues/79"
                     target="_blank"
                     rel="noreferrer"
                   >

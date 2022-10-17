@@ -7,17 +7,17 @@ Thank you for your interest in contributing to the plugin! 🙏 This document ex
   - [Contribute documentation](#contribute-documentation)
   - [Set up the project](#set-up-the-project)
 
-If you get stuck along the way, feel free to [ask for help](https://github.com/marcusolsson/grafana-json-datasource/discussions/new?category=q-a).
+If you get stuck along the way, feel free to [ask for help](https://github.com/grafana/grafana-json-datasource/discussions/new?category=q-a).
 
 ## Contribute code
 
 To contribute code:
 
 1. Check if there's an already existing issue that describes the reason or motivation behind your pull request.
-2. If there are no issues describing what you want to do, go ahead and [create one](https://github.com/marcusolsson/grafana-json-datasource/issues/new). By creating an issue before you start working on a fix, you can increase the chance of your pull request getting accepted! 💪
+2. If there are no issues describing what you want to do, go ahead and [create one](https://github.com/grafana/grafana-json-datasource/issues/new). By creating an issue before you start working on a fix, you can increase the chance of your pull request getting accepted! 💪
 3. Include any [documentation](contribute-documentation) that your changes might need.
 4. Write or update tests to verify that your changes work as expected.
-5. Now you're ready to [open a pull request](https://github.com/marcusolsson/grafana-json-datasource/compare)!
+5. Now you're ready to [open a pull request](https://github.com/grafana/grafana-json-datasource/compare)!
 6. In the description for your pull request, add a line that says `Fixes #123`, where `123` is the number of the issue the pull request fixes.
 
 After you've created the pull request:
@@ -28,7 +28,7 @@ After you've created the pull request:
 
 ## Contribute documentation
 
-This plugin uses [Docusaurus](https://docusaurus.io/) to build the [documentation](https://marcus.se.net/grafana-json-datasource).
+This plugin uses [Docusaurus](https://docusaurus.io/) to build the [documentation](https://grafana.github.io/grafana-json-datasource).
 
 For more information about writing documentation using Docusaurus, refer to the [Docusaurus documentation](https://docusaurus.io/docs/).
 
