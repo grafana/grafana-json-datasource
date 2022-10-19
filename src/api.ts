@@ -74,14 +74,14 @@ export default class Api {
       return await this.get(method, path, params, headers, body);
     }
 
-    let cacheKey = this.baseUrl + path;
-
-    if (params && Object.keys(params).length > 0) {
-      cacheKey =
-        cacheKey +
-        (cacheKey.search(/\?/) >= 0 ? '&' : '?') +
-        params.map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
-    }
+    const cacheKey = JSON.stringify({
+      baseUrl: this.baseUrl,
+      method,
+      path,
+      params,
+      headers,
+      body,
+    });
 
     if (this.lastCacheDuration !== cacheDurationSeconds) {
       this.cache.del(cacheKey);
