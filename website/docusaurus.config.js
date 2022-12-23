@@ -21,11 +21,6 @@ module.exports = {
           label: 'GitHub',
           position: 'right',
         },
-        {
-          href: 'https://grafana.com/plugins/marcusolsson-json-datasource',
-          label: 'Marketplace',
-          position: 'right',
-        },
       ],
     },
     footer: {
