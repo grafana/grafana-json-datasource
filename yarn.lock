@@ -8062,10 +8062,10 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-jsonata@^1.8.5:
-  version "1.8.5"
-  resolved "https://registry.yarnpkg.com/jsonata/-/jsonata-1.8.5.tgz#c656c929c92b3fb097792cef661c27c52dfa5148"
-  integrity sha512-ilDyTBkg6qhNoNVr8PUPzz5GYvRK+REKOM5MdOGzH2y6V4yvPRMegSvbZLpbTtI0QAgz09QM7drDhSHUlwp9pA==
+jsonata@^1.8.6:
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/jsonata/-/jsonata-1.8.6.tgz#e5f0e6ace870a34bac881a182ca2b31227122791"
+  integrity sha512-ZH2TPYdNP2JecOl/HvrH47Xc+9imibEMQ4YqKy/F/FrM+2a6vfbGxeCX23dB9Fr6uvGwv+ghf1KxWB3iZk09wA==
 
 jsonfile@^6.0.1:
   version "6.1.0"
