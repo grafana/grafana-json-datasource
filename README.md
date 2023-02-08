@@ -8,7 +8,7 @@
 
 > **Maintenance**: Now the plugin is being maintained by Grafana Labs. Big thanks to [Marcus Olsson](https://twitter.com/marcusolsson) for the awesome work!
 
-A data source plugin for loading JSON APIs into [Grafana](https://grafana.com) using [JSONPath](https://goessner.net/articles/JsonPath/).
+A data source plugin for loading JSON APIs into [Grafana](https://grafana.com) using [JSONPath](https://goessner.net/articles/JsonPath/) or [JSONata](https://docs.jsonata.org/)
 
 ![Screenshot](https://github.com/grafana/grafana-json-datasource/raw/main/src/img/dark.png)
 
