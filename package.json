@@ -8,6 +8,7 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
+    "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
     "build": "grafana-toolkit plugin:build",
     "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
@@ -39,6 +40,7 @@
     "@types/lodash": "^4.14.168",
     "@types/memory-cache": "^0.2.1",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "cspell": "^6.30.2",
     "emotion": "10.0.27",
     "react-virtualized-auto-sizer": "^1.0.4"
   },

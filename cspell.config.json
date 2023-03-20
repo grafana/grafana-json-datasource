@@ -1,0 +1,28 @@
+{
+  "ignorePaths": [
+    "./node_modules/",
+    "./.github/",
+    "./dist/",
+    "./website/src/css",
+    "./website/*.js",
+    "./website/.docusaurus/",
+    "./website/node_modules/",
+    "./website/.docusaurus/"
+  ],
+  "words": [
+    "amng",
+    "clsx",
+    "datasource",
+    "jirkafajfr",
+    "jsonapi",
+    "jsonata",
+    "Kensington",
+    "marcusolsson",
+    "Olsson",
+    "rejohnst",
+    "Timestmap",
+    "Totalus",
+    "Typeahead",
+    "uniquify"
+  ]
+}

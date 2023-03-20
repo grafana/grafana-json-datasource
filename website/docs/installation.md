@@ -47,7 +47,7 @@ grafana-cli.exe plugins install marcusolsson-json-datasource
 
 1. Go to [Releases](https://github.com/grafana/grafana-json-datasource/releases) on the GitHub project page
 1. Find the release you want to install
-1. Download the release by clicking the release asset called `marcusolsson-json-datasource-<version>.zip`. You may need to uncollapse the **Assets** section to see it.
+1. Download the release by clicking the release asset called `marcusolsson-json-datasource-<version>.zip`. You may need to un-collapse the **Assets** section to see it.
 1. Unarchive the plugin into the Grafana plugins directory
 
    <Tabs
