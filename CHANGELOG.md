@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.3 (2023-03-20)
+
+- **Chore**: dependencies update
+- **Chore**: spellcheck added
+
 ## 1.3.2 (2022-10-14)
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.3.1...v1.3.2)
