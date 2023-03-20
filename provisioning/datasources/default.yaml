@@ -1,0 +1,7 @@
+apiVersion: 1
+
+datasources:
+  - name: jsonplaceholder
+    uid: jsonplaceholder
+    type: marcusolsson-json-datasource
+    url: https://jsonplaceholder.typicode.com
