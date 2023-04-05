@@ -3,6 +3,8 @@
     "./node_modules/",
     "./.github/",
     "./dist/",
+    "coverage",
+    "./src/**/*.test.ts",
     "./website/src/css",
     "./website/*.js",
     "./website/.docusaurus/",
