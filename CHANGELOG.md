@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.5 (2023-04-05)
+
+- **Chore**: maintenance release
+- **Chore**: added more tests
+
 ## 1.3.3 (2023-03-20)
 
 - **Chore**: dependencies update

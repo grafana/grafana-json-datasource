@@ -1,5 +1,5 @@
 import { TypeaheadInput, TypeaheadOutput } from '@grafana/ui';
-import { JSONPath } from 'jsonpath-plus';
+import { jp } from './jsonpath';
 
 /**
  * onSuggest returns suggestions for the current JSON Path and cursor position.
@@ -83,7 +83,7 @@ export const onSuggest = async (input: TypeaheadInput, onData: () => Promise<any
   // Get the actual JSON for parsing.
   const response = await onData();
 
-  const values = JSONPath({ path, json: response });
+  const values = jp({ path, json: response });
 
   // Don't attempt to suggest if this is a leaf node, e.g. strings, numbers, and booleans.
   if (typeof values[0] !== 'object') {

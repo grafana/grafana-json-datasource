@@ -14,11 +14,12 @@ import {
 import { getTemplateSrv } from '@grafana/runtime';
 import jsonata from 'jsonata';
 import { JSONPath } from 'jsonpath-plus';
+import { jp } from './jsonpath';
 import _ from 'lodash';
 import API from './api';
 import { detectFieldType } from './detectFieldType';
 import { parseValues } from './parseValues';
-import { JsonApiDataSourceOptions, JsonApiQuery, Pair } from './types';
+import type { JsonApiDataSourceOptions, JsonApiQuery, Pair } from './types';
 
 export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;
@@ -173,7 +174,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
             };
           default:
             const path = replaceWithVars(field.jsonPath);
-            const values = JSONPath({ path, json });
+            const values = jp({ path, json });
 
             // Get the path for automatic setting of the field name.
             //
@@ -244,9 +245,11 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   }
 }
 
-const replace = (scopedVars?: any, range?: TimeRange) => (str: string): string => {
-  return replaceMacros(getTemplateSrv().replace(str, scopedVars), range);
-};
+const replace =
+  (scopedVars?: any, range?: TimeRange) =>
+  (str: string): string => {
+    return replaceMacros(getTemplateSrv().replace(str, scopedVars), range);
+  };
 
 // replaceMacros substitutes all available macros with their current value.
 export const replaceMacros = (str: string, range?: TimeRange) => {
