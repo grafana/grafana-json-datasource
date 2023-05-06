@@ -27,6 +27,7 @@
     "Timestmap",
     "Totalus",
     "Typeahead",
-    "uniquify"
+    "uniquify",
+    "changesets"
   ]
 }
