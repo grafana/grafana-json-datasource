@@ -1,7 +1,7 @@
 import { BackendSrvRequest, getBackendSrv } from '@grafana/runtime';
 import cache from 'memory-cache';
 import { Observable } from 'rxjs';
-import type { Pair } from './types';
+import { Pair } from 'types';
 
 export default class Api {
   cache: any;

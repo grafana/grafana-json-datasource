@@ -19,7 +19,7 @@ import _ from 'lodash';
 import API from './api';
 import { detectFieldType } from './detectFieldType';
 import { parseValues } from './parseValues';
-import type { JsonApiDataSourceOptions, JsonApiQuery, Pair } from './types';
+import { JsonApiDataSourceOptions, JsonApiQuery, Pair } from './types';
 
 export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;

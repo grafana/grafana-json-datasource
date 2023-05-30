@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.3.6 (2023-05-30)
+
+- **Chore**: Docs update
+
+## 1.3.5 (2023-04-05)
+
+- **Security**: Recently, A third party researcher (Alessio Della Libera of **Snyk Research Team**) discovered and privately disclosed to us a stored XSS vulnerability in the Grafana-maintained `marcusolsson-json-datasource` plugin also known as “JSON API plugin” .
+
+Users with the editor role could perform a stored XSS attack against other viewers, editors, and administrators by including a specially crafted javascript statement in the `field` extractor in queries to the marcusolsson-json-datasource plugin. This resulted in XSS against anyone viewing a panel configured to query the datasource with a malicious query.
+
+This vulnerability worked because the `marcusolsson-json-datasource` plugin uses the `jsonpath-plus` library to evaluate editor-supplied jsonpath expressions. In its default configuration (which we used), this library is an XSS vector, as the JSONPath spec allows for embedded subexpressions, which `jsonpath-plus` implements as arbitrary javascript expressions.
+
+In order to mitigate this vulnerability, we now supply a configuration parameter to `jsonpath-plus` which forbids the evaluation of subexpressions; it is important to note that this change may **break** existing JSONPath queries that rely on filter or eval expressions.
+
+If your dashboards currently rely on JSONPath queries containing subexpressions, there are a few potential migration paths:
+
+1. For simple queries that use subexpressions for indexing/slicing, it may be possible to rewrite the query without a subexpressions for instance `[(@.length-1)]` can also be represented as `[:-1]`.
+2. For more complex queries, we suggest switching to the [`jsonata` language](http://docs.jsonata.org/simple), which the plugin also supports. This language has similar features to JSONPath, including support for filter expressions (called “predicates” in the documentation).
+3. If changing your existing queries isn’t feasible, the community plugin [“Infinity”](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) supports JSONPath expressions, including filters and subexpressions if used with the `backend` parser option. Please note that Infinity is community supported plugin.
+
+## 1.3.4 (2023-04-04)
+
+- **Chore**: docs update
+
 ## 1.3.3 (2023-03-20)
 
 - **Chore**: dependencies update

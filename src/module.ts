@@ -3,7 +3,7 @@ import { ConfigEditor } from './components/ConfigEditor';
 import { QueryEditor } from './components/QueryEditor';
 import { VariableQueryEditor } from './components/VariableQueryEditor';
 import { JsonDataSource } from './datasource';
-import type { JsonApiDataSourceOptions, JsonApiQuery } from './types';
+import { JsonApiDataSourceOptions, JsonApiQuery } from './types';
 
 export const plugin = new DataSourcePlugin<JsonDataSource, JsonApiQuery, JsonApiDataSourceOptions>(JsonDataSource)
   .setConfigEditor(ConfigEditor)
