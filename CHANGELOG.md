@@ -1,12 +1,12 @@
 # Changelog
 
-## 1.3.6 (2023-05-30)
+## v1.3.6 - 2023-05-30
 
 - ⚙️ **Chore**: Docs update
 
-## 1.3.5 (2023-04-05)
+## v1.3.5 - 2023-04-05
 
-- **Security**: Recently, A third party researcher (Alessio Della Libera of **Snyk Research Team**) discovered and privately disclosed to us a stored XSS vulnerability in the Grafana-maintained `marcusolsson-json-datasource` plugin also known as “JSON API plugin” .
+- 🛡️ **Security**: Recently, A third party researcher (Alessio Della Libera of **Snyk Research Team**) discovered and privately disclosed to us a stored XSS vulnerability in the Grafana-maintained `marcusolsson-json-datasource` plugin also known as “JSON API plugin” .
 
 Users with the editor role could perform a stored XSS attack against other viewers, editors, and administrators by including a specially crafted javascript statement in the `field` extractor in queries to the marcusolsson-json-datasource plugin. This resulted in XSS against anyone viewing a panel configured to query the datasource with a malicious query.
 
@@ -20,22 +20,22 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 2. For more complex queries, we suggest switching to the [`jsonata` language](http://docs.jsonata.org/simple), which the plugin also supports. This language has similar features to JSONPath, including support for filter expressions (called “predicates” in the documentation).
 3. If changing your existing queries isn’t feasible, the community plugin [“Infinity”](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) supports JSONPath expressions, including filters and subexpressions if used with the `backend` parser option. Please note that Infinity is community supported plugin.
 
-## 1.3.4 (2023-04-04)
+## v1.3.4 - 2023-04-04
 
 - ⚙️ **Chore**: docs update
 
-## 1.3.3 (2023-03-20)
+## v1.3.3 - 2023-03-20
 
 - ⚙️ **Chore**: dependencies update
 - ⚙️ **Chore**: spellcheck added
 
-## 1.3.2 (2022-10-14)
+## v1.3.2 - 2022-10-14
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.3.1...v1.3.2)
 
 - Fixed the broken docs and links
 
-## 1.3.1 (2022-01-24)
+## v1.3.1 - 2022-01-24
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.3.0...v1.3.1)
 
@@ -48,7 +48,7 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 - Certain strings incorrectly identified as dates [#202](https://github.com/grafana/grafana-json-datasource/issues/202)
 
-## 1.3.0 (2021-09-03)
+## v1.3.0 - 2021-09-03
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.2.1...v1.3.0)
 
@@ -60,7 +60,7 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 - Cannot read property 'filter' of undefined ([#156](https://github.com/grafana/grafana-json-datasource/issues/156))
 
-## 1.2.1 (2021-06-18)
+## v1.2.1 - 2021-06-18
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.2.0...v1.2.1)
 
@@ -68,7 +68,7 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 - Update dependencies, docs, and metadata
 
-## 1.2.0 (2021-05-18)
+## v1.2.0 - 2021-05-18
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.1.1...v1.2.0)
 
@@ -79,9 +79,9 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 ### Bug fixes
 
-- 🐛 **Fix**: for macros not running in variable queries ([#100](https://github.com/grafana/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
+- 🐛 **Fix**: Fix for macros not running in variable queries ([#100](https://github.com/grafana/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
 
-## 1.1.1 (2021-04-17)
+## v1.1.1 - 2021-04-17
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.1.0...v1.1.1)
 
@@ -91,10 +91,10 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 ### Bug fixes
 
-- 🐛 **Fix**: issue where wrong fields were used when grouping
+- 🐛 **Fix**: Fix issue where wrong fields were used when grouping
 - Add variable support for aliases
 
-## 1.1.0 (2021-04-15)
+## v1.1.0 - 2021-04-15
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.0.1...v1.1.0)
 
@@ -116,7 +116,7 @@ This release introduces an Experimental tab to the query editor. This will be us
 - Ignore hidden queries ([#83](https://github.com/grafana/grafana-json-datasource/issues/83))
 - New queries don't use default values
 
-## 1.0.1 (2021-03-05)
+## v1.0.1 - 2021-03-05
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v1.0.0...v1.0.1)
 
@@ -128,13 +128,13 @@ This release introduces an Experimental tab to the query editor. This will be us
 
 - Can't connect to API when URL contains encoded slash ([#59](https://github.com/grafana/grafana-json-datasource/issues/59))
 
-## 1.0.0 (2021-03-04)
+## v1.0.0 - 2021-03-04
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.10.1...v1.0.0)
 
 No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
-## 0.10.1 (2021-02-27)
+## v0.10.1 - 2021-02-27
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.10.0...v0.10.1)
 
@@ -143,7 +143,7 @@ No noteworthy features or bug fixes in this release. Mostly metadata updates.
 - Undefined cache duration isn't handled
 - Query editor tries to update read only property
 
-## 0.10.0 (2021-02-19)
+## v0.10.0 - 2021-02-19
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.9.2...v0.10.0)
 
@@ -151,7 +151,7 @@ No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
 - Add auto-completion to JSON Path queries
 
-## 0.9.2 (2021-02-03)
+## v0.9.2 - 2021-02-03
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.9.1...v0.9.2)
 
@@ -159,7 +159,7 @@ No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
 - Variable queries fail with error ([#48](https://github.com/grafana/grafana-json-datasource/issues/48))
 
-## 0.9.1 (2021-02-01)
+## v0.9.1 - 2021-02-01
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.9.0...v0.9.1)
 
@@ -167,7 +167,7 @@ No noteworthy features or bug fixes in this release. Mostly metadata updates.
 
 - Cannot read property 'toString' of null ([#46](https://github.com/grafana/grafana-json-datasource/issues/46))
 
-## 0.9.0 (2021-02-01)
+## v0.9.0 - 2021-02-01
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.8.0...v0.9.0)
 
@@ -185,7 +185,7 @@ It introduces a new key value editor for query parameters and headers, as well a
 
 This release deprecates the `queryString` property in the query model, in favor of the new `params`. The query string config _should_ be backwards-compatible (and forward-compatible) with previous versions, but make sure to back up your dashboard before upgrading.
 
-## 0.8.0 (2021-01-08)
+## v0.8.0 - 2021-01-08
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.7.1...v0.8.0)
 
@@ -199,7 +199,7 @@ This release deprecates the `queryString` property in the query model, in favor 
 - Grafana Explore gets stuck when adding a second query ([#31](https://github.com/grafana/grafana-json-datasource/issues/31))
 - Multiple data source queries overwrite each other
 
-## 0.7.1 (2020-12-07)
+## v0.7.1 - 2020-12-07
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.7.0...v0.7.1)
 
@@ -207,7 +207,7 @@ This release deprecates the `queryString` property in the query model, in favor 
 
 - Falsy values are returned as NaN ([#25](https://github.com/grafana/grafana-json-datasource/issues/25))
 
-## 0.7.0 (2020-12-04)
+## v0.7.0 - 2020-12-04
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.6.4...v0.7.0)
 
@@ -222,7 +222,7 @@ This release deprecates the `queryString` property in the query model, in favor 
 - Template variable chaining is not working ([#23](https://github.com/grafana/grafana-json-datasource/issues/23))
 - Cannot read property 'length' of null ([#21](https://github.com/grafana/grafana-json-datasource/issues/21))
 
-## 0.6.4 (2020-11-30)
+## v0.6.4 - 2020-11-30
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.6.3...v0.6.4)
 
@@ -230,7 +230,7 @@ This release deprecates the `queryString` property in the query model, in favor 
 
 - Fixes an issue where custom query parameters defined in the data source are flipped.
 
-## 0.6.3 (2020-11-27)
+## v0.6.3 - 2020-11-27
 
 [Full changelog](https://github.com/grafana/grafana-json-datasource/compare/v0.6.2...v0.6.3)
 
