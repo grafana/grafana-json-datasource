@@ -13,7 +13,8 @@
     "test": "grafana-toolkit plugin:test",
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch",
-    "sign": "grafana-toolkit plugin:sign"
+    "sign": "grafana-toolkit plugin:sign",
+    "changeset": "changeset-improved"
   },
   "homepage": "https://grafana.com/plugins/marcusolsson-json-datasource",
   "bugs": "https://github.com/grafana/grafana-json-datasource/issues",
@@ -23,6 +24,7 @@
     "url": "https://grafana.com"
   },
   "dependencies": {
+    "@grafana/plugin-ui": "^0.3.1",
     "dayjs": "^1.10.4",
     "jsonata": "^1.8.6",
     "jsonpath-plus": "^6.0.1",
@@ -53,7 +55,11 @@
   "resolutions": {
     "minimist": "1.2.8",
     "moment": "2.29.4",
-    "moment-timezone": "0.5.41"
+    "moment-timezone": "0.5.41",
+    "@grafana/data": "9.4.3",
+    "@grafana/runtime": "9.4.3",
+    "@grafana/toolkit": "9.4.3",
+    "@grafana/ui": "9.4.3"
   },
   "engines": {
     "node": ">=14"
