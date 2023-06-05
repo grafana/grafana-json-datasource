@@ -2,7 +2,7 @@
 
 ## 1.3.6 (2023-05-30)
 
-- **Chore**: Docs update
+- ⚙️ **Chore**: Docs update
 
 ## 1.3.5 (2023-04-05)
 
@@ -22,12 +22,12 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 ## 1.3.4 (2023-04-04)
 
-- **Chore**: docs update
+- ⚙️ **Chore**: docs update
 
 ## 1.3.3 (2023-03-20)
 
-- **Chore**: dependencies update
-- **Chore**: spellcheck added
+- ⚙️ **Chore**: dependencies update
+- ⚙️ **Chore**: spellcheck added
 
 ## 1.3.2 (2022-10-14)
 
@@ -79,7 +79,7 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 ### Bug fixes
 
-- Fix for macros not running in variable queries ([#100](https://github.com/grafana/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
+- 🐛 **Fix**: for macros not running in variable queries ([#100](https://github.com/grafana/grafana-json-datasource/pull/100)) (thanks [@KensingtonTech](https://github.com/KensingtonTech)!)
 
 ## 1.1.1 (2021-04-17)
 
@@ -91,7 +91,7 @@ If your dashboards currently rely on JSONPath queries containing subexpressions,
 
 ### Bug fixes
 
-- Fix issue where wrong fields were used when grouping
+- 🐛 **Fix**: issue where wrong fields were used when grouping
 - Add variable support for aliases
 
 ## 1.1.0 (2021-04-15)
