@@ -20,6 +20,7 @@ import API from './api';
 import { detectFieldType } from './detectFieldType';
 import { parseValues } from './parseValues';
 import { JsonApiDataSourceOptions, JsonApiQuery, Pair } from './types';
+import { trackRequest } from 'tracking';
 
 export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourceOptions> {
   api: API;
@@ -42,6 +43,8 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
   }
 
   async query(request: DataQueryRequest<JsonApiQuery>): Promise<DataQueryResponse> {
+    trackRequest(request);
+
     const promises = await request.targets
       .filter((query) => !query.hide)
       .flatMap((query) => this.doRequest(query, request.range, request.scopedVars));
