@@ -15,6 +15,7 @@
   "words": [
     "Alessio",
     "amng",
+    "changesets",
     "clsx",
     "datasource",
     "datasources",
@@ -33,7 +34,7 @@
     "Timestmap",
     "Totalus",
     "Typeahead",
-    "uniquify",
-    "changesets"
+    "typecheck",
+    "uniquify"
   ]
 }
