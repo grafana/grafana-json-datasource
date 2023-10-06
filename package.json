@@ -87,17 +87,5 @@
     "webpack-cli": "^5.1.4",
     "webpack-livereload-plugin": "^3.0.2"
   },
-  "resolutions": {
-    "minimist": "1.2.8",
-    "moment": "2.29.4",
-    "moment-timezone": "0.5.41",
-    "@grafana/data": "9.4.3",
-    "@grafana/runtime": "9.4.3",
-    "@grafana/toolkit": "9.4.3",
-    "@grafana/ui": "9.4.3"
-  },
-  "engines": {
-    "node": ">=14"
-  },
   "packageManager": "yarn@1.22.19"
 }
