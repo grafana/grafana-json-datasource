@@ -1,6 +1,6 @@
 import { GrafanaTheme } from '@grafana/data';
 import { Button, Icon, stylesFactory, useTheme } from '@grafana/ui';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import React from 'react';
 import { Pair } from '../types';
 

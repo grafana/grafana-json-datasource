@@ -1,4 +1,3 @@
-import {} from '@emotion/core';
 import { InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
 import React from 'react';
 
