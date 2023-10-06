@@ -39,5 +39,5 @@ module.exports = {
   },
   // Jest will throw `Cannot use import statement outside module` if it tries to load an
   // ES module without it being transformed first. ./config/README.md#esm-errors-with-jest
-  transformIgnorePatterns: [nodeModulesToTransform([...grafanaESModules, 'jsonpath-plus'])],
+  transformIgnorePatterns: [nodeModulesToTransform(grafanaESModules)],
 };

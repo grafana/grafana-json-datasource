@@ -5,4 +5,5 @@ process.env.TZ = 'UTC';
 module.exports = {
   // Jest configuration provided by Grafana scaffolding
   ...require('./.config/jest.config'),
+  transformIgnorePatterns: [nodeModulesToTransform([...grafanaESModules, 'jsonpath-plus'])],
 };
