@@ -117,7 +117,7 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
                 margin-bottom: ${theme.spacing.sm};
               `}
             >
-              {({ width }) => (
+              {({ width }: { width: number }) => (
                 <CodeEditor
                   value={q.body || ''}
                   language={bodyType}
