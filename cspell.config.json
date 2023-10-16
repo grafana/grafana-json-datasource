@@ -15,9 +15,11 @@
   "words": [
     "Alessio",
     "amng",
+    "changesets",
     "clsx",
     "datasource",
     "datasources",
+    "jackspeak",
     "jirkafajfr",
     "jsonapi",
     "jsonata",
@@ -33,7 +35,7 @@
     "Timestmap",
     "Totalus",
     "Typeahead",
-    "uniquify",
-    "changesets"
+    "typecheck",
+    "uniquify"
   ]
 }

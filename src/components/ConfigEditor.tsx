@@ -1,4 +1,3 @@
-import {} from '@emotion/core';
 import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
 import { DataSourceHttpSettings, InlineField, InlineFieldRow, Input } from '@grafana/ui';
 import React, { ChangeEvent } from 'react';

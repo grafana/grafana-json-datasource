@@ -1,7 +1,7 @@
 import { TimeRange } from '@grafana/data';
 import { CodeEditor, InfoBox, InlineField, InlineFieldRow, RadioButtonGroup, Segment, useTheme } from '@grafana/ui';
 import { JsonDataSource } from 'datasource';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import defaults from 'lodash/defaults';
 import React, { useState } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';

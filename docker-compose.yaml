@@ -1,19 +1,16 @@
-version: '3.7'
+version: '3.0'
+
 services:
   grafana:
-    image: grafana/grafana-enterprise:${GF_VERSION:-9.4.3}
-    container_name: marcusolsson-json-datasource
+    container_name: 'marcusolsson-json-datasource'
+    platform: "linux/amd64"
+    build:
+      context: ./.config
+      args:
+        grafana_image: ${GRAFANA_IMAGE:-grafana-enterprise}
+        grafana_version: ${GRAFANA_VERSION:-10.0.3}
     ports:
       - 3000:3000/tcp
     volumes:
-      - ./dist:/var/lib/grafana/plugins/grafana-json-datasource
+      - ./dist:/var/lib/grafana/plugins/marcusolsson-json-datasource
       - ./provisioning:/etc/grafana/provisioning
-    environment:
-      - TERM=linux
-      - GF_DEFAULT_APP_MODE=development
-      - GF_FEATURE_TOGGLES_ENABLE=topnav
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      - GF_SECURITY_ADMIN_USER=grafana
-      - GF_SECURITY_ADMIN_PASSWORD=grafana
-      - GF_ENTERPRISE_LICENSE_TEXT=$GF_ENTERPRISE_LICENSE_TEXT
