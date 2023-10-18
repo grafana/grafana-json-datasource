@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.7 - 2023-10-18
+## v1.3.7 - 2023-10-18
 
 - ⚙️ **Chore**: Migrate to create-plugin
 - ⚙️ **Chore**: Add feature tracking
