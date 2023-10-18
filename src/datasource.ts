@@ -237,6 +237,10 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       return [interpolate(key), interpolate(value)];
     };
 
+    if (!isSafeURL(query.urlPath)) {
+      throw new Error('URL path contains unsafe characters');
+    }
+
     return await this.api.cachedGet(
       query.cacheDurationSeconds,
       query.method,
@@ -329,3 +333,7 @@ const globalVariables: string[] = [
   'timeFilter',
   '__timeFilter',
 ];
+
+function isSafeURL(url: string) {
+  return !url.includes('..');
+}
