@@ -236,10 +236,15 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
     const interpolateKeyValue = ([key, value]: Pair<string, string>): Pair<string, string> => {
       return [interpolate(key), interpolate(value)];
     };
+    let method = query.method;
+
+    if (method !== 'GET' && method !== 'POST') {
+      throw new Error(`Invalid method ${query.method}`);
+    }
 
     return await this.api.cachedGet(
       query.cacheDurationSeconds,
-      query.method,
+      method,
       interpolate(query.urlPath),
       (query.params ?? []).map(interpolateKeyValue),
       (query.headers ?? []).map(interpolateKeyValue),
