@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.8 - 2023-10-19
+
+- ⚙️ **Chore**: Update dependencies
+
 ## v1.3.7 - 2023-10-18
 
 - ⚙️ **Chore**: Migrate to create-plugin
