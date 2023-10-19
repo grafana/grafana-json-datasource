@@ -241,6 +241,10 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('URL path contains unsafe characters');
     }
 
+    if (query.method !== 'GET' && query.method !== 'POST') {
+      throw new Error(`Invalid method ${query.method}`);
+    }
+
     return await this.api.cachedGet(
       query.cacheDurationSeconds,
       query.method,
