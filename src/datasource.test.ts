@@ -29,14 +29,14 @@ describe('datasource', () => {
 
     const responsePUT = ds.doRequest({ method: 'PUT' } as any);
 
-    expect(responsePUT).rejects.toThrowError('Invalid method PUT');
+    await expect(responsePUT).rejects.toThrowError('Invalid method PUT');
 
     const responsePATCH = ds.doRequest({ method: 'PATCH' } as any);
 
-    expect(responsePATCH).rejects.toThrowError('Invalid method PATCH');
+    await expect(responsePATCH).rejects.toThrowError('Invalid method PATCH');
 
     const responseDELETE = ds.doRequest({ method: 'DELETE' } as any);
 
-    expect(responseDELETE).rejects.toThrowError('Invalid method DELETE');
+    await expect(responseDELETE).rejects.toThrowError('Invalid method DELETE');
   });
 });
