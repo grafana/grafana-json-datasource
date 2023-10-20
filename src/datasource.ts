@@ -237,10 +237,6 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       return [interpolate(key), interpolate(value)];
     };
 
-    if (!isSafeURL(query.urlPath)) {
-      throw new Error('URL path contains unsafe characters');
-    }
-
     if (query.method !== 'GET' && query.method !== 'POST') {
       throw new Error(`Invalid method ${query.method}`);
     }
@@ -337,7 +333,3 @@ const globalVariables: string[] = [
   'timeFilter',
   '__timeFilter',
 ];
-
-function isSafeURL(url: string) {
-  return !url.includes('..');
-}
