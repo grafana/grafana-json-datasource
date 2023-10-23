@@ -5,7 +5,7 @@ jest.mock('@grafana/runtime', () => ({
   ...jest.requireActual('@grafana/runtime'),
   getTemplateSrv: () => ({
     getVariables: () => [],
-    replace: (text) => text,
+    replace: (text?: string) => text,
   }),
 }));
 
