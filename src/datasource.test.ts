@@ -7,6 +7,14 @@ jest.mock('@grafana/runtime', () => ({
     getVariables: () => [],
     replace: (text?: string) => text,
   }),
+  getBackendSrv: () => ({
+    fetch: () => ({
+      toPromise: () =>
+        Promise.resolve({
+          data: [{ id: 1 }, { id: 2 }, { id: 3 }],
+        }),
+    }),
+  }),
 }));
 
 const sampleTimestampFrom = '2021-05-17T20:48:09.000Z'; // -> 1621284489
@@ -39,6 +47,14 @@ describe('datasource', () => {
     for (let path of badPaths) {
       const response = ds.doRequest({ urlPath: path, method: 'GET' } as any);
       await expect(response).rejects.toThrowError('URL path contains unsafe characters');
+    }
+
+    const goodPaths = ['/..thing', '/one..two/', '/thing../'];
+
+    for (let path of goodPaths) {
+      const response = ds.doRequest({ urlPath: path, method: 'GET' } as any);
+      // i just need to check that there were no errors, so i check for the response-length
+      await expect(response).resolves.toHaveLength(1);
     }
   });
 

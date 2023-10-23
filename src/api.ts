@@ -159,5 +159,17 @@ export default class Api {
 }
 
 function isSafeURL(url: string) {
-  return !url.includes('..');
+  if (url.endsWith('/..')) {
+    return false;
+  }
+
+  if (url.includes('/../')) {
+    return false;
+  }
+
+  if (url.includes('/..?')) {
+    return false;
+  }
+
+  return true;
 }
