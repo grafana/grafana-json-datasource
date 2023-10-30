@@ -10,6 +10,6 @@ The Grafana JSON Datasource plugin empowers you to seamlessly integrate JSON dat
 
 ## Documentation
 
-For comprehensive instructions on setting up and configuring the Grafana JSON API Datasource, please consult our official [documentation](https://grafana.github.io/grafana-csv-datasource).
+For comprehensive instructions on setting up and configuring the Grafana JSON API Datasource, please consult our official [documentation](https://grafana.github.io/grafana-json-datasource).
 
 > **Maintenance**: Now the plugin is being maintained by Grafana Labs. Big thanks to [Marcus Olsson](https://github.com/marcusolsson) for the awesome work!
