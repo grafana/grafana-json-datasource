@@ -7,11 +7,15 @@ export default class Api {
   cache: any;
   baseUrl: string;
   params: URLSearchParams;
+  method: string;
+  body: string | undefined;
   lastCacheDuration: number | undefined;
 
-  constructor(baseUrl: string, params: string) {
+  constructor(baseUrl: string, params: string, method: string, body?: string) {
     this.baseUrl = baseUrl;
     this.params = new URLSearchParams('?' + params);
+    this.method = method;
+    this.body = body;
     this.cache = new cache.Cache();
   }
 
@@ -50,13 +54,13 @@ export default class Api {
    * Used as a health check.
    */
   async test(): Promise<any> {
-    const data: Record<string, string> = {};
+    const query: Record<string, string> = {};
 
     this.params.forEach((value, key) => {
-      data[key] = value;
+      query[key] = value;
     });
 
-    return this._request('GET', '', data).toPromise();
+    return this._request(this.method, '', query, undefined, this.body).toPromise();
   }
 
   /**
