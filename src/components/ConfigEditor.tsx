@@ -1,5 +1,5 @@
 import { DataSourcePluginOptionsEditorProps, GrafanaTheme2 } from '@grafana/data';
-import { Divider, Field, Input, useStyles2 } from '@grafana/ui';
+import { Field, Input, useStyles2 } from '@grafana/ui';
 import React, { ChangeEvent } from 'react';
 import { JsonApiDataSourceOptions } from '../types';
 import {
@@ -11,6 +11,7 @@ import {
   convertLegacyAuthProps,
 } from '@grafana/experimental';
 import { css } from '@emotion/css';
+import { Divider } from './Divider';
 
 type Props = DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions>;
 
