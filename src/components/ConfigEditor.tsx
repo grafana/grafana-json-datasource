@@ -1,7 +1,17 @@
-import { DataSourcePluginOptionsEditorProps } from '@grafana/data';
-import { DataSourceHttpSettings, InlineField, InlineFieldRow, Input } from '@grafana/ui';
+import { DataSourcePluginOptionsEditorProps, GrafanaTheme2 } from '@grafana/data';
+import { Field, Input, useStyles2 } from '@grafana/ui';
 import React, { ChangeEvent } from 'react';
 import { JsonApiDataSourceOptions } from '../types';
+import {
+  AdvancedHttpSettings,
+  Auth,
+  ConfigSection,
+  ConnectionSettings,
+  DataSourceDescription,
+  convertLegacyAuthProps,
+} from '@grafana/experimental';
+import { css } from '@emotion/css';
+import { Divider } from './Divider';
 
 type Props = DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions>;
 
@@ -10,6 +20,8 @@ type Props = DataSourcePluginOptionsEditorProps<JsonApiDataSourceOptions>;
  * authentication.
  */
 export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
+  const styles = useStyles2(getStyles);
+
   const onParamsChange = (e: ChangeEvent<HTMLInputElement>) => {
     onOptionsChange({
       ...options,
@@ -22,29 +34,51 @@ export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
 
   return (
     <>
-      {/* DataSourceHttpSettings handles most the settings for connecting over
-      HTTP. */}
-      <DataSourceHttpSettings
-        defaultUrl="http://localhost:8080"
-        dataSourceConfig={options}
-        onChange={onOptionsChange}
+      <DataSourceDescription
+        dataSourceName="JSON API"
+        docsLink="https://grafana.github.io/grafana-json-datasource/"
+        hasRequiredFields={false}
       />
 
-      {/* The Grafana proxy strips query parameters from the URL set in
-      DataSourceHttpSettings. To support custom query parameters, the user need
-      to set them explicitly.  */}
-      <h3 className="page-heading">Misc</h3>
-      <InlineFieldRow>
-        <InlineField label="Query string" tooltip="Add a custom query string to your queries.">
+      <Divider />
+
+      <ConnectionSettings config={options} onChange={onOptionsChange} urlPlaceholder="http://localhost:8080" />
+
+      <Divider />
+
+      <Auth
+        {...convertLegacyAuthProps({
+          config: options,
+          onChange: onOptionsChange,
+        })}
+      />
+
+      <Divider />
+
+      <ConfigSection title="Additional settings" isCollapsible>
+        <AdvancedHttpSettings config={options} onChange={onOptionsChange} />
+
+        <div className={styles.space} />
+
+        <Field label="Query string" description="Add a custom query string to your queries.">
           <Input
-            width={50}
+            width={40}
             value={options.jsonData.queryParams}
             onChange={onParamsChange}
             spellCheck={false}
-            placeholder="page=1&limit=100"
+            placeholder="limit=100"
           />
-        </InlineField>
-      </InlineFieldRow>
+        </Field>
+      </ConfigSection>
     </>
   );
+};
+
+const getStyles = (theme: GrafanaTheme2) => {
+  return {
+    space: css({
+      width: '100%',
+      height: theme.spacing(2),
+    }),
+  };
 };
