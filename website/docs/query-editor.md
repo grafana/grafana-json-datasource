@@ -42,15 +42,9 @@ In the following example, the `name` property is present in both objects, but `v
 In the example below, you can see a couple of expressions and their results for the JSON structure in the previous example. Since JSONPath expressions are evaluated individually, Grafana can't tell which version that was missing.
 
 | Expression              | Result                         |
-|-------------------------|--------------------------------|
+| ----------------------- | ------------------------------ |
 | `$.services[*].name`    | `["order-api", "billing-api"]` |
 | `$.services[*].version` | `["1"]`                        |
-
-Depending on your use case, you can use a filter expression to only return items that contain a version:
-
-```json
-$.services[?(@.version)].name
-```
 
 ### Path
 
