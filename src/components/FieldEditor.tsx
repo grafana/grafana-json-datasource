@@ -97,6 +97,7 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
             <Button
               variant="secondary"
               onClick={addField(index, { language: field.language ?? 'jsonpath' })}
+              title="plus"
               icon="plus"
             />
           )}
