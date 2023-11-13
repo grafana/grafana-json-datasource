@@ -102,7 +102,9 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
             />
           )}
 
-          {value.length > 1 ? <Button variant="secondary" onClick={removeField(index)} icon="minus" title="minus" /> : null}
+          {value.length > 1 ? (
+            <Button variant="secondary" onClick={removeField(index)} icon="minus" title="minus" />
+          ) : null}
         </InlineFieldRow>
       ))}
     </>
