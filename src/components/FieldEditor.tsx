@@ -1,5 +1,5 @@
 import { FieldType, SelectableValue } from '@grafana/data';
-import { Icon, InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
+import { Button, InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
 import React from 'react';
 import { JsonField, QueryLanguage } from 'types';
 import { JsonataQueryField } from './JsonataQueryField';
@@ -94,15 +94,16 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
           </InlineField>
 
           {(!limit || value.length < limit) && (
-            <a className="gf-form-label" onClick={addField(index, { language: field.language ?? 'jsonpath' })}>
-              <Icon name="plus" />
-            </a>
+            <Button
+              variant="secondary"
+              onClick={addField(index, { language: field.language ?? 'jsonpath' })}
+              title="plus"
+              icon="plus"
+            />
           )}
 
           {value.length > 1 ? (
-            <a className="gf-form-label" onClick={removeField(index)}>
-              <Icon name="minus" />
-            </a>
+            <Button variant="secondary" onClick={removeField(index)} icon="minus" title="minus" />
           ) : null}
         </InlineFieldRow>
       ))}
