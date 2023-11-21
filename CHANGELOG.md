@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.9 - 2023-11-21
+
+- Update configuration page to follow best practices
+- ⚙️ **Chore**: Remove legacy form styles
+- ⚙️ **Chore**: Update readme and documentation
+- ⚙️ **Chore**: Added lint github workflow
+
 ## v1.3.8 - 2023-10-19
 
 - ⚙️ **Chore**: Update dependencies
