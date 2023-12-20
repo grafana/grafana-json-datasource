@@ -1,6 +1,16 @@
 ---
-id: macros
 title: Macros
+menuTitle: Macros
+description: This document explains the macros provided by JSON API data source
+aliases:
+keywords:
+  - data source
+  - json api
+labels:
+  products:
+    - oss
+    - grafana cloud
+weight: 410
 ---
 
 Use macros to add dashboard context to your queries. Macros are available in HTTP params and JSONPath expressions.

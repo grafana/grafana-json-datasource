@@ -1,15 +1,23 @@
 ---
-id: annotations
-title: Annotations
+title: Variables
+menuTitle: Variables
+description: This document explains the process of setting up variables using JSON API data source
+aliases:
+keywords:
+  - data source
+  - json api
+labels:
+  products:
+    - oss
+    - grafana cloud
+weight: 600
 ---
 
-![Annotations](../static/img/annotation.png)
+![Annotations](https://raw.githubusercontent.com/grafana/grafana-json-datasource/main/docs/images/annotation.png)
 
 [Annotations](https://grafana.com/docs/grafana/latest/dashboards/annotations) let you extract data from a data source and use it to annotate a dashboard.
 
-:::info
-Annotations support was added in **v1.0.1**. If you can't select the JSON API data source from the list of data sources, try updating to a more recent version.
-:::
+> **Info:** Annotations support was added in **v1.0.1**. If you can't select the JSON API data source from the list of data sources, try updating to a more recent version.
 
 To use the JSON API data source for annotations, follow the instructions on [Querying other data sources](https://grafana.com/docs/grafana/latest/dashboards/annotations/#querying-other-data-sources). Make sure to select the JSON API from the list of data sources.
 

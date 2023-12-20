@@ -36,7 +36,7 @@ export const ConfigEditor: React.FC<Props> = ({ options, onOptionsChange }) => {
     <>
       <DataSourceDescription
         dataSourceName="JSON API"
-        docsLink="https://grafana.github.io/grafana-json-datasource/"
+        docsLink="https://grafana.com/docs/plugins/marcusolsson-json-datasource/latest/"
         hasRequiredFields={false}
       />
 

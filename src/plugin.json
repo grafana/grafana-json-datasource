@@ -20,10 +20,10 @@
     "links": [
       {
         "name": "Documentation",
-        "url": "https://grafana.github.io/grafana-json-datasource"
+        "url": "https://grafana.com/docs/plugins/marcusolsson-json-datasource/latest/"
       },
       {
-        "name": "Website",
+        "name": "Github",
         "url": "https://github.com/grafana/grafana-json-datasource"
       },
       {

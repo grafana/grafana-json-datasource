@@ -1,6 +1,16 @@
 ---
-id: configuration
 title: Configuration
+menuTitle: Configuration
+description: This document explains the configuration process of JSON API data source
+aliases:
+keywords:
+  - data source
+  - json api
+labels:
+  products:
+    - oss
+    - grafana cloud
+weight: 300
 ---
 
 ## Add a JSON data source
