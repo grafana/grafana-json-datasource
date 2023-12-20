@@ -1,8 +1,12 @@
 # Changelog
 
+## v1.3.10 - 2023-12-20
+
+- ⚙️ **Docs**: Documentation website moved from [github pages](https://grafana.github.io/grafana-json-datasource) to [grafana.com/docs/plugins](https://grafana.com/docs/plugins/marcusolsson-json-datasource/latest/) page
+
 ## v1.3.9 - 2023-11-21
 
-- Update configuration page to follow best practices
+- ⚙️ **Chore**: Update configuration page to follow best practices
 - ⚙️ **Chore**: Remove legacy form styles
 - ⚙️ **Chore**: Update readme and documentation
 - ⚙️ **Chore**: Added lint github workflow
