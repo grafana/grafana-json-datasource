@@ -28,18 +28,7 @@ After you've created the pull request:
 
 ## Contribute documentation
 
-This plugin uses [Docusaurus](https://docusaurus.io/) to build the [documentation](https://grafana.github.io/grafana-json-datasource).
-
-For more information about writing documentation using Docusaurus, refer to the [Docusaurus documentation](https://docusaurus.io/docs/).
-
-The individual documentation pages are written in Markdown. You can find them under [website/docs](website/docs).
-
-To preview the documentation site on your local machine, run the following in your terminal:
-
-```bash
-cd website/docs
-yarn start
-```
+The individual documentation pages are written in Markdown. You can find them under [docs/sources](./docs/sources/). Once documentation is updated, they will automatically published in [grafana.com/docs/plugins](https://grafana.com/docs/plugins/marcusolsson-json-datasource/latest/) website.
 
 ## Set up the project
 

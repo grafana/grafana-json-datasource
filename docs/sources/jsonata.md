@@ -1,6 +1,16 @@
 ---
-id: jsonata
 title: JSONata
+menuTitle: JSONata
+description: This document explains the jsonata usage in JSON API data source
+aliases:
+keywords:
+  - data source
+  - json api
+labels:
+  products:
+    - oss
+    - grafana cloud
+weight: 430
 ---
 
 [JSONata](https://docs.jsonata.org/) is a query and transformation language for JSON data.

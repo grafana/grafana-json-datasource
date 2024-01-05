@@ -1,6 +1,16 @@
 ---
-id: query-editor
-title: Query editor
+title: Query Editor
+menuTitle: Query Editor
+description: This document explains the Query Editor of JSON API data source
+aliases:
+keywords:
+  - data source
+  - json api
+labels:
+  products:
+    - oss
+    - grafana cloud
+weight: 400
 ---
 
 This page explains the what each part of the query editor does, and how you can configure it.
@@ -9,7 +19,7 @@ The query editor for the JSON API data source consists of a number of tabs. Each
 
 ### Fields
 
-![Fields](../static/img/editor-fields.png)
+![Fields](https://raw.githubusercontent.com/grafana/grafana-json-datasource/main/docs/images/editor-fields.png)
 
 The **Fields** tab is where you select the data to extract from the JSON document returned by the URL configured in the data source configuration.
 
@@ -19,7 +29,7 @@ The **Fields** tab is where you select the data to extract from the JSON documen
 
   This can be useful in cases where the API returns quoted numbers, e.g. `"price": "3.49"`.
 
-#### `Fields have different lengths`
+#### Fields have different lengths
 
 All fields must return the same number of values. If you get this error it means that one or more of the objects are missing the queried element.
 
@@ -48,7 +58,7 @@ In the example below, you can see a couple of expressions and their results for 
 
 ### Path
 
-![Path](../static/img/editor-path.png)
+![Path](https://raw.githubusercontent.com/grafana/grafana-json-datasource/main/docs/images/editor-path.png)
 
 The drop-down box to the left lets you configure the **HTTP method** of the request sent to the URL and can be set to **GET** and **POST**.
 
@@ -58,19 +68,17 @@ For example, by setting the path to `/movies/${movie}/summary` you can query the
 
 ### Params
 
-![Params](../static/img/editor-params.png)
+![Params](https://raw.githubusercontent.com/grafana/grafana-json-datasource/main/docs/images/editor-params.png)
 
 Add any parameters you'd like to send as part of the query string. For example, the parameters in the screenshot gets encoded as `?category=movies`.
 
 Both the **Key** and **Value** fields support [variables](https://grafana.com/docs/grafana/latest/variables/).
 
-:::caution
-Any query parameters that have been set by the administrator in the data source configuration has higher priority and overrides the parameters set by the query.
-:::
+> **Caution:** Any query parameters that have been set by the administrator in the data source configuration has higher priority and overrides the parameters set by the query.
 
 ### Headers
 
-![Headers](../static/img/editor-headers.png)
+![Headers](https://raw.githubusercontent.com/grafana/grafana-json-datasource/main/docs/images/editor-headers.png)
 
 Add any parameters you'd like to send as HTTP headers.
 
@@ -78,23 +86,19 @@ Both the **Key** and **Value** fields support [variables](https://grafana.com/do
 
 ### Body
 
-![Body](../static/img/editor-body.png)
+![Body](https://raw.githubusercontent.com/grafana/grafana-json-datasource/main/docs/images/editor-body.png)
 
 Sets the text to send as a request body.
 
 - **Syntax highlighting** sets the active syntax for the editor. This is only for visual purposes and doesn't change the actual request.
 
-:::info
-Due to limitations in modern browsers, Grafana ignores the request body if the HTTP method is set to GET.
-:::
+> **Info:** Due to limitations in modern browsers, Grafana ignores the request body if the HTTP method is set to GET.
 
 ### Experimental
 
 Try out features that are currently in development. Each feature has a link in its tooltip that takes you to the feature request on GitHub where you can share your feedback.
 
-:::danger
-Experimental features might be unstable and can be removed without notice.
-:::
+> **Warning:** Experimental features might be unstable and can be removed without notice.
 
 ### Cache time
 
