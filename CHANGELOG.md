@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.11 - 2024-01-24
+
+- 🐛 **Fix**: More robust URL handling (only allow GET & POST, disallow "..")
+
 ## v1.3.10 - 2023-12-20
 
 - ⚙️ **Docs**: Documentation website moved from [github pages](https://grafana.github.io/grafana-json-datasource) to [grafana.com/docs/plugins](https://grafana.com/docs/plugins/marcusolsson-json-datasource/latest/) page
