@@ -4,6 +4,7 @@
     "./.github/",
     "./dist/",
     "coverage",
+    "package.json",
     "./src/**/*.test.ts",
     "./website/src/css",
     "./website/*.js",
