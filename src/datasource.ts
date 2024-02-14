@@ -237,6 +237,10 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       return [interpolate(key), interpolate(value)];
     };
 
+    if (query.method !== 'GET' && query.method !== 'POST') {
+      throw new Error(`Invalid method ${query.method}`);
+    }
+
     return await this.api.cachedGet(
       query.cacheDurationSeconds,
       query.method,
