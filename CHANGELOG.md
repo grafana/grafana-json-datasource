@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.3.12 - 2024-02-14
+
+- ⚙️ **Chore**: Maintenance
+
+## v1.3.11 - 2024-02-14
+
+- 🛡️ **Security**: Add more robust URL handling, do not allow '/../' in the URL, only allow GET and POST methods ( CVE-2023-5123 )
+
 ## v1.3.10 - 2023-12-20
 
 - ⚙️ **Docs**: Documentation website moved from [github pages](https://grafana.github.io/grafana-json-datasource) to [grafana.com/docs/plugins](https://grafana.com/docs/plugins/marcusolsson-json-datasource/latest/) page
