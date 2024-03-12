@@ -24,6 +24,16 @@ test('parse numbers from strings', () => {
   // expect(parseValues(values, FieldType.time)).toStrictEqual([1104537600000, 1136073600000]);
 });
 
+test('parse dates from strings', () => {
+  const timestampValues = ['1630281600000', '1629763200000', '1629849600000'];
+  const isodateValues = ['2021-08-30T00:00:00.000Z', '2021-08-24T00:00:00.000Z', '2021-08-25T00:00:00.000Z'];
+  const mixedValues = ['1630281600000', null, '2021-08-25T00:00:00.000Z'];
+
+  expect(parseValues(timestampValues, FieldType.time)).toStrictEqual([1630281600000, 1629763200000, 1629849600000]);
+  expect(parseValues(isodateValues, FieldType.time)).toStrictEqual([1630281600000, 1629763200000, 1629849600000]);
+  expect(parseValues(mixedValues, FieldType.time)).toStrictEqual([1630281600000, null, 1629849600000]);
+});
+
 test('parse booleans', () => {
   const values = [false, true, false];
 
