@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.13 - 2024-04-04
+
+- ⚙️ **Chore**: Update dependencies
+
 ## v1.3.12 - 2024-02-14
 
 - ⚙️ **Chore**: Maintenance
