@@ -1,5 +1,8 @@
 # JSON API data source for Grafana
 
+> [!CAUTION]
+> This plugin is now in maintenance mode, no new features will be added. We recommend using the [Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) instead
+
 The Grafana JSON Datasource plugin empowers you to seamlessly integrate JSON data into Grafana. JSON is a versatile and widely used data format, and with this plugin, you can easily transform your JSON data into meaningful visualizations within Grafana dashboards.
 
 ## Documentation
