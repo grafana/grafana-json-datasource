@@ -158,7 +158,9 @@ export default class Api {
   }
 }
 
-function isSafeURL(url: string) {
+function isSafeURL(origUrl: string) {
+  // browsers interpret backslash as slash
+  const url = origUrl.replace(/\\/g, '/');
   if (url.endsWith('/..')) {
     return false;
   }

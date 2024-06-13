@@ -42,14 +42,25 @@ test('range gets converted into unix epoch notation', () => {
 describe('datasource', () => {
   it('should not allow urls that contains ..', async () => {
     const ds = new JsonDataSource({ url: 'http://localhost:3000', jsonData: {} } as any);
-    const badPaths = ['/..', '/..?', '/../../', '/../..?'];
+    const badPaths = [
+      '/..',
+      '\\..',
+      '/..?',
+      '\\..?',
+      '/../../',
+      '\\../../',
+      '/..\\../',
+      '\\..\\../',
+      '/../..?',
+      '\\../..?',
+    ];
 
     for (let path of badPaths) {
       const response = ds.doRequest({ urlPath: path, method: 'GET' } as any);
       await expect(response).rejects.toThrowError('URL path contains unsafe characters');
     }
 
-    const goodPaths = ['/..thing', '/one..two/', '/thing../'];
+    const goodPaths = ['/..thing', '\\..thing', '/one..two/', '\\one..two\\', '/thing../', '\\thing..\\'];
 
     for (let path of goodPaths) {
       const response = ds.doRequest({ urlPath: path, method: 'GET' } as any);
