@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.18 - 2024-10-18
+
+- 🛡️ **Security**: Update `jsonpath-plus` to version 10.0.6
+- 🛡️ **Security**: Bump `dompurify` from 3.1.0 to 3.1.6
+- 🛡️ **Security**: Bump `path-to-regexp` from 1.8.0 to 1.9.0
+
 ## v1.3.17 - 2024-09-03
 
 - 🛡️ **Security**: Bump `micromatch` from 4.0.5 to 4.0.8
