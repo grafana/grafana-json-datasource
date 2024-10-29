@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.19 - 2024-10-29
+
+- 🛡️ **Security**: Update `jsonpath-plus` to version 10.1.0
+- 🛡️ **Security**: Update `uplot` to version 1.6.31
+
 ## v1.3.18 - 2024-10-18
 
 - 🛡️ **Security**: Update `jsonpath-plus` to version 10.0.6
