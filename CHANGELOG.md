@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.20 - 2024-11-28
+
+- 🛡️ **Security**: Update `jsonpath-plus` to version 10.1.0
+- 🛡️ **Security**: Update `cross-spawn` to version 7.0.5
+
 ## v1.3.19 - 2024-10-29
 
 - 🛡️ **Security**: Update `jsonpath-plus` to version 10.1.0
