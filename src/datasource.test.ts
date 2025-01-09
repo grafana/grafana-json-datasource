@@ -53,6 +53,8 @@ describe('datasource', () => {
       '\\..\\../',
       '/../..?',
       '\\../..?',
+      '..%2F..%2f..%2F..%2F..%2F..%2Fapi/', // Make sure that encoded paths are also not allowed
+      '.%09.%2f.%09.%2f.%09.%2f.%09.%2fapi/', // Make sure that tabs are also not allowed
     ];
 
     for (let path of badPaths) {
