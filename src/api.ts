@@ -160,7 +160,7 @@ export default class Api {
 
 function isSafeURL(origUrl: string) {
   // browsers interpret backslash as slash
-  const url = origUrl.replace(/\\/g, '/');
+  const url = decodeURIComponent(origUrl.replace(/\\/g, '/'));
   if (url.endsWith('/..')) {
     return false;
   }
@@ -170,6 +170,10 @@ function isSafeURL(origUrl: string) {
   }
 
   if (url.includes('/..?')) {
+    return false;
+  }
+
+  if (url.includes('\t')) {
     return false;
   }
 

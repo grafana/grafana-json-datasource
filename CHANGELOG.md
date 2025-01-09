@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.21 - 2025-01-09
+
+- ⚙️ **Fix**: Enhance URL safety checks by sanitizing urls first.
+
 ## v1.3.20 - 2024-11-28
 
 - 🛡️ **Security**: Update `jsonpath-plus` to version 10.2.0
