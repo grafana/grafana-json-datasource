@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.22 - 2025-02-05
+
+- ⚙️ **Chore**: Update workflows
+- ⚙️ **Chore**: Migrate to playwright for e2e tests
+
 ## v1.3.21 - 2025-01-09
 
 - ⚙️ **Fix**: Enhance URL safety checks by sanitizing urls first.
