@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.23 - 2025-02-24
+
+- 🛡️ **Security**: Update `jsonpath-plus` to version 10.3.0
+- 🛡️ **Security**: Update `dompurify` to version 3.2.4
+- ⚙️ **Chore**: Update `serialize-javascript` to version 6.0.2
+
 ## v1.3.22 - 2025-02-05
 
 - ⚙️ **Chore**: Update workflows
