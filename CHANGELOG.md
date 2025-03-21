@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.24 - 2025-03-21
+
+- 🛡️ **Security**: Update frontend dependencies
+
 ## v1.3.23 - 2025-02-24
 
 - 🛡️ **Security**: Update `jsonpath-plus` to version 10.3.0
