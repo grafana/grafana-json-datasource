@@ -11,7 +11,7 @@ import {
   TimeRange,
   toDataFrame,
 } from '@grafana/data';
-import { getTemplateSrv } from '@grafana/runtime';
+import { getTemplateSrv, HealthCheckError } from '@grafana/runtime';
 import jsonata from 'jsonata';
 import { JSONPath } from 'jsonpath-plus';
 import { jp } from './jsonpath';
@@ -98,17 +98,20 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
           message: 'Success',
         };
       } else {
-        return {
+        const message = response.statusText ? response.statusText : defaultErrorMessage;
+        return Promise.reject({
           status: 'error',
-          message: response.statusText ? response.statusText : defaultErrorMessage,
-        };
+          message,
+          error: new HealthCheckError(message, {}),
+        });
       }
     } catch (err: any) {
       if (_.isString(err)) {
-        return {
+        return Promise.reject({
           status: 'error',
           message: err,
-        };
+          error: new HealthCheckError(err, {}),
+        });
       } else {
         let message = 'JSON API: ';
         message += err.statusText ? err.statusText : defaultErrorMessage;
@@ -116,10 +119,11 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
           message += ': ' + err.data.error.code + '. ' + err.data.error.message;
         }
 
-        return {
+        return Promise.reject({
           status: 'error',
           message,
-        };
+          error: new HealthCheckError(message, {}),
+        });
       }
     }
   }
