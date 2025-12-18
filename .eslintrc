@@ -1,8 +1,0 @@
-{
-  "extends": "./.config/.eslintrc",
-  "plugins": ["prettier"],
-  "ignorePatterns": ["website"],
-  "rules": {
-    "prettier/prettier": "error"
-  }
-}

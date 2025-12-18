@@ -1,5 +1,4 @@
 import {
-  ArrayVector,
   DataFrame,
   DataQueryRequest,
   DataQueryResponse,
@@ -73,8 +72,8 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
     const valueField = frame.fields.find((field) => field.name === query.experimentalVariableValueField) ?? labelField;
 
     return Array.from({ length: frame.length }).map((_, idx) => ({
-      text: labelField.values.get(idx),
-      value: valueField.values.get(idx),
+      text: labelField.values[idx],
+      value: valueField.values[idx],
     }));
   }
 
@@ -176,7 +175,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
             return {
               name: replaceWithVars(field.name ?? '') || (query.fields.length > 1 ? `result${index}` : 'result'),
               type: field.type ? field.type : detectFieldType(arrayResult),
-              values: new ArrayVector(arrayResult),
+              values: arrayResult,
               config: {},
             };
           default:
@@ -194,7 +193,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
             return {
               name: replaceWithVars(field.name ?? '') || paths[paths.length - 1],
               type: propertyType,
-              values: new ArrayVector(typedValues),
+              values: typedValues,
               config: {},
             };
         }
@@ -279,7 +278,7 @@ export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
     return [frame];
   }
 
-  const uniqueValues = new Set(groupByField.values.toArray());
+  const uniqueValues = new Set(groupByField.values);
 
   const frames = [...uniqueValues].map((groupByValue) => {
     const fields: Field[] = frame.fields
@@ -287,11 +286,10 @@ export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
       .filter((field) => field.name.toString() !== groupByField.name)
       .map((field) => ({
         ...field,
-        values: new ArrayVector(
-          field.values.toArray().filter((_, idx) => {
-            return groupByField.values.get(idx) === groupByValue;
-          })
-        ),
+        values:
+          field.values.filter((_, idx) => {
+          return groupByField.values[idx] === groupByValue;
+        }),
       }));
 
     return toDataFrame({
