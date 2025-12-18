@@ -1,8 +1,8 @@
-import { TimeRange } from '@grafana/data';
-import { CodeEditor, InfoBox, InlineField, InlineFieldRow, RadioButtonGroup, Segment, useTheme } from '@grafana/ui';
-import { JsonDataSource } from 'datasource';
 import { css } from '@emotion/css';
-import defaults from 'lodash/defaults';
+import { TimeRange } from '@grafana/data';
+import { Alert, CodeEditor, InlineField, InlineFieldRow, RadioButtonGroup, Segment, useTheme2 } from '@grafana/ui';
+import { JsonDataSource } from 'datasource';
+import { defaults } from 'lodash';
 import React, { useState } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { defaultQuery, JsonApiQuery, Pair } from '../types';
@@ -28,8 +28,7 @@ interface Props {
 export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, experimentalTab }: Props) => {
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
-  const theme = useTheme();
-
+  const theme = useTheme2();
   const q = defaults(query, defaultQuery);
 
   const onBodyChange = (body: string) => {
@@ -114,7 +113,7 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
             <AutoSizer
               disableHeight
               className={css`
-                margin-bottom: ${theme.spacing.sm};
+                margin-bottom: ${theme.spacing(1)};
               `}
             >
               {({ width }) => (
@@ -165,16 +164,18 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
         </InlineField>
       </InlineFieldRow>
       {q.method === 'GET' && q.body && (
-        <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
-          {"GET requests can't have a body. The body you've defined will be ignored."}
-        </InfoBox>
+        <Alert
+          severity="warning"
+          title="GET requests can't have a body. The body you've defined will be ignored."
+          style={{ maxWidth: '700px', whiteSpace: 'normal' }}
+        />
       )}
       {(q.headers ?? []).map(([key, _]) => key.toLowerCase()).find((_) => sensitiveHeaders.includes(_)) && (
-        <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
-          {
-            "It looks like you're adding credentials in the header. Since queries are stored unencrypted, it's strongly recommended that you add any secrets to the data source config instead."
-          }
-        </InfoBox>
+        <Alert
+          severity="warning"
+          title="It looks like you're adding credentials in the header. Since queries are stored unencrypted, it's strongly recommended that you add any secrets to the data source config instead."
+          style={{ maxWidth: '700px', whiteSpace: 'normal' }}
+        />
       )}
       {tabs[tabIndex].content}
     </>

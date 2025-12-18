@@ -96,6 +96,7 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
           {(!limit || value.length < limit) && (
             <Button
               variant="secondary"
+              aria-label="Add field"
               onClick={addField(index, { language: field.language ?? 'jsonpath' })}
               title="plus"
               icon="plus"
@@ -103,7 +104,13 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
           )}
 
           {value.length > 1 ? (
-            <Button variant="secondary" onClick={removeField(index)} icon="minus" title="minus" />
+            <Button
+              variant="secondary"
+              aria-label="Remove field"
+              onClick={removeField(index)}
+              icon="minus"
+              title="minus"
+            />
           ) : null}
         </InlineFieldRow>
       ))}
