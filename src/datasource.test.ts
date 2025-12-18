@@ -59,7 +59,7 @@ describe('datasource', () => {
 
     for (let path of badPaths) {
       const response = ds.doRequest({ urlPath: path, method: 'GET' } as any);
-      await expect(response).rejects.toThrowError('URL path contains unsafe characters');
+      await expect(response).rejects.toThrow('URL path contains unsafe characters');
     }
 
     const goodPaths = ['/..thing', '\\..thing', '/one..two/', '\\one..two\\', '/thing../', '\\thing..\\'];
@@ -76,14 +76,14 @@ describe('datasource', () => {
 
     const responsePUT = ds.doRequest({ method: 'PUT' } as any);
 
-    await expect(responsePUT).rejects.toThrowError('Invalid method PUT');
+    await expect(responsePUT).rejects.toThrow('Invalid method PUT');
 
     const responsePATCH = ds.doRequest({ method: 'PATCH' } as any);
 
-    await expect(responsePATCH).rejects.toThrowError('Invalid method PATCH');
+    await expect(responsePATCH).rejects.toThrow('Invalid method PATCH');
 
     const responseDELETE = ds.doRequest({ method: 'DELETE' } as any);
 
-    await expect(responseDELETE).rejects.toThrowError('Invalid method DELETE');
+    await expect(responseDELETE).rejects.toThrow('Invalid method DELETE');
   });
 });
