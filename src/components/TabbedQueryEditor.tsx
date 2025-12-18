@@ -113,7 +113,7 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
             <AutoSizer
               disableHeight
               className={css`
-                margin-bottom: ${theme.spacing(2)};
+                margin-bottom: ${theme.spacing(1)};
               `}
             >
               {({ width }) => (
