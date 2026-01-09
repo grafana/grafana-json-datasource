@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.0
+## 1.3.25
 
 - 🛡️ **Security**:  Update versions of various dependencies
 
