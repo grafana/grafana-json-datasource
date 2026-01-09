@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0
+
+- 🛡️ **Security**:  Update versions of various dependencies
+
 ## v1.3.24 - 2025-03-21
 
 - 🛡️ **Security**: Update frontend dependencies
