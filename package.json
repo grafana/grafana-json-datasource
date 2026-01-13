@@ -62,7 +62,7 @@
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
     "@types/jest": "30.0.0",
-    "@types/lodash": "4.17.22",
+    "@types/lodash": "4.17.23",
     "@types/memory-cache": "0.2.6",
     "@types/node": "25.0.5",
     "@types/react": "18.3.27",
