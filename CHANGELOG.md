@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.26
+
+- 🛡️ **Security**:  Update versions of various dependencies
+
 ## 1.3.25
 
 - 🛡️ **Security**:  Update versions of various dependencies
