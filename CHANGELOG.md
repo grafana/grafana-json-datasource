@@ -1,12 +1,16 @@
 # Changelog
 
+## 1.3.27
+
+🐛 Update @grafana/plugin-ui
+
 ## 1.3.26
 
-- 🛡️ **Security**:  Update versions of various dependencies
+- 🛡️ **Security**: Update versions of various dependencies
 
 ## 1.3.25
 
-- 🛡️ **Security**:  Update versions of various dependencies
+- 🛡️ **Security**: Update versions of various dependencies
 
 ## v1.3.24 - 2025-03-21
 
