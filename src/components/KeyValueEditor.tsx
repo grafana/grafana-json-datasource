@@ -1,5 +1,5 @@
-import { GrafanaTheme } from '@grafana/data';
-import { Button, Icon, stylesFactory, useTheme } from '@grafana/ui';
+import { GrafanaTheme2 } from '@grafana/data';
+import { Button, Icon, useStyles2, useTheme2 } from '@grafana/ui';
 import { css } from '@emotion/css';
 import React from 'react';
 import { Pair } from '../types';
@@ -14,8 +14,8 @@ interface Props {
 }
 
 export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur }: Props) => {
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles2(getStyles);
+  const theme = useTheme2();
 
   const updateCell = (colIdx: number, rowIdx: number, value: string) => {
     onChange(
@@ -81,7 +81,7 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
                 className={css`
                   display: flex;
                   & > * {
-                    margin-right: ${theme.spacing.xs};
+                    margin-right: ${theme.spacing(0.5)};
                   }
                   & > *:last-child {
                     margin-right: 0;
@@ -91,10 +91,10 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
                 <a
                   className={css`
                     display: flex;
-                    background: ${theme.colors.bg2};
-                    padding: ${theme.spacing.xs} ${theme.spacing.sm};
+                    background: ${theme.colors.background.secondary};
+                    padding: ${theme.spacing(0.5, 1)};
                     align-items: center;
-                    border-radius: ${theme.border.radius.sm};
+                    border-radius: ${theme.shape.radius.default};
                   `}
                   onClick={() => addRow(rowIdx)}
                 >
@@ -103,10 +103,10 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
                 <a
                   className={css`
                     display: flex;
-                    background: ${theme.colors.bg2};
-                    padding: ${theme.spacing.xs} ${theme.spacing.sm};
+                    background: ${theme.colors.background.secondary};
+                    padding: ${theme.spacing(0.5, 1)};
                     align-items: center;
-                    border-radius: ${theme.border.radius.sm};
+                    border-radius: ${theme.shape.radius.default};
                   `}
                   onClick={() => removeRow(rowIdx)}
                 >
@@ -121,13 +121,13 @@ export const KeyValueEditor = ({ columns, values, onChange, addRowLabel, onBlur 
   );
 };
 
-const getStyles = stylesFactory((theme: GrafanaTheme) => {
+const getStyles = (theme: GrafanaTheme2) => {
   return {
     root: css`
       table-layout: auto;
-      border: 1px solid ${theme.colors.formInputBorder};
+      border: 1px solid ${theme.colors.border.medium};
       border-collapse: separate;
-      border-radius: ${theme.border.radius.sm};
+      border-radius: ${theme.shape.radius.default};
       border-spacing: 0;
       border-left: 0;
       width: 100%;
@@ -139,19 +139,19 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
       border-collapse: separate;
 
       &:first-child tr:first-child th:first-child {
-        border-radius: ${theme.border.radius.sm} 0 0 0;
+        border-radius: ${theme.shape.radius.default} 0 0 0;
       }
       &:last-child tr:last-child th:first-child {
-        border-radius: 0 0 0 ${theme.border.radius.sm};
+        border-radius: 0 0 0 ${theme.shape.radius.default};
       }
     `,
     tbody: css`
       &:first-child tr:first-child td:first-child {
-        border-radius: ${theme.border.radius.sm} 0 0 0;
+        border-radius: ${theme.shape.radius.default} 0 0 0;
       }
 
       &:last-child tr:last-child td:first-child {
-        border-radius: 0 0 0 ${theme.border.radius.sm};
+        border-radius: 0 0 0 ${theme.shape.radius.default};
       }
     `,
     input: css`
@@ -166,28 +166,28 @@ const getStyles = stylesFactory((theme: GrafanaTheme) => {
       border-color: inherit;
     `,
     th: css`
-      padding: ${theme.spacing.xs} ${theme.spacing.sm};
-      border-left: solid ${theme.colors.formInputBorder} 1px;
-      font-size: ${theme.typography.size.sm};
-      color: ${theme.colors.textSemiWeak};
-      font-weight: ${theme.typography.weight.regular};
+      padding: ${theme.spacing(0.5, 1)};
+      border-left: solid ${theme.colors.border.medium} 1px;
+      font-size: ${theme.typography.bodySmall.fontSize};
+      color: ${theme.colors.text.secondary};
+      font-weight: ${theme.typography.fontWeightRegular};
 
       &:last-child {
         border-left: 0;
       }
     `,
     td: css`
-      padding: ${theme.spacing.xs} ${theme.spacing.sm};
+      padding: ${theme.spacing(0.5, 1)};
       border: 1px solid transparent;
-      border-left: solid ${theme.colors.formInputBorder} 1px;
-      border-top: solid ${theme.colors.formInputBorder} 1px;
-      background-color: ${theme.colors.formInputBg};
+      border-left: solid ${theme.colors.border.medium} 1px;
+      border-top: solid ${theme.colors.border.medium} 1px;
+      background-color: ${theme.colors.background.primary};
       &:last-child {
         border-left: 0;
         width: 32px;
         padding-left: 0;
-        padding-right: ${theme.spacing.xs};
+        padding-right: ${theme.spacing(0.5)};
       }
     `,
   };
-});
+};
