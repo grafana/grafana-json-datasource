@@ -5,12 +5,8 @@
     "./dist/",
     "coverage",
     "package.json",
+    "renovate.json",
     "./src/**/*.test.ts",
-    "./website/src/css",
-    "./website/*.js",
-    "./website/.docusaurus/",
-    "./website/node_modules/",
-    "./website/.docusaurus/",
     "docker-compose.yaml"
   ],
   "words": [
