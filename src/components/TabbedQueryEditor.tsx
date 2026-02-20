@@ -4,7 +4,6 @@ import { Alert, CodeEditor, InlineField, InlineFieldRow, RadioButtonGroup, Segme
 import { JsonDataSource } from 'datasource';
 import { defaults } from 'lodash';
 import React, { useState } from 'react';
-import AutoSizer from 'react-virtualized-auto-sizer';
 import { defaultQuery, JsonApiQuery, Pair } from '../types';
 import { KeyValueEditor } from './KeyValueEditor';
 import { PathEditor } from './PathEditor';
@@ -34,6 +33,10 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
   const onBodyChange = (body: string) => {
     onChange({ ...q, body });
     onRunQuery();
+  };
+
+  const onBodyChangeIntermediate = (body: string) => {
+    onChange({ ...q, body });
   };
 
   const onParamsChange = (params: Array<Pair<string, string>>) => {
@@ -110,24 +113,23 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
             </InlineField>
           </InlineFieldRow>
           <InlineFieldRow>
-            <AutoSizer
-              disableHeight
+            <div
               className={css`
+                width: 100%;
                 margin-bottom: ${theme.spacing(1)};
               `}
             >
-              {({ width }) => (
-                <CodeEditor
-                  value={q.body || ''}
-                  language={bodyType}
-                  width={width}
-                  height="200px"
-                  showMiniMap={false}
-                  showLineNumbers={true}
-                  onBlur={onBodyChange}
-                />
-              )}
-            </AutoSizer>
+              <CodeEditor
+                value={q.body || ''}
+                language={bodyType}
+                width="100%"
+                height={200}
+                showMiniMap={false}
+                showLineNumbers={true}
+                onChange={onBodyChangeIntermediate}
+                onBlur={onBodyChange}
+              />
+            </div>
           </InlineFieldRow>
         </>
       ),

@@ -1,4 +1,4 @@
-import { InfoBox, InlineField, InlineFieldRow, Select } from '@grafana/ui';
+import { Alert, InlineField, InlineFieldRow, Select } from '@grafana/ui';
 import { JSONPath } from 'jsonpath-plus';
 import React from 'react';
 import { JsonApiQuery } from 'types';
@@ -62,12 +62,12 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
 
   return (
     <>
-      <InfoBox severity="warning" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
+      <Alert severity="warning" title="Experimental Features" style={{ maxWidth: '700px', whiteSpace: 'normal' }}>
         <p>
           {`The features listed here are experimental. They might change or be removed without notice. In the tooltip for
           each feature, there's a link to a pull request where you can submit feedback for that feature.`}
         </p>
-      </InfoBox>
+      </Alert>
       {editorContext === 'default' && (
         <>
           <InlineFieldRow>
