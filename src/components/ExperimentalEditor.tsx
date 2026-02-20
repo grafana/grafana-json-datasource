@@ -1,4 +1,4 @@
-import { Alert, InlineField, InlineFieldRow, Select } from '@grafana/ui';
+import { Alert, InlineField, InlineFieldRow, Combobox } from '@grafana/ui';
 import { JSONPath } from 'jsonpath-plus';
 import React from 'react';
 import { JsonApiQuery } from 'types';
@@ -91,7 +91,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 </>
               }
             >
-              <Select
+              <Combobox
                 placeholder={'Field'}
                 width={20}
                 isClearable={true}
@@ -118,7 +118,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 </>
               }
             >
-              <Select
+              <Combobox
                 placeholder={'Field'}
                 width={20}
                 isClearable={true}
@@ -149,7 +149,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 </>
               }
             >
-              <Select
+              <Combobox
                 placeholder={'Field'}
                 width={20}
                 isClearable={true}
@@ -176,7 +176,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
                 </>
               }
             >
-              <Select
+              <Combobox
                 placeholder={'Field'}
                 width={20}
                 isClearable={true}

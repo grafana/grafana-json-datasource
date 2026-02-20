@@ -1,4 +1,5 @@
 import { dateTime, TimeRange } from '@grafana/data';
+import { of } from 'rxjs';
 import { JsonDataSource, replaceMacros } from './datasource';
 
 jest.mock('@grafana/runtime', () => ({
@@ -8,12 +9,7 @@ jest.mock('@grafana/runtime', () => ({
     replace: (text?: string) => text,
   }),
   getBackendSrv: () => ({
-    fetch: () => ({
-      toPromise: () =>
-        Promise.resolve({
-          data: [{ id: 1 }, { id: 2 }, { id: 3 }],
-        }),
-    }),
+    fetch: () => of({ data: [{ id: 1 }, { id: 2 }, { id: 3 }] }),
   }),
 }));
 

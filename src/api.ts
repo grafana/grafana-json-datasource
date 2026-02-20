@@ -1,6 +1,6 @@
 import { BackendSrvRequest, getBackendSrv } from '@grafana/runtime';
 import cache from 'memory-cache';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { Pair } from 'types';
 
 export default class Api {
@@ -43,7 +43,7 @@ export default class Api {
 
     const response = this._request(method, path, paramsData, headers, body);
 
-    return (await response.toPromise()).data;
+    return (await lastValueFrom(response)).data;
   }
 
   /**
@@ -56,7 +56,7 @@ export default class Api {
       data[key] = value;
     });
 
-    return this._request('GET', '', data).toPromise();
+    return lastValueFrom(this._request('GET', '', data));
   }
 
   /**

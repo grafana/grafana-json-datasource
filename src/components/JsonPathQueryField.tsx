@@ -30,6 +30,7 @@ export const JsonPathQueryField: React.FC<Props> = ({ query, onBlur, onChange, o
   const onTypeahead = (input: TypeaheadInput) => onSuggest(input, onData);
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <QueryField
       additionalPlugins={plugins}
       query={query}
