@@ -23,6 +23,7 @@ export const JsonataQueryField: React.FC<Props> = ({ query, onBlur, onChange }) 
   ];
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <QueryField
       additionalPlugins={plugins}
       query={query}
