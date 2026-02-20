@@ -136,9 +136,9 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
       throw new Error('Query returned empty data');
     }
 
-    const fields: Field[] = (query.fields ?? [])
+    const fields: Field[] = await Promise.all((query.fields ?? [])
       .filter((field) => field.jsonPath)
-      .map((field, index) => {
+      .map(async (field, index) => {
         switch (field.language) {
           case 'jsonata':
             const expression = jsonata(field.jsonPath);
@@ -167,7 +167,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
               bindings['__isoTo'] = range.to.toISOString();
             }
 
-            const result = expression.evaluate(json, bindings);
+            const result = await expression.evaluate(json, bindings);
 
             // Ensure that we always return an array.
             const arrayResult = Array.isArray(result) ? result : [result];
@@ -197,7 +197,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
               config: {},
             };
         }
-      });
+      }));
 
     const fieldLengths = fields.map((field) => field.values.length);
     const uniqueFieldLengths = Array.from(new Set(fieldLengths)).length;
@@ -209,20 +209,20 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
 
     const frames = query.experimentalGroupByField
       ? groupBy(
-          toDataFrame({
-            name: query.refId,
-            refId: query.refId,
-            fields: fields,
-          }),
-          query.experimentalGroupByField
-        )
+        toDataFrame({
+          name: query.refId,
+          refId: query.refId,
+          fields: fields,
+        }),
+        query.experimentalGroupByField
+      )
       : [
-          toDataFrame({
-            name: query.refId,
-            refId: query.refId,
-            fields: fields,
-          }),
-        ];
+        toDataFrame({
+          name: query.refId,
+          refId: query.refId,
+          fields: fields,
+        }),
+      ];
 
     const res = frames.map((frame) => ({
       ...frame,
@@ -257,18 +257,18 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
 
 const replace =
   (scopedVars?: any, range?: TimeRange) =>
-  (str: string): string => {
-    return replaceMacros(getTemplateSrv().replace(str, scopedVars), range);
-  };
+    (str: string): string => {
+      return replaceMacros(getTemplateSrv().replace(str, scopedVars), range);
+    };
 
 // replaceMacros substitutes all available macros with their current value.
 export const replaceMacros = (str: string, range?: TimeRange) => {
   return range
     ? str
-        .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
-        .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
-        .replace(/\$__isoFrom\(\)/g, range.from.toISOString())
-        .replace(/\$__isoTo\(\)/g, range.to.toISOString())
+      .replace(/\$__unixEpochFrom\(\)/g, range.from.unix().toString())
+      .replace(/\$__unixEpochTo\(\)/g, range.to.unix().toString())
+      .replace(/\$__isoFrom\(\)/g, range.from.toISOString())
+      .replace(/\$__isoTo\(\)/g, range.to.toISOString())
     : str;
 };
 
@@ -288,8 +288,8 @@ export const groupBy = (frame: DataFrame, fieldName: string): DataFrame[] => {
         ...field,
         values:
           field.values.filter((_, idx) => {
-          return groupByField.values[idx] === groupByValue;
-        }),
+            return groupByField.values[idx] === groupByValue;
+          }),
       }));
 
     return toDataFrame({
