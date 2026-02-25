@@ -1,9 +1,9 @@
-import { FieldType, SelectableValue } from '@grafana/data';
-import { Button, InlineField, InlineFieldRow, Input, Select } from '@grafana/ui';
 import React from 'react';
-import { JsonField, QueryLanguage } from 'types';
+import { Button, InlineField, InlineFieldRow, Input, Combobox, ComboboxOption } from '@grafana/ui';
 import { JsonataQueryField } from './JsonataQueryField';
 import { JsonPathQueryField } from './JsonPathQueryField';
+import type { FieldType } from '@grafana/data';
+import type { JsonField, QueryLanguage } from 'types';
 
 interface Props {
   limit?: number;
@@ -16,10 +16,10 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
   const onChangePath = (i: number) => (e: string) => {
     onChange(value.map((field, n) => (i === n ? { ...value[i], jsonPath: e } : field)));
   };
-  const onLanguageChange = (i: number) => (e: SelectableValue<QueryLanguage>) => {
+  const onLanguageChange = (i: number) => (e: ComboboxOption<QueryLanguage>) => {
     onChange(value.map((field, n) => (i === n ? { ...value[i], language: e.value } : field)));
   };
-  const onChangeType = (i: number) => (e: SelectableValue<string>) => {
+  const onChangeType = (i: number) => (e: ComboboxOption<string>) => {
     onChange(
       value.map((field, n) =>
         i === n ? { ...value[i], type: (e.value === 'auto' ? undefined : e.value) as FieldType } : field
@@ -65,7 +65,7 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
             )}
           </InlineField>
           <InlineField>
-            <Select
+            <Combobox<QueryLanguage>
               value={field.language ?? 'jsonpath'}
               width={14}
               onChange={onLanguageChange(index)}
@@ -76,7 +76,7 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
             />
           </InlineField>
           <InlineField label="Type" tooltip="If Auto is set, the JSON property type is used to detect the field type.">
-            <Select
+            <Combobox<string>
               value={field.type ?? 'auto'}
               width={12}
               onChange={onChangeType(index)}

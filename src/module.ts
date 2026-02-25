@@ -8,4 +8,5 @@ import { JsonApiDataSourceOptions, JsonApiQuery } from './types';
 export const plugin = new DataSourcePlugin<JsonDataSource, JsonApiQuery, JsonApiDataSourceOptions>(JsonDataSource)
   .setConfigEditor(ConfigEditor)
   .setQueryEditor(QueryEditor)
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   .setVariableQueryEditor(VariableQueryEditor);

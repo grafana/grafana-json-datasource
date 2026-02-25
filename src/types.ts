@@ -1,4 +1,5 @@
-import { DataQuery, DataSourceJsonData, FieldType } from '@grafana/data';
+import { DataSourceJsonData, FieldType } from '@grafana/data';
+import { DataQuery } from "@grafana/schema"
 
 export type QueryLanguage = 'jsonpath' | 'jsonata';
 
