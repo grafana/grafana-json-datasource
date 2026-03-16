@@ -1,6 +1,6 @@
 {
   "name": "grafana-json-datasource",
-  "version": "1.3.27",
+  "version": "1.3.28",
   "description": "A data source plugin for loading JSON APIs into Grafana",
   "keywords": [
     "grafana",
@@ -52,6 +52,7 @@
     "@grafana/eslint-config": "9.0.0",
     "@grafana/plugin-e2e": "3.4.7",
     "@grafana/tsconfig": "2.0.1",
+    "@openfeature/core": "1.9.2",
     "@openfeature/web-sdk": "1.7.3",
     "@playwright/test": "1.58.2",
     "@stylistic/eslint-plugin-ts": "4.4.1",
