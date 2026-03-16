@@ -2670,7 +2670,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openfeature/core@npm:^1.9.0":
+"@openfeature/core@npm:1.9.2, @openfeature/core@npm:^1.9.0":
   version: 1.9.2
   resolution: "@openfeature/core@npm:1.9.2"
   checksum: 10c0/a0600c16f9c9e8721964643d2b0ccf5501767eee34908eec1a2a4d8fdb47c5f8224bdc254067a18d069bf7d57d9bdbc7b9cdf50cb1cb8d253778c43c11ed760b
@@ -7879,6 +7879,7 @@ __metadata:
     "@grafana/schema": "npm:12.4.1"
     "@grafana/tsconfig": "npm:2.0.1"
     "@grafana/ui": "npm:12.4.1"
+    "@openfeature/core": "npm:1.9.2"
     "@openfeature/web-sdk": "npm:1.7.3"
     "@playwright/test": "npm:1.58.2"
     "@stylistic/eslint-plugin-ts": "npm:4.4.1"
