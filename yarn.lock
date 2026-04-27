@@ -1807,9 +1807,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/i18n@npm:12.4.3":
-  version: 12.4.3
-  resolution: "@grafana/i18n@npm:12.4.3"
+"@grafana/i18n@npm:13.0.1":
+  version: 13.0.1
+  resolution: "@grafana/i18n@npm:13.0.1"
   dependencies:
     "@formatjs/intl-durationformat": "npm:^0.7.0"
     "@typescript-eslint/utils": "npm:^8.33.1"
@@ -1821,7 +1821,7 @@ __metadata:
     react-i18next: "npm:^15.0.0"
   peerDependencies:
     react: ">=18"
-  checksum: 10c0/7b28537bd785cbfda1a8b9f72eebe04d97b463bb61ed3703723d06dd4f0946dec588fcf428100b9fce3bde66bd57452351c91ca3eb269edba8dbd29ebcb597e0
+  checksum: 10c0/458923a99a21ab3039be53df7f50235eb336fa28510a11fdb89cc5888e46de0c2390007ccbf2d01b0997677b05cd921ed145fc6d63d07801331847c700636fc6
   languageName: node
   linkType: hard
 
@@ -7834,7 +7834,7 @@ __metadata:
     "@grafana/data": "npm:12.4.2"
     "@grafana/e2e-selectors": "npm:12.4.2"
     "@grafana/eslint-config": "npm:9.0.0"
-    "@grafana/i18n": "npm:12.4.3"
+    "@grafana/i18n": "npm:13.0.1"
     "@grafana/plugin-e2e": "npm:3.5.1"
     "@grafana/plugin-ui": "npm:0.13.1"
     "@grafana/runtime": "npm:12.4.2"
