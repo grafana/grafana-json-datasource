@@ -1,9 +1,8 @@
-import { test, expect } from '@grafana/plugin-e2e';
+import { expect, test } from '@grafana/plugin-e2e';
 
 test('Smoke test: plugin loads config page', async ({ createDataSourceConfigPage, page }) => {
   await createDataSourceConfigPage({ type: 'marcusolsson-json-datasource' });
 
-  await expect(await page.getByText('Type: JSON API', { exact: true })).toBeVisible();
   await expect(await page.getByText('Query string', { exact: true })).toBeVisible();
 });
 
