@@ -14,7 +14,6 @@ import { getTemplateSrv, HealthCheckError } from '@grafana/runtime';
 import jsonata from 'jsonata';
 import { JSONPath } from 'jsonpath-plus';
 import { jp } from './jsonpath';
-import _ from 'lodash';
 import API from './api';
 import { detectFieldType } from './detectFieldType';
 import { parseValues } from './parseValues';
@@ -105,7 +104,7 @@ export class JsonDataSource extends DataSourceApi<JsonApiQuery, JsonApiDataSourc
         });
       }
     } catch (err: any) {
-      if (_.isString(err)) {
+      if (typeof err === 'string') {
         return Promise.reject({
           status: 'error',
           message: err,
