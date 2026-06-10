@@ -1903,7 +1903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/sign-plugin@npm:^3.2.2":
+"@grafana/sign-plugin@npm:3.3.0":
   version: 3.3.0
   resolution: "@grafana/sign-plugin@npm:3.3.0"
   dependencies:
@@ -3601,7 +3601,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:^1.23.2":
+"@remix-run/router@npm:1.23.2":
   version: 1.23.2
   resolution: "@remix-run/router@npm:1.23.2"
   checksum: 10c0/7096b7f2086b2cd80c9e06873b71a8317e04858c01edc06a6fed187b660408a90f47c8e120e8af4c369cf1fa6b6a316a66b0917f42b6eb8a566e98b277c50449
@@ -7880,7 +7880,7 @@ __metadata:
     "@grafana/plugin-ui": "npm:0.13.1"
     "@grafana/runtime": "npm:12.4.2"
     "@grafana/schema": "npm:12.4.2"
-    "@grafana/sign-plugin": "npm:^3.2.2"
+    "@grafana/sign-plugin": "npm:3.3.0"
     "@grafana/tsconfig": "npm:2.0.1"
     "@grafana/ui": "npm:12.4.2"
     "@openfeature/core": "npm:1.10.0"
@@ -9701,7 +9701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.1.1, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:^4.17.23, lodash@npm:^4.17.4":
+"lodash@npm:4.18.1":
   version: 4.18.1
   resolution: "lodash@npm:4.18.1"
   checksum: 10c0/757228fc68805c59789e82185135cf85f05d0b2d3d54631d680ca79ec21944ec8314d4533639a14b8bcfbd97a517e78960933041a5af17ecb693ec6eecb99a27
