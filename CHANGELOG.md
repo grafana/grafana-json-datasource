@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.29
+
+- ⚙️ **Chore**: Update dependencies
+
 ## 1.3.28
 
 - Implement Grafana 12.x compatibility and UI fixes

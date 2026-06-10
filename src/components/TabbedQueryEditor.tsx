@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import { TimeRange } from '@grafana/data';
 import { Alert, CodeEditor, InlineField, InlineFieldRow, RadioButtonGroup, Segment, useTheme2 } from '@grafana/ui';
 import { JsonDataSource } from 'datasource';
-import { defaults } from 'lodash';
+
 import React, { useState } from 'react';
 import { defaultQuery, JsonApiQuery, Pair } from '../types';
 import { KeyValueEditor } from './KeyValueEditor';
@@ -28,7 +28,7 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
   const [bodyType, setBodyType] = useState('plaintext');
   const [tabIndex, setTabIndex] = useState(0);
   const theme = useTheme2();
-  const q = defaults(query, defaultQuery);
+  const q = { ...defaultQuery, ...query };
 
   const onBodyChange = (body: string) => {
     onChange({ ...q, body });
