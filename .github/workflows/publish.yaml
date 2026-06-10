@@ -28,10 +28,11 @@ jobs:
       id-token: write
       pull-requests: read
     name: CD
-    uses: grafana/plugin-ci-workflows/.github/workflows/cd.yml@ci-cd-workflows/v9.0.0
+    uses: grafana/plugin-ci-workflows/.github/workflows/cd.yml@33cae1f950c4f76df8827a183bda17c6f8a51e45 # ci-cd-workflows/v9.0.0
     with:
       branch: ${{ github.event.inputs.branch }}
       environment: ${{ github.event.inputs.environment }}
       docs-only: ${{ fromJSON(github.event.inputs.docs-only) }}
       run-playwright: true
       github-draft-release: false
+      attestation: true
