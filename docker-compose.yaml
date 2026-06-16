@@ -1,0 +1,8 @@
+services:
+  grafana:
+    build:
+      args:
+        grafana_version: ${GRAFANA_VERSION:-main}
+    extends:
+      file: .config/docker-compose-base.yaml
+      service: grafana

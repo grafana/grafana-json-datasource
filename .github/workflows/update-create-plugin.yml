@@ -1,0 +1,22 @@
+name: Create Plugin Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *' # run once a month on the 1st day
+
+jobs:
+  release:
+    permissions:
+      contents: write
+      id-token: write # Needed for create-github-app-token
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - id: get-github-token
+        uses: grafana/shared-workflows/actions/create-github-app-token@795f748a236f9de024b7514efc9a208456e7e468 # create-github-app-token/v0.3.0
+        with:
+          github_app: grafana-oss-big-tent
+      - uses: grafana/plugin-actions/create-plugin-update@244c3bc9c6eb94bc1dd6458ade2462499bbf0f5b #create-plugin-update/v2.0.1
+        with:
+          token: ${{ steps.get-github-token.outputs.token }}

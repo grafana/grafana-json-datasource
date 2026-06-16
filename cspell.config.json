@@ -1,0 +1,40 @@
+{
+  "ignorePaths": [
+    "./node_modules/",
+    "./.github/",
+    "./dist/",
+    "coverage",
+    "package.json",
+    "renovate.json",
+    "./src/**/*.test.ts",
+    "docker-compose.yaml"
+  ],
+  "words": [
+    "Alessio",
+    "amng",
+    "changesets",
+    "clsx",
+    "datasource",
+    "datasources",
+    "dompurify",
+    "jackspeak",
+    "jirkafajfr",
+    "jsonapi",
+    "jsonata",
+    "jsonplaceholder",
+    "Kensington",
+    "Libera",
+    "marcusolsson",
+    "Olsson",
+    "rejohnst",
+    "Snyk",
+    "subexpressions",
+    "testdata",
+    "Timestmap",
+    "Totalus",
+    "Typeahead",
+    "typecheck",
+    "uniquify",
+    "uplot"
+  ]
+}
