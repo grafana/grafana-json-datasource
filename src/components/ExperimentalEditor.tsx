@@ -44,7 +44,7 @@ export const ExperimentalEditor = ({ query, onChange, onRunQuery, editorContext 
   };
 
   // TODO: Extract field names from the actual result.
-  const fieldNames = query.fields
+  const fieldNames = (query.fields ?? [])
     .map((field) => {
       if (field.language === 'jsonpath') {
         if (field.name) {
