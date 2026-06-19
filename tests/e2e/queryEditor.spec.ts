@@ -6,8 +6,8 @@ test.describe('Query Editor', () => {
     await panelEditPage.datasource.set(datasource.name);
 
     await expect(page.getByText('Cache Time')).toBeVisible();
-    // Fields tab should be selected by default
-    await expect(page.getByLabel('Field')).toBeVisible();
+    // Fields tab should be selected by default — verify JSONPath field input is present
+    await expect(page.getByText('JSONPath', { exact: true })).toBeVisible();
   });
 
   test('should navigate to Path tab', async ({ createDataSource, page, panelEditPage }) => {
@@ -47,21 +47,32 @@ test.describe('Query Editor', () => {
     await panelEditPage.datasource.set(datasource.name);
 
     await page.getByRole('radio', { name: 'Experimental' }).click();
-    await expect(page.getByText('Experimental Features')).toBeVisible();
+    await expect(page.getByText('The features listed here are experimental')).toBeVisible();
   });
 
-  test('should switch between all tabs without errors', async ({ createDataSource, page, panelEditPage }) => {
+  test('should switch between tabs without errors', async ({ createDataSource, page, panelEditPage }) => {
     const datasource = await createDataSource({ type: 'marcusolsson-json-datasource' });
     await panelEditPage.datasource.set(datasource.name);
 
-    const tabs = ['Fields', 'Path', 'Params', 'Headers', 'Body', 'Experimental'];
+    // Navigate to Path tab
+    await page.getByRole('radio', { name: 'Path' }).click();
+    await expect(page.getByPlaceholder('/orders/${orderId}')).toBeVisible();
 
-    for (const tab of tabs) {
-      await page.getByRole('radio', { name: tab }).click();
-    }
+    // Navigate to Params tab
+    await page.getByRole('radio', { name: 'Params' }).click();
+    await expect(page.getByRole('button', { name: 'Add param' })).toBeVisible();
 
-    // Navigate back to Fields to verify round-trip works
+    // Navigate to Headers tab
+    await page.getByRole('radio', { name: 'Headers' }).click();
+    await expect(page.getByRole('button', { name: 'Add header' })).toBeVisible();
+
+    // Navigate to Body tab
+    await page.getByRole('radio', { name: 'Body' }).click();
+    await expect(page.getByText('Syntax highlighting')).toBeVisible();
+
+    // Navigate back to Fields tab to verify round-trip works
     await page.getByRole('radio', { name: 'Fields' }).click();
-    await expect(page.getByLabel('Field')).toBeVisible();
+    await expect(page.getByText('JSONPath', { exact: true })).toBeVisible();
   });
 });
+
