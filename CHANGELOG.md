@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0
+
+🐛 Replaced deprecated `QueryField` with `Input` component. (plugin crashes with grafana 13 due to react 19 compatibility). With this change, the autocomplete for fields will no longer available.
+
 ## 1.3.29
 
 - ⚙️ **Chore**: Update dependencies
