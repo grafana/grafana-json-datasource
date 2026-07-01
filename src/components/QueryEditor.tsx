@@ -26,7 +26,6 @@ export const QueryEditor: React.FC<Props> = (props) => {
             onRunQuery();
           }}
           limit={props.limitFields}
-          onComplete={() => props.datasource.metadataRequest(props.query, props.range)}
         />
       }
       experimentalTab={

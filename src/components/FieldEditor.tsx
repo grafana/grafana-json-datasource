@@ -1,20 +1,18 @@
 import React from 'react';
 import { Button, InlineField, InlineFieldRow, Input, Combobox, ComboboxOption } from '@grafana/ui';
-import { JsonataQueryField } from './JsonataQueryField';
-import { JsonPathQueryField } from './JsonPathQueryField';
 import type { FieldType } from '@grafana/data';
 import type { JsonField, QueryLanguage } from 'types';
 
 interface Props {
   limit?: number;
   onChange: (value: JsonField[]) => void;
-  onComplete: () => Promise<any>;
   value: JsonField[];
 }
 
-export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) => {
-  const onChangePath = (i: number) => (e: string) => {
-    onChange(value.map((field, n) => (i === n ? { ...value[i], jsonPath: e } : field)));
+export const FieldEditor = ({ value = [], onChange, limit }: Props) => {
+  const onChangePath = (i: number) => (e: React.FormEvent<HTMLInputElement>) => {
+    const v = e.currentTarget.value;
+    onChange(value.map((field, n) => (i === n ? { ...value[i], jsonPath: v } : field)));
   };
   const onLanguageChange = (i: number) => (e: ComboboxOption<QueryLanguage>) => {
     onChange(value.map((field, n) => (i === n ? { ...value[i], language: e.value } : field)));
@@ -53,16 +51,14 @@ export const FieldEditor = ({ value = [], onChange, limit, onComplete }: Props) 
             }
             grow
           >
-            {field.language === 'jsonata' ? (
-              <JsonataQueryField onBlur={() => onChange(value)} onChange={onChangePath(index)} query={field.jsonPath} />
-            ) : (
-              <JsonPathQueryField
-                onBlur={() => onChange(value)}
-                onChange={onChangePath(index)}
-                query={field.jsonPath}
-                onData={onComplete}
-              />
-            )}
+            <Input
+              value={field.jsonPath}
+              onChange={onChangePath(index)}
+              onBlur={() => onChange(value)}
+              placeholder={
+                field.language === 'jsonata' ? '$sum(orders.(price*quantity))' : '$.items[*].name'
+              }
+            />
           </InlineField>
           <InlineField>
             <Combobox<QueryLanguage>
