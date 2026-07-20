@@ -10,9 +10,9 @@
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
-    "e2e": "yarn playwright test",
+    "e2e": "npx playwright test",
     "lint": "eslint --cache .",
-    "lint:fix": "yarn run lint --fix",
+    "lint:fix": "npm run lint -- --fix",
     "server": "docker compose up --build",
     "sign": "sign-plugin",
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
@@ -98,13 +98,13 @@
     "webpack-subresource-integrity": "5.1.0",
     "webpack-virtual-modules": "0.6.2"
   },
-  "resolutions": {
+  "overrides": {
     "@remix-run/router": "1.23.3",
     "lodash": "4.18.1"
   },
-  "packageManager": "yarn@4.17.1",
+  "packageManager": "npm@11.18.0",
   "engines": {
     "node": ">=24",
-    "yarn": ">=4.15.0"
+    "npm": ">=11.12.1"
   }
 }
