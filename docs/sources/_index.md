@@ -14,7 +14,7 @@ weight: 100
 ---
 
 {{< admonition type="warning" >}}
-This plugin is now in maintenance mode, no new features will be added. We recommend using the [Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) instead
+This plugin is deprecated and will only receive critical security updates. Support will end on Feb 1, 2027. We recommend using the [Infinity data source](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/) instead.
 {{< /admonition >}}
 
 JSON API is an open source data source plugin for Grafana that lets you visualize data from any URL that returns JSON, such as REST APIs or static file servers.
