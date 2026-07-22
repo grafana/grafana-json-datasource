@@ -50,13 +50,13 @@ Then enter the following in your terminal:
 
 ```bash
 cd path/to/your/clone
-yarn install
-yarn build
+npm install
+npm run build
 ```
 
 If the commands ran successfully without errors, then you're ready to go! 🚀
 
-> **Note:** Instead of `yarn build` you can also run `yarn watch`, which rebuilds the plugin whenever the source code changes.
+> **Note:** Instead of `npm run build` you can also run `npm run watch`, which rebuilds the plugin whenever the source code changes.
 
 ### Set up Grafana for plugin development
 
