@@ -179,7 +179,7 @@ export const TabbedQueryEditor = ({ query, onChange, onRunQuery, fieldsTab, expe
           style={{ maxWidth: '700px', whiteSpace: 'normal' }}
         />
       )}
-      {tabs[tabIndex].content}
+      <div key={tabIndex}>{tabs[tabIndex].content}</div>
     </>
   );
 };
