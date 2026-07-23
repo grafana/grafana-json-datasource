@@ -7,5 +7,5 @@ process.env.TZ = 'UTC';
 module.exports = {
   // Jest configuration provided by Grafana scaffolding
   ...require('./.config/jest.config'),
-  transformIgnorePatterns: [nodeModulesToTransform([...grafanaESModules, 'jsonpath-plus'])],
+  transformIgnorePatterns: [nodeModulesToTransform([...grafanaESModules, '@marcbachmann/cel-js', 'jsonpath-plus'])],
 };
