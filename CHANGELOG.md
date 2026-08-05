@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1
+
+🐛 Security: bump out-of-SLO react-router to 6.30.4
+
+⚙️ Chore: Update dependencies
+
+📝 Docs: update deprecation notice with date and security-update window
+
 ## 1.4.0
 
 🐛 Replaced deprecated `QueryField` with `Input` component. (plugin crashes with grafana 13 due to react 19 compatibility). With this change, the autocomplete for fields will no longer available.
