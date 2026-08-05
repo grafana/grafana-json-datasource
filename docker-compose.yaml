@@ -6,3 +6,5 @@ services:
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana
+    environment:
+      GF_FEATURE_TOGGLES_dashboardNewLayouts: 'false'
