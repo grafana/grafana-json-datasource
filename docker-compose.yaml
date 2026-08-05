@@ -6,3 +6,7 @@ services:
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana
+    environment:
+      # Nightly enables dashboardNewLayouts; plugin-e2e 3.10.0 still times out on
+      # the configure-panel selector in that layout. Keep the classic path for e2e.
+      GF_FEATURE_TOGGLES_dashboardNewLayouts: 'false'
