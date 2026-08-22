@@ -45,7 +45,7 @@
     "tslib": "2.8.1"
   },
   "devDependencies": {
-    "@changesets/cli": "2.31.1",
+    "@changesets/cli": "3.0.1",
     "@grafana/e2e-selectors": "13.1.1",
     "@grafana/eslint-config": "9.0.0",
     "@grafana/plugin-e2e": "3.11.0",
