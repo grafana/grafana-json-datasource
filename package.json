@@ -1,6 +1,6 @@
 {
   "name": "grafana-json-datasource",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A data source plugin for loading JSON APIs into Grafana",
   "keywords": [
     "grafana",
@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "@emotion/css": "11.13.5",
-    "@grafana/data": "13.2.1",
+    "@grafana/data": "13.1.1",
     "@grafana/plugin-ui": "0.17.5",
-    "@grafana/runtime": "13.2.1",
-    "@grafana/schema": "13.2.1",
-    "@grafana/ui": "13.2.1",
+    "@grafana/runtime": "13.1.1",
+    "@grafana/schema": "13.1.1",
+    "@grafana/ui": "13.1.1",
     "dayjs": "1.11.23",
     "jsonata": "2.2.2",
     "jsonpath-plus": "10.4.0",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "2.31.1",
-    "@grafana/e2e-selectors": "13.2.1",
+    "@grafana/e2e-selectors": "13.1.1",
     "@grafana/eslint-config": "9.0.0",
     "@grafana/plugin-e2e": "3.12.0",
     "@grafana/sign-plugin": "3.3.3",
@@ -99,6 +99,8 @@
     "webpack-virtual-modules": "0.6.2"
   },
   "overrides": {
+    "js-yaml": "5.4.1",
+    "fast-uri": "4.1.4",
     "@remix-run/router": "1.23.4",
     "lodash": "4.18.1",
     "react-router": "6.30.4"

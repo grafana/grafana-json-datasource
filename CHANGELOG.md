@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2
+
+⚙️ Chore: Update dependencies
+
 ## 1.4.1
 
 🐛 Security: bump out-of-SLO react-router to 6.30.4
