@@ -103,7 +103,7 @@
     "fast-uri": "4.1.4",
     "@remix-run/router": "1.23.4",
     "lodash": "4.18.1",
-    "react-router": "6.30.4"
+    "react-router": "7.18.0"
   },
   "engines": {
     "node": ">=24",
