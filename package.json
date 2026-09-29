@@ -37,7 +37,7 @@
     "@grafana/ui": "13.1.1",
     "dayjs": "1.11.23",
     "jsonata": "2.2.2",
-    "jsonpath-plus": "10.4.0",
+    "jsonpath-plus": "11.1.0",
     "memory-cache": "0.2.0",
     "moment": "2.30.1",
     "react": "18.3.1",
