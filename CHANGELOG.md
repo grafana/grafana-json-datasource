@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3
+
+🐛 Security: bump brace-expansion, basic-ftp and qs to patched versions
+
 ## 1.4.2
 
 ⚙️ Chore: Update dependencies
