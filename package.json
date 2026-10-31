@@ -102,7 +102,7 @@
     "js-yaml": "5.4.1",
     "fast-uri": "4.1.4",
     "@remix-run/router": "1.23.4",
-    "react-router": "7.18.4",
+    "react-router": "8.5.1",
     "basic-ftp": "6.2.1",
     "dompurify": "3.4.17",
     "source-map-js": "1.2.2",
