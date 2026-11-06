@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.4
+
+🐛 Security: bump dompurify, source-map-js, zod and react-router to patched versions
+
+## 1.4.3
+
+🐛 Security: bump brace-expansion, basic-ftp and qs to patched versions
+
+## 1.4.2
+
+⚙️ Chore: Update dependencies
+
 ## 1.4.1
 
 🐛 Security: bump out-of-SLO react-router to 6.30.4
