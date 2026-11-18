@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.5
+
+### Patch Changes
+
+🐛 Security: bump moment, ip-address, fast-uri and launch-editor to patched versions
+⚙️ Chore: Update dependencies
+
 ## 1.4.4
 
 🐛 Security: bump dompurify, source-map-js, zod and react-router to patched versions
